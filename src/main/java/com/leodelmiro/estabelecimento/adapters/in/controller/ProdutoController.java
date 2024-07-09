@@ -4,13 +4,11 @@ import com.leodelmiro.estabelecimento.adapters.in.controller.mapper.ProdutoMappe
 import com.leodelmiro.estabelecimento.adapters.in.controller.request.ProdutoRequest;
 import com.leodelmiro.estabelecimento.adapters.in.controller.response.ProdutoResponse;
 import com.leodelmiro.estabelecimento.application.ports.in.CriaProdutoInputPort;
+import com.leodelmiro.estabelecimento.application.ports.in.RemoveProdutoInputPort;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -20,6 +18,9 @@ import java.net.URI;
 public class ProdutoController {
     @Autowired
     private CriaProdutoInputPort criaProdutoInputPort;
+
+    @Autowired
+    private RemoveProdutoInputPort removeProdutoInputPort;
 
     @Autowired
     private ProdutoMapper produtoMapper;
@@ -32,5 +33,11 @@ public class ProdutoController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(produtoResponse.id()).toUri();
         return ResponseEntity.created(uri).body(produtoResponse);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ProdutoResponse> remover(@PathVariable final Long id) {
+        removeProdutoInputPort.remover(id);
+        return ResponseEntity.noContent().build();
     }
 }
