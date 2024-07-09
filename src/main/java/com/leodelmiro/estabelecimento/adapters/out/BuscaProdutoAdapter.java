@@ -20,7 +20,7 @@ public class BuscaProdutoAdapter implements BuscaProdutoOutputPort {
     private ProdutoEntityMapper produtoEntityMapper;
 
     @Override
-    public Produto busca(Long id) {
+    public Produto buscar(Long id) {
         ProdutoEntity produto = produtoRepository.findById(id).orElseThrow();
         return produtoEntityMapper.toProduto(produto);
     }

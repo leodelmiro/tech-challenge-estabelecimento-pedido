@@ -3,7 +3,9 @@ package com.leodelmiro.estabelecimento.adapters.in.controller;
 import com.leodelmiro.estabelecimento.adapters.in.controller.mapper.ProdutoMapper;
 import com.leodelmiro.estabelecimento.adapters.in.controller.request.ProdutoRequest;
 import com.leodelmiro.estabelecimento.adapters.in.controller.response.ProdutoResponse;
+import com.leodelmiro.estabelecimento.application.core.domain.Produto;
 import com.leodelmiro.estabelecimento.application.ports.in.BuscaProdutoInputPort;
+import com.leodelmiro.estabelecimento.application.ports.in.BuscaProdutosInputPort;
 import com.leodelmiro.estabelecimento.application.ports.in.CriaProdutoInputPort;
 import com.leodelmiro.estabelecimento.application.ports.in.RemoveProdutoInputPort;
 import jakarta.validation.Valid;
@@ -14,6 +16,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.NoSuchElementException;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/produtos")
@@ -26,6 +30,9 @@ public class ProdutoController {
 
     @Autowired
     private BuscaProdutoInputPort buscaProdutoInputPort;
+
+    @Autowired
+    private BuscaProdutosInputPort buscaProdutosInputPort;
 
     @Autowired
     private ProdutoMapper produtoMapper;
@@ -43,11 +50,49 @@ public class ProdutoController {
     @GetMapping("/{id}")
     public ResponseEntity<ProdutoResponse> buscar(@PathVariable final Long id) {
         try {
-            var produto = buscaProdutoInputPort.busca(id);
+            var produto = buscaProdutoInputPort.buscar(id);
             return ResponseEntity.ok().body(produtoMapper.toProdutoResponse(produto));
         } catch (NoSuchElementException noSuchElementException) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<Set<ProdutoResponse>> buscarTodos() {
+        var produtos = buscaProdutosInputPort.buscarTodos();
+        return ResponseEntity.ok().body(transformarSetProdutosParaProdutoResponse(produtos));
+    }
+
+
+    @GetMapping("/lanches")
+    public ResponseEntity<Set<ProdutoResponse>> buscarLanches() {
+        var produtos = buscaProdutosInputPort.buscarPorLanches();
+        return ResponseEntity.ok().body(transformarSetProdutosParaProdutoResponse(produtos));
+    }
+
+    @GetMapping("/acompanhamentos")
+    public ResponseEntity<Set<ProdutoResponse>> buscarAcompanhamentos() {
+        var produtos = buscaProdutosInputPort.buscarPorAcompanhamentos();
+        return ResponseEntity.ok().body(transformarSetProdutosParaProdutoResponse(produtos));
+    }
+
+    @GetMapping("/bebidas")
+    public ResponseEntity<Set<ProdutoResponse>> buscarBebidas() {
+        var produtos = buscaProdutosInputPort.buscarPorBebidas();
+        return ResponseEntity.ok().body(transformarSetProdutosParaProdutoResponse(produtos));
+    }
+
+    @GetMapping("/sobremesas")
+    public ResponseEntity<Set<ProdutoResponse>> buscarSobremesas() {
+        var produtos = buscaProdutosInputPort.buscarPorSobremesas();
+        return ResponseEntity.ok().body(transformarSetProdutosParaProdutoResponse(produtos));
+    }
+
+    private Set<ProdutoResponse> transformarSetProdutosParaProdutoResponse(Set<Produto> produtos) {
+        return produtos.stream()
+                .map(produto -> produtoMapper.toProdutoResponse(produto))
+                .collect(Collectors.toSet()
+                );
     }
 
     @DeleteMapping("/{id}")

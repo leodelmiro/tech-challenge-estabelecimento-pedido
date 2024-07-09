@@ -4,8 +4,6 @@ import com.leodelmiro.estabelecimento.application.core.domain.Produto;
 import com.leodelmiro.estabelecimento.application.ports.in.BuscaProdutoInputPort;
 import com.leodelmiro.estabelecimento.application.ports.out.BuscaProdutoOutputPort;
 
-import java.util.Optional;
-
 public class BuscaProdutoUseCase implements BuscaProdutoInputPort {
     private final BuscaProdutoOutputPort buscaProdutoOutputPort;
 
@@ -14,7 +12,7 @@ public class BuscaProdutoUseCase implements BuscaProdutoInputPort {
     }
 
     @Override
-    public Produto busca(Long id) {
-        return buscaProdutoOutputPort.busca(id);
+    public Produto buscar(Long id) {
+        return buscaProdutoOutputPort.buscar(id);
     }
 }
