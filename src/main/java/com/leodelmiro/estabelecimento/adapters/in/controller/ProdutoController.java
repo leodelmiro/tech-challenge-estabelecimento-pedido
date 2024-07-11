@@ -1,13 +1,10 @@
 package com.leodelmiro.estabelecimento.adapters.in.controller;
 
 import com.leodelmiro.estabelecimento.adapters.in.controller.mapper.ProdutoMapper;
-import com.leodelmiro.estabelecimento.adapters.in.controller.request.ProdutoRequest;
+import com.leodelmiro.estabelecimento.adapters.in.controller.request.CriaProdutoRequest;
 import com.leodelmiro.estabelecimento.adapters.in.controller.response.ProdutoResponse;
 import com.leodelmiro.estabelecimento.application.core.domain.Produto;
-import com.leodelmiro.estabelecimento.application.ports.in.BuscaProdutoInputPort;
-import com.leodelmiro.estabelecimento.application.ports.in.BuscaProdutosInputPort;
-import com.leodelmiro.estabelecimento.application.ports.in.CriaProdutoInputPort;
-import com.leodelmiro.estabelecimento.application.ports.in.RemoveProdutoInputPort;
+import com.leodelmiro.estabelecimento.application.ports.in.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,11 +32,14 @@ public class ProdutoController {
     private BuscaProdutosInputPort buscaProdutosInputPort;
 
     @Autowired
+    private EditaProdutoInputPort editaProdutoInputPort;
+
+    @Autowired
     private ProdutoMapper produtoMapper;
 
     @PostMapping
-    public ResponseEntity<ProdutoResponse> criar(@Valid @RequestBody ProdutoRequest produtoRequest) {
-        var produto = produtoMapper.toProduto(produtoRequest);
+    public ResponseEntity<ProdutoResponse> criar(@Valid @RequestBody CriaProdutoRequest criaProdutoRequest) {
+        var produto = produtoMapper.toProduto(criaProdutoRequest);
         var produtoCriado = criaProdutoInputPort.criar(produto);
         var produtoResponse = produtoMapper.toProdutoResponse(produtoCriado);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -93,6 +93,17 @@ public class ProdutoController {
                 .map(produto -> produtoMapper.toProdutoResponse(produto))
                 .collect(Collectors.toSet()
                 );
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProdutoResponse> editar(@PathVariable final Long id, @Valid @RequestBody CriaProdutoRequest criaProdutoRequest) {
+        try {
+            var produto = produtoMapper.toProduto(criaProdutoRequest);
+            produto = editaProdutoInputPort.editar(produto, id);
+            return ResponseEntity.ok().body(produtoMapper.toProdutoResponse(produto));
+        } catch (NoSuchElementException noSuchElementException) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
