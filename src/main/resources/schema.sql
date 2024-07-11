@@ -21,3 +21,11 @@ CREATE TABLE tb_imagem (
     FOREIGN KEY (produto_id) REFERENCES tb_produto(id) ON DELETE CASCADE,
     criado_em TIMESTAMP DEFAULT current_timestamp
 );
+
+CREATE TABLE tb_cliente (
+    id SERIAL PRIMARY KEY,
+    cpf VARCHAR(30) NOT NULL UNIQUE,
+    nome VARCHAR(150) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    criado_em TIMESTAMP DEFAULT current_timestamp
+);
