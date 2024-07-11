@@ -1,7 +1,7 @@
-package com.leodelmiro.estabelecimento.adapters.out;
+package com.leodelmiro.estabelecimento.adapters.out.adapters.produto;
 
 import com.leodelmiro.estabelecimento.adapters.out.repository.ProdutoRepository;
-import com.leodelmiro.estabelecimento.application.ports.out.RemoveProdutoOutputPort;
+import com.leodelmiro.estabelecimento.application.ports.out.produto.RemoveProdutoOutputPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

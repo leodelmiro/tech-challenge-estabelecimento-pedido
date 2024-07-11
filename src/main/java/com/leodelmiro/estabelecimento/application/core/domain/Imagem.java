@@ -1,7 +1,6 @@
 package com.leodelmiro.estabelecimento.application.core.domain;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class Imagem {
     private Long id;

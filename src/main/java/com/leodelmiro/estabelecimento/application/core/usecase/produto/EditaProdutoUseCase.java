@@ -1,9 +1,9 @@
-package com.leodelmiro.estabelecimento.application.core.usecase;
+package com.leodelmiro.estabelecimento.application.core.usecase.produto;
 
 import com.leodelmiro.estabelecimento.application.core.domain.Produto;
-import com.leodelmiro.estabelecimento.application.ports.in.BuscaProdutoInputPort;
-import com.leodelmiro.estabelecimento.application.ports.in.EditaProdutoInputPort;
-import com.leodelmiro.estabelecimento.application.ports.out.EditaProdutoOutputPort;
+import com.leodelmiro.estabelecimento.application.ports.in.produto.BuscaProdutoInputPort;
+import com.leodelmiro.estabelecimento.application.ports.in.produto.EditaProdutoInputPort;
+import com.leodelmiro.estabelecimento.application.ports.out.produto.EditaProdutoOutputPort;
 
 public class EditaProdutoUseCase implements EditaProdutoInputPort {
 

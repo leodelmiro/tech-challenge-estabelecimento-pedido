@@ -1,8 +1,8 @@
-package com.leodelmiro.estabelecimento.application.core.usecase;
+package com.leodelmiro.estabelecimento.application.core.usecase.produto;
 
 import com.leodelmiro.estabelecimento.application.core.domain.Produto;
-import com.leodelmiro.estabelecimento.application.ports.in.BuscaProdutoInputPort;
-import com.leodelmiro.estabelecimento.application.ports.out.BuscaProdutoOutputPort;
+import com.leodelmiro.estabelecimento.application.ports.in.produto.BuscaProdutoInputPort;
+import com.leodelmiro.estabelecimento.application.ports.out.produto.BuscaProdutoOutputPort;
 
 public class BuscaProdutoUseCase implements BuscaProdutoInputPort {
     private final BuscaProdutoOutputPort buscaProdutoOutputPort;

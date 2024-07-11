@@ -1,10 +1,10 @@
-package com.leodelmiro.estabelecimento.application.ports.out;
+package com.leodelmiro.estabelecimento.application.ports.in.produto;
 
 import com.leodelmiro.estabelecimento.application.core.domain.Produto;
 
 import java.util.Set;
 
-public interface BuscaProdutosOutputPort {
+public interface BuscaProdutosInputPort {
     Set<Produto> buscarTodos();
     Set<Produto> buscarPorLanches();
     Set<Produto> buscarPorAcompanhamentos();

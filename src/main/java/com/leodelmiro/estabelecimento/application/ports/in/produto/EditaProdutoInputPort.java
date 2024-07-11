@@ -1,7 +1,7 @@
-package com.leodelmiro.estabelecimento.application.ports.out;
+package com.leodelmiro.estabelecimento.application.ports.in.produto;
 
 import com.leodelmiro.estabelecimento.application.core.domain.Produto;
 
-public interface EditaProdutoOutputPort {
+public interface EditaProdutoInputPort {
     Produto editar(Produto produto, Long id);
 }

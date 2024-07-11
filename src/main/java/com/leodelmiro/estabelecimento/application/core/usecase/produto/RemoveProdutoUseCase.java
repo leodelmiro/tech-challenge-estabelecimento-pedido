@@ -1,7 +1,7 @@
-package com.leodelmiro.estabelecimento.application.core.usecase;
+package com.leodelmiro.estabelecimento.application.core.usecase.produto;
 
-import com.leodelmiro.estabelecimento.application.ports.in.RemoveProdutoInputPort;
-import com.leodelmiro.estabelecimento.application.ports.out.RemoveProdutoOutputPort;
+import com.leodelmiro.estabelecimento.application.ports.in.produto.RemoveProdutoInputPort;
+import com.leodelmiro.estabelecimento.application.ports.out.produto.RemoveProdutoOutputPort;
 
 public class RemoveProdutoUseCase implements RemoveProdutoInputPort {
 

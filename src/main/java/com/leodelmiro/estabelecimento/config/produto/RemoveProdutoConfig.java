@@ -1,7 +1,7 @@
-package com.leodelmiro.estabelecimento.config;
+package com.leodelmiro.estabelecimento.config.produto;
 
-import com.leodelmiro.estabelecimento.adapters.out.RemoveProdutoAdapter;
-import com.leodelmiro.estabelecimento.application.core.usecase.RemoveProdutoUseCase;
+import com.leodelmiro.estabelecimento.adapters.out.adapters.produto.RemoveProdutoAdapter;
+import com.leodelmiro.estabelecimento.application.core.usecase.produto.RemoveProdutoUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

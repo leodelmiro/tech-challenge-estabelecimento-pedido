@@ -1,4 +1,4 @@
-package com.leodelmiro.estabelecimento.application.ports.out;
+package com.leodelmiro.estabelecimento.application.ports.out.produto;
 
 import com.leodelmiro.estabelecimento.application.core.domain.Produto;
 

@@ -1,8 +1,8 @@
-package com.leodelmiro.estabelecimento.config;
+package com.leodelmiro.estabelecimento.config.produto;
 
-import com.leodelmiro.estabelecimento.adapters.out.EditaProdutoAdapter;
-import com.leodelmiro.estabelecimento.application.core.usecase.BuscaProdutoUseCase;
-import com.leodelmiro.estabelecimento.application.core.usecase.EditaProdutoUseCase;
+import com.leodelmiro.estabelecimento.adapters.out.adapters.produto.EditaProdutoAdapter;
+import com.leodelmiro.estabelecimento.application.core.usecase.produto.BuscaProdutoUseCase;
+import com.leodelmiro.estabelecimento.application.core.usecase.produto.EditaProdutoUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

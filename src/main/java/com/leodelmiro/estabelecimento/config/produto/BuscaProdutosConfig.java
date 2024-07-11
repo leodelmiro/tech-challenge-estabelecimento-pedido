@@ -1,7 +1,7 @@
-package com.leodelmiro.estabelecimento.config;
+package com.leodelmiro.estabelecimento.config.produto;
 
-import com.leodelmiro.estabelecimento.adapters.out.BuscaProdutosAdapter;
-import com.leodelmiro.estabelecimento.application.core.usecase.BuscaProdutosUseCase;
+import com.leodelmiro.estabelecimento.adapters.out.adapters.produto.BuscaProdutosAdapter;
+import com.leodelmiro.estabelecimento.application.core.usecase.produto.BuscaProdutosUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

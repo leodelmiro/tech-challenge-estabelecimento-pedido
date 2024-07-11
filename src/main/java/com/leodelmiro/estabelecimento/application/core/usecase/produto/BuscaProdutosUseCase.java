@@ -1,10 +1,8 @@
-package com.leodelmiro.estabelecimento.application.core.usecase;
+package com.leodelmiro.estabelecimento.application.core.usecase.produto;
 
 import com.leodelmiro.estabelecimento.application.core.domain.Produto;
-import com.leodelmiro.estabelecimento.application.ports.in.BuscaProdutoInputPort;
-import com.leodelmiro.estabelecimento.application.ports.in.BuscaProdutosInputPort;
-import com.leodelmiro.estabelecimento.application.ports.out.BuscaProdutoOutputPort;
-import com.leodelmiro.estabelecimento.application.ports.out.BuscaProdutosOutputPort;
+import com.leodelmiro.estabelecimento.application.ports.in.produto.BuscaProdutosInputPort;
+import com.leodelmiro.estabelecimento.application.ports.out.produto.BuscaProdutosOutputPort;
 
 import java.util.Set;
 

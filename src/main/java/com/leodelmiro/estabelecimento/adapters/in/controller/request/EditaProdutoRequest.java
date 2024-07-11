@@ -10,6 +10,6 @@ public record EditaProdutoRequest(
         Categoria categoria,
         BigDecimal preco,
         String descricao,
-        Set<CriaProdutoImagemRequest> imagens
+        Set<CadastraProdutoImagemRequest> imagens
 ) {
 }

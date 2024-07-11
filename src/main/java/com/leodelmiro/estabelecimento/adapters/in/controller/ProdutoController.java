@@ -1,10 +1,10 @@
 package com.leodelmiro.estabelecimento.adapters.in.controller;
 
 import com.leodelmiro.estabelecimento.adapters.in.controller.mapper.ProdutoMapper;
-import com.leodelmiro.estabelecimento.adapters.in.controller.request.CriaProdutoRequest;
+import com.leodelmiro.estabelecimento.adapters.in.controller.request.CadastraProdutoRequest;
 import com.leodelmiro.estabelecimento.adapters.in.controller.response.ProdutoResponse;
 import com.leodelmiro.estabelecimento.application.core.domain.Produto;
-import com.leodelmiro.estabelecimento.application.ports.in.*;
+import com.leodelmiro.estabelecimento.application.ports.in.produto.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/produtos")
 public class ProdutoController {
     @Autowired
-    private CriaProdutoInputPort criaProdutoInputPort;
+    private CadastraProdutoInputPort cadastraProdutoInputPort;
 
     @Autowired
     private RemoveProdutoInputPort removeProdutoInputPort;
@@ -38,10 +38,10 @@ public class ProdutoController {
     private ProdutoMapper produtoMapper;
 
     @PostMapping
-    public ResponseEntity<ProdutoResponse> criar(@Valid @RequestBody CriaProdutoRequest criaProdutoRequest) {
-        var produto = produtoMapper.toProduto(criaProdutoRequest);
-        var produtoCriado = criaProdutoInputPort.criar(produto);
-        var produtoResponse = produtoMapper.toProdutoResponse(produtoCriado);
+    public ResponseEntity<ProdutoResponse> cadastrar(@Valid @RequestBody CadastraProdutoRequest cadastraProdutoRequest) {
+        var produto = produtoMapper.toProduto(cadastraProdutoRequest);
+        var produtoCadastrado = cadastraProdutoInputPort.cadastrar(produto);
+        var produtoResponse = produtoMapper.toProdutoResponse(produtoCadastrado);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(produtoResponse.id()).toUri();
         return ResponseEntity.created(uri).body(produtoResponse);
@@ -96,9 +96,9 @@ public class ProdutoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProdutoResponse> editar(@PathVariable final Long id, @Valid @RequestBody CriaProdutoRequest criaProdutoRequest) {
+    public ResponseEntity<ProdutoResponse> editar(@PathVariable final Long id, @Valid @RequestBody CadastraProdutoRequest cadastraProdutoRequest) {
         try {
-            var produto = produtoMapper.toProduto(criaProdutoRequest);
+            var produto = produtoMapper.toProduto(cadastraProdutoRequest);
             produto = editaProdutoInputPort.editar(produto, id);
             return ResponseEntity.ok().body(produtoMapper.toProdutoResponse(produto));
         } catch (NoSuchElementException noSuchElementException) {
