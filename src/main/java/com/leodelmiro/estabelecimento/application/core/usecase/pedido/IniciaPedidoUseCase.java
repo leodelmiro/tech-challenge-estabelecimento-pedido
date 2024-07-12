@@ -24,7 +24,7 @@ public class IniciaPedidoUseCase implements IniciaPedidoInputPort {
         var possivelCliente = identificaClienteInputPort.identificar(cpf).orElseThrow();
         var pedido = new Pedido(
                 possivelCliente,
-                StatusPedido.PENDENTE_FINALIZACAO,
+                StatusPedido.PENDENTE_FECHAMENTO,
                 new BigDecimal(0),
                 0L
         );

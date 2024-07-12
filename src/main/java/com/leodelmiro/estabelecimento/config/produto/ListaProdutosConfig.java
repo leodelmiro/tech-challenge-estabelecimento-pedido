@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class ListaProdutosConfig {
 
     @Bean
-    public ListaProdutosUseCase buscaProdutosUseCase(
+    public ListaProdutosUseCase listaProdutosUseCase(
             ListaProdutosAdapter listaProdutosAdapter
     ) {
         return new ListaProdutosUseCase(listaProdutosAdapter);

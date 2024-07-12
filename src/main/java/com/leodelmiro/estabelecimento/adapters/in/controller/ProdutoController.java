@@ -58,32 +58,32 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public ResponseEntity<Set<ProdutoResponse>> buscarTodos() {
+    public ResponseEntity<Set<ProdutoResponse>> listarTodos() {
         var produtos = listaProdutosInputPort.listarTodos();
         return ResponseEntity.ok().body(transformarSetProdutosParaProdutoResponse(produtos));
     }
 
 
     @GetMapping("/lanches")
-    public ResponseEntity<Set<ProdutoResponse>> buscarLanches() {
+    public ResponseEntity<Set<ProdutoResponse>> listarLanches() {
         var produtos = listaProdutosInputPort.listarPorLanches();
         return ResponseEntity.ok().body(transformarSetProdutosParaProdutoResponse(produtos));
     }
 
     @GetMapping("/acompanhamentos")
-    public ResponseEntity<Set<ProdutoResponse>> buscarAcompanhamentos() {
+    public ResponseEntity<Set<ProdutoResponse>> listarAcompanhamentos() {
         var produtos = listaProdutosInputPort.listarPorAcompanhamentos();
         return ResponseEntity.ok().body(transformarSetProdutosParaProdutoResponse(produtos));
     }
 
     @GetMapping("/bebidas")
-    public ResponseEntity<Set<ProdutoResponse>> buscarBebidas() {
+    public ResponseEntity<Set<ProdutoResponse>> listarBebidas() {
         var produtos = listaProdutosInputPort.listarPorBebidas();
         return ResponseEntity.ok().body(transformarSetProdutosParaProdutoResponse(produtos));
     }
 
     @GetMapping("/sobremesas")
-    public ResponseEntity<Set<ProdutoResponse>> buscarSobremesas() {
+    public ResponseEntity<Set<ProdutoResponse>> listarSobremesas() {
         var produtos = listaProdutosInputPort.listarPorSobremesas();
         return ResponseEntity.ok().body(transformarSetProdutosParaProdutoResponse(produtos));
     }

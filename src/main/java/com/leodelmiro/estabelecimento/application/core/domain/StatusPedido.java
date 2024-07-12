@@ -1,7 +1,7 @@
 package com.leodelmiro.estabelecimento.application.core.domain;
 
 public enum StatusPedido {
-    PENDENTE_FINALIZACAO(1),
+    PENDENTE_FECHAMENTO(1),
     AGUARDANDO_PAGAMENTO(2),
     PAGO(3),
     RECEBIDO(4),
