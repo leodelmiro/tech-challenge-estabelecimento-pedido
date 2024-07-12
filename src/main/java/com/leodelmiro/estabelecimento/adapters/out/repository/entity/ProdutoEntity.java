@@ -2,6 +2,7 @@ package com.leodelmiro.estabelecimento.adapters.out.repository.entity;
 
 import com.leodelmiro.estabelecimento.application.core.domain.Categoria;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -25,6 +26,7 @@ public class ProdutoEntity {
 
     private String descricao;
 
+    @CreationTimestamp
     @Column(name = "criado_em")
     private LocalDateTime criadoEm;
 

@@ -2,8 +2,10 @@ package com.leodelmiro.estabelecimento.adapters.out.repository.entity;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tb_cliente")
@@ -14,11 +16,11 @@ public class ClienteEntity {
 
     private String cpf;
 
-    @Nullable private String nome;
+    private String nome;
 
-    @Nullable private String email;
+    private String email;
 
-    @Column(name = "criado_em")
+    @CreationTimestamp
     private LocalDateTime criadoEm;
 
     public ClienteEntity() {
@@ -70,5 +72,18 @@ public class ClienteEntity {
 
     public void setCriadoEm(LocalDateTime criadoEm) {
         this.criadoEm = criadoEm;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ClienteEntity that = (ClienteEntity) o;
+        return Objects.equals(id, that.id) && Objects.equals(cpf, that.cpf) && Objects.equals(nome, that.nome) && Objects.equals(email, that.email) && Objects.equals(criadoEm, that.criadoEm);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, cpf, nome, email, criadoEm);
     }
 }

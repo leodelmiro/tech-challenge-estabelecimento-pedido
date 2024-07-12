@@ -1,20 +1,23 @@
 package com.leodelmiro.estabelecimento.application.core.domain;
 
+import org.springframework.cglib.core.Local;
+
 import java.time.LocalDateTime;
 
 public class Imagem {
     private Long id;
     private String nome;
     private String url;
-    private final LocalDateTime criadoEm = LocalDateTime.now();
+    private LocalDateTime criadoEm;
 
     public Imagem() {
     }
 
-    public Imagem(Long id, String nome, String url) {
+    public Imagem(Long id, String nome, String url, LocalDateTime criadoEm) {
         this.id = id;
         this.nome = nome;
         this.url = url;
+        this.criadoEm = (criadoEm == null) ? LocalDateTime.now() : criadoEm;
     }
 
     public Long getId() {
@@ -39,6 +42,10 @@ public class Imagem {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public void setCriadoEm(LocalDateTime criadoEm) {
+        this.criadoEm = (criadoEm == null) ? LocalDateTime.now() : criadoEm;
     }
 
     public LocalDateTime getCriadoEm() {

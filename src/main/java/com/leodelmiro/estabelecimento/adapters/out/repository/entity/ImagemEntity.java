@@ -1,6 +1,7 @@
 package com.leodelmiro.estabelecimento.adapters.out.repository.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -17,6 +18,7 @@ public class ImagemEntity {
 
     private String url;
 
+    @CreationTimestamp
     @Column(name = "criado_em")
     private LocalDateTime criadoEm;
 

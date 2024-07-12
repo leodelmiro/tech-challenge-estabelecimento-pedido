@@ -1,5 +1,7 @@
 package com.leodelmiro.estabelecimento.application.core.domain;
 
+import org.springframework.cglib.core.Local;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -12,22 +14,26 @@ public class Produto {
     private Categoria categoria;
     private BigDecimal preco;
     private String descricao;
-    private final LocalDateTime criadoEm = LocalDateTime.now();
+    private LocalDateTime criadoEm;
     private final Set<Imagem> imagens = new HashSet<>();
 
     public Produto() {
+        criadoEm = LocalDateTime.now();
     }
 
     public Produto(Long id,
                    String nome,
                    Categoria categoria,
                    BigDecimal preco,
-                   String descricao) {
+                   String descricao,
+                   LocalDateTime criadoEm
+                   ) {
         this.id = id;
         this.nome = nome;
         this.categoria = categoria;
         this.preco = preco.setScale(2);
         this.descricao = descricao;
+        this.criadoEm = (criadoEm == null) ? LocalDateTime.now() : criadoEm;
     }
 
     public Long getId() {
@@ -68,6 +74,10 @@ public class Produto {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public void setCriadoEm(LocalDateTime criadoEm) {
+        this.criadoEm = (criadoEm == null) ? LocalDateTime.now() : criadoEm;
     }
 
     public LocalDateTime getCriadoEm() {
