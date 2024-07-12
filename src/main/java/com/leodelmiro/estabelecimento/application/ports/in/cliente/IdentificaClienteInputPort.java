@@ -2,6 +2,8 @@ package com.leodelmiro.estabelecimento.application.ports.in.cliente;
 
 import com.leodelmiro.estabelecimento.application.core.domain.Cliente;
 
+import java.util.Optional;
+
 public interface IdentificaClienteInputPort {
-    Cliente identificar(Cliente cliente);
+    Optional<Cliente> identificar(String cpf);
 }

@@ -73,17 +73,4 @@ public class ClienteEntity {
     public void setCriadoEm(LocalDateTime criadoEm) {
         this.criadoEm = criadoEm;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ClienteEntity that = (ClienteEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(cpf, that.cpf) && Objects.equals(nome, that.nome) && Objects.equals(email, that.email) && Objects.equals(criadoEm, that.criadoEm);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, cpf, nome, email, criadoEm);
-    }
 }

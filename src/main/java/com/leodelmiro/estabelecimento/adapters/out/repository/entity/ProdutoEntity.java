@@ -7,7 +7,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Table(name = "tb_produto")
@@ -26,8 +25,9 @@ public class ProdutoEntity {
 
     private String descricao;
 
+    private Long tempoDePreparoEmSegundos;
+
     @CreationTimestamp
-    @Column(name = "criado_em")
     private LocalDateTime criadoEm;
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -36,12 +36,20 @@ public class ProdutoEntity {
     public ProdutoEntity() {
     }
 
-    public ProdutoEntity(Long id, String nome, Categoria categoria, BigDecimal preco, String descricao, LocalDateTime criadoEm, Set<ImagemEntity> imagens) {
+    public ProdutoEntity(Long id,
+                         String nome,
+                         Categoria categoria,
+                         BigDecimal preco,
+                         String descricao,
+                         Long tempoDePreparoEmSegundos,
+                         LocalDateTime criadoEm,
+                         Set<ImagemEntity> imagens) {
         this.id = id;
         this.nome = nome;
         this.categoria = categoria;
         this.preco = preco;
         this.descricao = descricao;
+        this.tempoDePreparoEmSegundos = tempoDePreparoEmSegundos;
         this.criadoEm = criadoEm;
         this.imagens = imagens;
     }
@@ -100,5 +108,13 @@ public class ProdutoEntity {
 
     public void setImagens(Set<ImagemEntity> imagens) {
         this.imagens = imagens;
+    }
+
+    public Long getTempoDePreparoEmSegundos() {
+        return tempoDePreparoEmSegundos;
+    }
+
+    public void setTempoDePreparoEmSegundos(Long tempoDePreparoEmSegundos) {
+        this.tempoDePreparoEmSegundos = tempoDePreparoEmSegundos;
     }
 }

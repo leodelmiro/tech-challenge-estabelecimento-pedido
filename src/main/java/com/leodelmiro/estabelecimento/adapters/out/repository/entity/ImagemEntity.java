@@ -19,7 +19,6 @@ public class ImagemEntity {
     private String url;
 
     @CreationTimestamp
-    @Column(name = "criado_em")
     private LocalDateTime criadoEm;
 
     @ManyToOne

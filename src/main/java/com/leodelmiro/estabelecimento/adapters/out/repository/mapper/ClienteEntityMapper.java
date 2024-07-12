@@ -8,5 +8,5 @@ import org.mapstruct.Mapper;
 public interface ClienteEntityMapper {
     ClienteEntity toClienteEntity(Cliente cliente);
 
-    Cliente toCLiente(ClienteEntity clienteEntity);
+    Cliente toCliente(ClienteEntity clienteEntity);
 }

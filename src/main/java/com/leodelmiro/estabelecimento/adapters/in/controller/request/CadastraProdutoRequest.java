@@ -1,10 +1,7 @@
 package com.leodelmiro.estabelecimento.adapters.in.controller.request;
 
 import com.leodelmiro.estabelecimento.application.core.domain.Categoria;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 import java.util.Set;
@@ -15,6 +12,7 @@ public record CadastraProdutoRequest(
         @DecimalMin(value = "0.0", inclusive = false)
         @Digits(integer = 10, fraction = 2)
         BigDecimal preco,
+        @Min(0) Long tempoDePreparoEmSegundos,
         @NotBlank String descricao,
         @NotNull Set<CadastraProdutoImagemRequest> imagens
 ) {

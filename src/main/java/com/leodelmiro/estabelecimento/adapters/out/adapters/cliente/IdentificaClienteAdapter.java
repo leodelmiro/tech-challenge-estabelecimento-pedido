@@ -20,10 +20,7 @@ public class IdentificaClienteAdapter implements IdentificaClienteOutputPort {
 
     @Override
     public Optional<Cliente> identificar(String cpf) {
-        var possivelClienteEntity = clienteRepository.findClienteByCpf(cpf);
-        Optional<Cliente> cliente = Optional.empty();
-        if (possivelClienteEntity.isPresent())
-            cliente = possivelClienteEntity.map(valor -> clienteEntityMapper.toCLiente(valor));
-        return cliente;
+        return clienteRepository.findClienteByCpf(cpf)
+                .map(clienteEntityMapper::toCliente);
     }
 }

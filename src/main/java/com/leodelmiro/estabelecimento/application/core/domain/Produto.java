@@ -14,6 +14,7 @@ public class Produto {
     private Categoria categoria;
     private BigDecimal preco;
     private String descricao;
+    private Long tempoDePreparoEmSegundos;
     private LocalDateTime criadoEm;
     private final Set<Imagem> imagens = new HashSet<>();
 
@@ -25,7 +26,7 @@ public class Produto {
                    String nome,
                    Categoria categoria,
                    BigDecimal preco,
-                   String descricao,
+                   String descricao, Long tempoDePreparoEmSegundos,
                    LocalDateTime criadoEm
                    ) {
         this.id = id;
@@ -33,6 +34,7 @@ public class Produto {
         this.categoria = categoria;
         this.preco = preco.setScale(2);
         this.descricao = descricao;
+        this.tempoDePreparoEmSegundos = tempoDePreparoEmSegundos;
         this.criadoEm = (criadoEm == null) ? LocalDateTime.now() : criadoEm;
     }
 
@@ -98,5 +100,13 @@ public class Produto {
 
     public void removeImagem(Long id) {
         this.imagens.removeIf(imagem -> imagem.getId().equals(id));
+    }
+
+    public Long getTempoDePreparoEmSegundos() {
+        return tempoDePreparoEmSegundos;
+    }
+
+    public void setTempoDePreparoEmSegundos(Long tempoDePreparoEmSegundos) {
+        this.tempoDePreparoEmSegundos = tempoDePreparoEmSegundos;
     }
 }
