@@ -4,7 +4,7 @@ import com.leodelmiro.estabelecimento.adapters.out.repository.ProdutoRepository;
 import com.leodelmiro.estabelecimento.adapters.out.repository.entity.ProdutoEntity;
 import com.leodelmiro.estabelecimento.adapters.out.repository.mapper.ProdutoEntityMapper;
 import com.leodelmiro.estabelecimento.application.core.domain.Produto;
-import com.leodelmiro.estabelecimento.application.ports.out.produto.BuscaProdutosOutputPort;
+import com.leodelmiro.estabelecimento.application.ports.out.produto.ListaProdutosOutputPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-public class BuscaProdutosAdapter implements BuscaProdutosOutputPort {
+public class ListaProdutosAdapter implements ListaProdutosOutputPort {
 
     @Autowired
     private ProdutoRepository produtoRepository;
@@ -22,32 +22,32 @@ public class BuscaProdutosAdapter implements BuscaProdutosOutputPort {
     private ProdutoEntityMapper produtoEntityMapper;
 
     @Override
-    public Set<Produto> buscarTodos() {
+    public Set<Produto> listarTodos() {
         List<ProdutoEntity> produtosEntity = produtoRepository.findAll();
         return transformarListaProdutosEntityParaSetProdutos(produtosEntity);
     }
 
     @Override
-    public Set<Produto> buscarPorLanches() {
-        List<ProdutoEntity> produtosEntity = produtoRepository.buscarPorLanches();
+    public Set<Produto> listarPorLanches() {
+        List<ProdutoEntity> produtosEntity = produtoRepository.listarPorLanches();
         return transformarListaProdutosEntityParaSetProdutos(produtosEntity);
     }
 
     @Override
-    public Set<Produto> buscarPorAcompanhamentos() {
-        List<ProdutoEntity> produtosEntity = produtoRepository.buscarPorAcompanhamentos();
+    public Set<Produto> listarPorAcompanhamentos() {
+        List<ProdutoEntity> produtosEntity = produtoRepository.listarPorAcompanhamentos();
         return transformarListaProdutosEntityParaSetProdutos(produtosEntity);
     }
 
     @Override
-    public Set<Produto> buscarPorBebidas() {
-        List<ProdutoEntity> produtosEntity = produtoRepository.buscarPorBebidas();
+    public Set<Produto> listarPorBebidas() {
+        List<ProdutoEntity> produtosEntity = produtoRepository.listarPorBebidas();
         return transformarListaProdutosEntityParaSetProdutos(produtosEntity);
     }
 
     @Override
-    public Set<Produto> buscarPorSobremesas() {
-        List<ProdutoEntity> produtosEntity = produtoRepository.buscarPorSobremesas();
+    public Set<Produto> listarPorSobremesas() {
+        List<ProdutoEntity> produtosEntity = produtoRepository.listarPorSobremesas();
         return transformarListaProdutosEntityParaSetProdutos(produtosEntity);
     }
 

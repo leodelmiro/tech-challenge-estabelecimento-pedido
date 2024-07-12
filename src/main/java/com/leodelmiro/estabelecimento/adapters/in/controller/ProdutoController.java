@@ -29,7 +29,7 @@ public class ProdutoController {
     private BuscaProdutoInputPort buscaProdutoInputPort;
 
     @Autowired
-    private BuscaProdutosInputPort buscaProdutosInputPort;
+    private ListaProdutosInputPort listaProdutosInputPort;
 
     @Autowired
     private EditaProdutoInputPort editaProdutoInputPort;
@@ -59,32 +59,32 @@ public class ProdutoController {
 
     @GetMapping
     public ResponseEntity<Set<ProdutoResponse>> buscarTodos() {
-        var produtos = buscaProdutosInputPort.buscarTodos();
+        var produtos = listaProdutosInputPort.listarTodos();
         return ResponseEntity.ok().body(transformarSetProdutosParaProdutoResponse(produtos));
     }
 
 
     @GetMapping("/lanches")
     public ResponseEntity<Set<ProdutoResponse>> buscarLanches() {
-        var produtos = buscaProdutosInputPort.buscarPorLanches();
+        var produtos = listaProdutosInputPort.listarPorLanches();
         return ResponseEntity.ok().body(transformarSetProdutosParaProdutoResponse(produtos));
     }
 
     @GetMapping("/acompanhamentos")
     public ResponseEntity<Set<ProdutoResponse>> buscarAcompanhamentos() {
-        var produtos = buscaProdutosInputPort.buscarPorAcompanhamentos();
+        var produtos = listaProdutosInputPort.listarPorAcompanhamentos();
         return ResponseEntity.ok().body(transformarSetProdutosParaProdutoResponse(produtos));
     }
 
     @GetMapping("/bebidas")
     public ResponseEntity<Set<ProdutoResponse>> buscarBebidas() {
-        var produtos = buscaProdutosInputPort.buscarPorBebidas();
+        var produtos = listaProdutosInputPort.listarPorBebidas();
         return ResponseEntity.ok().body(transformarSetProdutosParaProdutoResponse(produtos));
     }
 
     @GetMapping("/sobremesas")
     public ResponseEntity<Set<ProdutoResponse>> buscarSobremesas() {
-        var produtos = buscaProdutosInputPort.buscarPorSobremesas();
+        var produtos = listaProdutosInputPort.listarPorSobremesas();
         return ResponseEntity.ok().body(transformarSetProdutosParaProdutoResponse(produtos));
     }
 

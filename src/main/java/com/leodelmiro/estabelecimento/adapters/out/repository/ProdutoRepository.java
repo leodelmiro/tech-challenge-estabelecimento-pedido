@@ -10,11 +10,11 @@ import java.util.List;
 @Repository
 public interface ProdutoRepository extends JpaRepository<ProdutoEntity, Long> {
     @Query("SELECT p FROM ProdutoEntity p LEFT JOIN FETCH p.imagens WHERE p.categoria = 0")
-    List<ProdutoEntity> buscarPorLanches();
+    List<ProdutoEntity> listarPorLanches();
     @Query("SELECT p FROM ProdutoEntity p LEFT JOIN FETCH p.imagens WHERE p.categoria = 1")
-    List<ProdutoEntity> buscarPorAcompanhamentos();
+    List<ProdutoEntity> listarPorAcompanhamentos();
     @Query("SELECT p FROM ProdutoEntity p LEFT JOIN FETCH p.imagens WHERE p.categoria = 2")
-    List<ProdutoEntity> buscarPorBebidas();
+    List<ProdutoEntity> listarPorBebidas();
     @Query("SELECT p FROM ProdutoEntity p LEFT JOIN FETCH p.imagens WHERE p.categoria = 3")
-    List<ProdutoEntity> buscarPorSobremesas();
+    List<ProdutoEntity> listarPorSobremesas();
 }
