@@ -9,6 +9,7 @@ public record ProdutoResponse(
         String nome,
         BigDecimal preco,
         String descricao,
+        Long tempoDePreparoEmSegundos,
         LocalDateTime criadoEm,
         Set<ImagemResponse> imagens
 ) {

@@ -42,10 +42,12 @@ CREATE TABLE tb_pedido (
     FOREIGN KEY (cliente_id) REFERENCES tb_cliente(id)
 );
 
-CREATE TABLE tb_pedido_produto (
-    pedido_id BIGINT,
-    produto_id BIGINT,
-    PRIMARY KEY (pedido_id, produto_id),
-    FOREIGN KEY (pedido_id) REFERENCES tb_pedido(id),
-    FOREIGN KEY (produto_id) REFERENCES tb_produto(id)
+CREATE TABLE tb_item_pedido (
+    id SERIAL PRIMARY KEY,
+    pedido_id BIGINT NOT NULL,
+    produto_id BIGINT NOT NULL,
+    quantidade INT NOT NULL,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (pedido_id) REFERENCES tb_pedido(id) ON DELETE CASCADE,
+    FOREIGN KEY (produto_id) REFERENCES tb_produto(id) ON DELETE CASCADE
 );

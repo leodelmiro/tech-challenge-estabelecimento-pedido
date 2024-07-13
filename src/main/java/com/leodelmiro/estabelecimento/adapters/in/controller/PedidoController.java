@@ -1,10 +1,14 @@
 package com.leodelmiro.estabelecimento.adapters.in.controller;
 
 import com.leodelmiro.estabelecimento.adapters.in.controller.mapper.PedidoMapper;
+import com.leodelmiro.estabelecimento.adapters.in.controller.request.AdicionaProdutoAoPedidoRequest;
 import com.leodelmiro.estabelecimento.adapters.in.controller.response.PedidoResponse;
+import com.leodelmiro.estabelecimento.application.core.domain.ItemPedido;
 import com.leodelmiro.estabelecimento.application.core.domain.Pedido;
+import com.leodelmiro.estabelecimento.application.ports.in.pedido.AdicionaProdutoAoPedidoInputPort;
 import com.leodelmiro.estabelecimento.application.ports.in.pedido.IniciaPedidoInputPort;
 import com.leodelmiro.estabelecimento.application.ports.in.pedido.ListaPedidosInputPort;
+import com.leodelmiro.estabelecimento.application.ports.in.produto.BuscaProdutoInputPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +28,12 @@ public class PedidoController {
     private ListaPedidosInputPort listaPedidosInputPort;
 
     @Autowired
+    private AdicionaProdutoAoPedidoInputPort adicionaProdutoAoPedidoInputPort;
+
+    @Autowired
+    private BuscaProdutoInputPort buscaProdutoInputPort;
+
+    @Autowired
     private PedidoMapper pedidoMapper;
 
     @PostMapping("/{cpf}/inicia")
@@ -41,7 +51,7 @@ public class PedidoController {
 
     @GetMapping
     public ResponseEntity<Set<PedidoResponse>> listarTodos() {
-        var pedidos = listaPedidosInputPort.listarTodos();
+        var pedidos = listaPedidosInputPort.buscar();
         return ResponseEntity.ok().body(transformarSetPedidosParaPedidosResponse(pedidos));
     }
 
@@ -49,6 +59,24 @@ public class PedidoController {
     public ResponseEntity<Set<PedidoResponse>> listarPedidosNaFila() {
         var pedidos = listaPedidosInputPort.listarPedidosNaFila();
         return ResponseEntity.ok().body(transformarSetPedidosParaPedidosResponse(pedidos));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<PedidoResponse> adicionaProduto(@PathVariable Long id,
+                                                          @RequestBody AdicionaProdutoAoPedidoRequest adicionaProdutoAoPedidoRequest) {
+        try {
+            var itensPedido = adicionaProdutoAoPedidoRequest.itens().stream().map(
+                    item -> {
+                        var produto = buscaProdutoInputPort.buscar(item.idProduto());
+                        return new ItemPedido(produto, item.quantidade());
+                    }
+            ).toList();
+            var pedido = adicionaProdutoAoPedidoInputPort.adicionar(id, itensPedido);
+            var pedidoResponse = pedidoMapper.toPedidoResponse(pedido);
+            return ResponseEntity.ok().body(pedidoResponse);
+        } catch (Exception exception) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     private Set<PedidoResponse> transformarSetPedidosParaPedidosResponse(Set<Pedido> pedidos) {

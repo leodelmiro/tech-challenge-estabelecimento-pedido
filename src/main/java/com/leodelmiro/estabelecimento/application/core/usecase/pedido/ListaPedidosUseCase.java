@@ -15,7 +15,7 @@ public class ListaPedidosUseCase implements ListaPedidosInputPort {
     }
 
     @Override
-    public Set<Pedido> listarTodos() {
+    public Set<Pedido> buscar() {
         return listaPedidosOutputPort.listarTodos();
     }
 

@@ -1,7 +1,5 @@
 package com.leodelmiro.estabelecimento.application.core.domain;
 
-import org.springframework.cglib.core.Local;
-
 import java.time.LocalDateTime;
 
 public class Imagem {

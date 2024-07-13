@@ -1,5 +1,6 @@
 package com.leodelmiro.estabelecimento.adapters.out.repository.entity;
 
+import com.leodelmiro.estabelecimento.application.core.domain.ItemPedido;
 import com.leodelmiro.estabelecimento.application.core.domain.StatusPedido;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -34,14 +35,8 @@ public class PedidoEntity {
     @CreationTimestamp
     private LocalDateTime criadoEm;
 
-    @ManyToMany
-    @JoinTable(
-            name = "tb_pedido_produto",
-            joinColumns = @JoinColumn(name = "pedido_id"),
-            inverseJoinColumns = @JoinColumn(name = "produto_id")
-    )
-    private List<ProdutoEntity> produtos = new ArrayList<>();
-
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<ItemPedidoEntity> itens = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -99,11 +94,19 @@ public class PedidoEntity {
         this.criadoEm = criadoEm;
     }
 
-    public List<ProdutoEntity> getProdutos() {
-        return produtos;
+    public void removeItem(ItemPedidoEntity item) {
+        this.itens.remove(item);
     }
 
-    public void setProdutos(List<ProdutoEntity> produtos) {
-        this.produtos = produtos;
+    public void addItem(ItemPedidoEntity item) {
+        this.itens.add(item);
+    }
+
+    public void addItens(List<ItemPedidoEntity> itens) {
+        this.itens.addAll(itens);
+    }
+
+    public List<ItemPedidoEntity> getItens() {
+        return this.itens;
     }
 }

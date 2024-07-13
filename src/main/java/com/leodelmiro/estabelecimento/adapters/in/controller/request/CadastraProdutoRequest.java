@@ -12,7 +12,7 @@ public record CadastraProdutoRequest(
         @DecimalMin(value = "0.0", inclusive = false)
         @Digits(integer = 10, fraction = 2)
         BigDecimal preco,
-        @Min(0) Long tempoDePreparoEmSegundos,
+        @Min(0) @NotNull Long tempoDePreparoEmSegundos,
         @NotBlank String descricao,
         @NotNull Set<CadastraProdutoImagemRequest> imagens
 ) {

@@ -17,6 +17,6 @@ public record PedidoResponse(
         Long tempoTotalDePreparoEmSegundos,
         LocalDateTime pagoEm,
         LocalDateTime criadoEm,
-        List<ProdutoResponse> produtos
+        List<ItemPedidoResponse> itens
 ) {
 }

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Pedido {
     private Long id;
@@ -14,7 +15,7 @@ public class Pedido {
     private LocalDateTime pagoEm;
     private LocalDateTime criadoEm;
 
-    private List<Produto> produtos = new ArrayList<>();
+    private final List<ItemPedido> itens = new ArrayList<>();
 
     public Pedido() {
     }
@@ -83,11 +84,40 @@ public class Pedido {
         this.criadoEm = criadoEm;
     }
 
-    public void removeProduto(Produto produto) {
-        this.produtos.remove(produto);
+    public void removeItem(ItemPedido item) {
+        this.itens.remove(item);
     }
 
-    public void addProduto(Produto produto) {
-        this.produtos.add(produto);
+    public void addItem(ItemPedido item) {
+        this.itens.add(item);
+    }
+
+    public void addItens(List<ItemPedido> itens) {
+        this.itens.addAll(itens);
+    }
+
+    public List<ItemPedido> getItens() {
+        return this.itens;
+    }
+
+    public LocalDateTime getPagoEm() {
+        return pagoEm;
+    }
+
+    public void setPagoEm(LocalDateTime pagoEm) {
+        this.pagoEm = pagoEm;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pedido pedido = (Pedido) o;
+        return Objects.equals(id, pedido.id) && Objects.equals(cliente, pedido.cliente) && Objects.equals(precoTotal, pedido.precoTotal) && status == pedido.status && Objects.equals(tempoTotalDePreparoEmSegundos, pedido.tempoTotalDePreparoEmSegundos) && Objects.equals(pagoEm, pedido.pagoEm) && Objects.equals(criadoEm, pedido.criadoEm) && Objects.equals(itens, pedido.itens);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, cliente, precoTotal, status, tempoTotalDePreparoEmSegundos, pagoEm, criadoEm, itens);
     }
 }
