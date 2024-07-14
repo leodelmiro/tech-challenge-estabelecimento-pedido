@@ -52,7 +52,8 @@ public class ProdutoController {
         try {
             var produto = buscaProdutoInputPort.buscar(id);
             return ResponseEntity.ok().body(produtoMapper.toProdutoResponse(produto));
-        } catch (NoSuchElementException noSuchElementException) {
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
             return ResponseEntity.notFound().build();
         }
     }
@@ -101,7 +102,8 @@ public class ProdutoController {
             var produto = produtoMapper.toProduto(cadastraProdutoRequest);
             produto = editaProdutoInputPort.editar(produto, id);
             return ResponseEntity.ok().body(produtoMapper.toProdutoResponse(produto));
-        } catch (NoSuchElementException noSuchElementException) {
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
             return ResponseEntity.notFound().build();
         }
     }

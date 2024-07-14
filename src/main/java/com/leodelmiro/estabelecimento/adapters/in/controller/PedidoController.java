@@ -6,6 +6,7 @@ import com.leodelmiro.estabelecimento.adapters.in.controller.response.PedidoResp
 import com.leodelmiro.estabelecimento.application.core.domain.ItemPedido;
 import com.leodelmiro.estabelecimento.application.core.domain.Pedido;
 import com.leodelmiro.estabelecimento.application.ports.in.pedido.AdicionaProdutoAoPedidoInputPort;
+import com.leodelmiro.estabelecimento.application.ports.in.pedido.FechaPedidoInputPort;
 import com.leodelmiro.estabelecimento.application.ports.in.pedido.IniciaPedidoInputPort;
 import com.leodelmiro.estabelecimento.application.ports.in.pedido.ListaPedidosInputPort;
 import com.leodelmiro.estabelecimento.application.ports.in.produto.BuscaProdutoInputPort;
@@ -34,9 +35,12 @@ public class PedidoController {
     private BuscaProdutoInputPort buscaProdutoInputPort;
 
     @Autowired
+    private FechaPedidoInputPort fechaPedidoInputPort;
+
+    @Autowired
     private PedidoMapper pedidoMapper;
 
-    @PostMapping("/{cpf}/inicia")
+    @PostMapping("/inicia/cliente/{cpf}")
     public ResponseEntity<PedidoResponse> inicia(@PathVariable String cpf) {
         try {
             var pedido = iniciaPedidoInputPort.iniciar(cpf);
@@ -45,6 +49,7 @@ public class PedidoController {
                     .buildAndExpand(pedidoResponse.id()).toUri();
             return ResponseEntity.created(uri).body(pedidoResponse);
         } catch (Exception exception) {
+            System.out.println(exception.getMessage());
             return ResponseEntity.badRequest().build();
         }
     }
@@ -75,6 +80,19 @@ public class PedidoController {
             var pedidoResponse = pedidoMapper.toPedidoResponse(pedido);
             return ResponseEntity.ok().body(pedidoResponse);
         } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PatchMapping("/{id}/fecha")
+    public ResponseEntity<PedidoResponse> fecha(@PathVariable Long id) {
+        try {
+            var pedido = fechaPedidoInputPort.fechar(id);
+            var pedidoResponse = pedidoMapper.toPedidoResponse(pedido);
+            return ResponseEntity.ok().body(pedidoResponse);
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
             return ResponseEntity.badRequest().build();
         }
     }

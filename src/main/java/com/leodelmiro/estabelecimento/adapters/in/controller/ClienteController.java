@@ -37,6 +37,7 @@ public class ClienteController {
                     .buildAndExpand(clienteResponse.id()).toUri();
             return ResponseEntity.created(uri).body(clienteResponse);
         } catch (Exception exception) {
+            System.out.println(exception.getMessage());
             return ResponseEntity.badRequest().build();
         }
     }
@@ -46,7 +47,8 @@ public class ClienteController {
         try {
             var cliente = identificaClienteInputPort.identificar(cpf).orElseThrow();
             return ResponseEntity.ok().body(clienteMapper.toClienteResponse(cliente));
-        } catch (NoSuchElementException noSuchElementException) {
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
             return ResponseEntity.notFound().build();
         }
     }
