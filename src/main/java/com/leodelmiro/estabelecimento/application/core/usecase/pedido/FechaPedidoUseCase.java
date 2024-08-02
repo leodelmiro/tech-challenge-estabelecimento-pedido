@@ -20,9 +20,15 @@ public class FechaPedidoUseCase implements FechaPedidoInputPort {
     @Override
     public Pedido fechar(Long id) {
         var pedidoAFechar = buscaPedidoInputPort.buscar(id);
-        if (pedidoAFechar.getItens().isEmpty()) throw new IllegalStateException("Impossível fechar pedido sem itens");
+        if (isPedidoSemItens(pedidoAFechar)) throw new IllegalStateException("Impossível fechar pedido sem itens");
+        // TODO AVANÇAR STATUS COM USE CASE
         pedidoAFechar.setStatus(StatusPedido.AGUARDANDO_PAGAMENTO);
         // TODO ENVIAR PARA SISTEMA EXTERNO DE PAGAMENTO E GERAR QRCODE
         return fechaPedidoOutputPort.fechar(pedidoAFechar);
     }
+
+    private boolean isPedidoSemItens(Pedido pedido) {
+        return pedido.getItens().isEmpty();
+    }
+
 }

@@ -89,7 +89,7 @@ public class Pedido {
     }
 
     public void addItem(ItemPedido item) {
-        this.itens.add(item);
+        itens.add(item);
     }
 
     public void addItens(List<ItemPedido> itens) {
@@ -100,12 +100,34 @@ public class Pedido {
         return this.itens;
     }
 
+    public ItemPedido getItemPedido(Long idProduto) {
+        return itens.stream()
+                .filter(item -> item.getProduto().getId().equals(idProduto))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public void atualizaQuantidadeItemPedido(Long idItem, int novaQuantidade) {
+        var itemPedido = this.getItemPedido(idItem);
+        if (novaQuantidade >= itemPedido.getQuantidade())
+            throw new IllegalArgumentException("Quantidade não pode ser maior ou igual a do item");
+        itemPedido.setQuantidade(novaQuantidade);
+    }
+
     public LocalDateTime getPagoEm() {
         return pagoEm;
     }
 
     public void setPagoEm(LocalDateTime pagoEm) {
         this.pagoEm = pagoEm;
+    }
+
+    public ItemPedido getItemPedidoPorProduto(Long idProduto) {
+        return this.itens.stream().filter(itemPedido -> itemPedido.temProduto(idProduto)).findFirst().orElse(null);
+    }
+
+    public boolean temProduto(Long idProduto) {
+        return getItemPedidoPorProduto(idProduto) != null;
     }
 
     @Override

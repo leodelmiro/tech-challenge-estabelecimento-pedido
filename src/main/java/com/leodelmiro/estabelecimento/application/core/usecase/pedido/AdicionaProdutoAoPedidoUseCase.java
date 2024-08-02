@@ -25,16 +25,14 @@ public class AdicionaProdutoAoPedidoUseCase implements AdicionaProdutoAoPedidoIn
     @Override
     public Pedido adicionar(Long idPedido, List<ItemPedido> itens) {
         var pedido = buscaPedidoInputPort.buscar(idPedido);
-        if (pedido.getStatus() != PENDENTE_FECHAMENTO)
-            throw new IllegalStateException("Impossível adicionar produtos,pedido já foi fechado");
+        validarPedido(pedido);
         pedido.addItens(itens);
-        pedido.setPrecoTotal(itens.stream().map(
-                        item ->
-                                item
-                                        .getProduto()
-                                        .getPreco()
-                                        .multiply(BigDecimal.valueOf(item.getQuantidade())))
-                .reduce(BigDecimal.ZERO, BigDecimal::add));
+        atualizarPrecoTotal(itens, pedido);
+        atualizarTempoTotalDePreparo(itens, pedido);
+        return adicionaProdutoAoPedidoOutputPort.adicionar(pedido);
+    }
+
+    private void atualizarTempoTotalDePreparo(List<ItemPedido> itens, Pedido pedido) {
         pedido.setTempoTotalDePreparoEmSegundos(itens.stream().mapToLong(
                         item ->
                                 item
@@ -43,7 +41,24 @@ public class AdicionaProdutoAoPedidoUseCase implements AdicionaProdutoAoPedidoIn
                                         * item.getQuantidade()
                 )
                 .sum());
+    }
 
-        return adicionaProdutoAoPedidoOutputPort.adicionar(pedido);
+    private void atualizarPrecoTotal(List<ItemPedido> itens, Pedido pedido) {
+        pedido.setPrecoTotal(itens.stream().map(
+                        item ->
+                                item
+                                        .getProduto()
+                                        .getPreco()
+                                        .multiply(BigDecimal.valueOf(item.getQuantidade())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add));
+    }
+
+    private void validarPedido(Pedido pedido) {
+        if (isPedidoFechado(pedido))
+            throw new IllegalStateException("Impossível adicionar produtos,pedido já foi fechado");
+    }
+
+    private boolean isPedidoFechado(Pedido pedido) {
+        return pedido.getStatus() != PENDENTE_FECHAMENTO;
     }
 }

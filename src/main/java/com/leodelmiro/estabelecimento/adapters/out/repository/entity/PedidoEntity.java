@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_pedido")
@@ -103,6 +105,10 @@ public class PedidoEntity {
     }
 
     public void addItens(List<ItemPedidoEntity> itens) {
+        this.itens.addAll(itens);
+    }
+
+    public void addItens(Set<ItemPedidoEntity> itens) {
         this.itens.addAll(itens);
     }
 

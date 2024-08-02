@@ -5,10 +5,7 @@ import com.leodelmiro.estabelecimento.adapters.in.controller.request.AdicionaPro
 import com.leodelmiro.estabelecimento.adapters.in.controller.response.PedidoResponse;
 import com.leodelmiro.estabelecimento.application.core.domain.ItemPedido;
 import com.leodelmiro.estabelecimento.application.core.domain.Pedido;
-import com.leodelmiro.estabelecimento.application.ports.in.pedido.AdicionaProdutoAoPedidoInputPort;
-import com.leodelmiro.estabelecimento.application.ports.in.pedido.FechaPedidoInputPort;
-import com.leodelmiro.estabelecimento.application.ports.in.pedido.IniciaPedidoInputPort;
-import com.leodelmiro.estabelecimento.application.ports.in.pedido.ListaPedidosInputPort;
+import com.leodelmiro.estabelecimento.application.ports.in.pedido.*;
 import com.leodelmiro.estabelecimento.application.ports.in.produto.BuscaProdutoInputPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +33,9 @@ public class PedidoController {
 
     @Autowired
     private FechaPedidoInputPort fechaPedidoInputPort;
+
+    @Autowired
+    private RemoveProdutoPedidoInputPort removeProdutoPedidoInputPort;
 
     @Autowired
     private PedidoMapper pedidoMapper;
@@ -89,6 +89,18 @@ public class PedidoController {
     public ResponseEntity<PedidoResponse> fecha(@PathVariable Long id) {
         try {
             var pedido = fechaPedidoInputPort.fechar(id);
+            var pedidoResponse = pedidoMapper.toPedidoResponse(pedido);
+            return ResponseEntity.ok().body(pedidoResponse);
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PatchMapping("/{id}/produtos/{idProduto}")
+    public ResponseEntity<PedidoResponse> fecha(@PathVariable Long id, @PathVariable Long idProduto, @RequestParam int quantidade) {
+        try {
+            var pedido = removeProdutoPedidoInputPort.remover(id, idProduto, quantidade);
             var pedidoResponse = pedidoMapper.toPedidoResponse(pedido);
             return ResponseEntity.ok().body(pedidoResponse);
         } catch (Exception exception) {

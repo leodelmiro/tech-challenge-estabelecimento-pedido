@@ -42,4 +42,8 @@ public class ItemPedido {
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
+
+    public Boolean temProduto(Long idProduto) {
+        return this.getProduto().getId().equals(idProduto);
+    }
 }
