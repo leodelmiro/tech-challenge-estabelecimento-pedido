@@ -3,7 +3,6 @@ package com.leodelmiro.estabelecimento.adapters.in.controller;
 import com.leodelmiro.estabelecimento.adapters.in.controller.mapper.ClienteMapper;
 import com.leodelmiro.estabelecimento.adapters.in.controller.request.IdentificaClienteRequest;
 import com.leodelmiro.estabelecimento.adapters.in.controller.response.ClienteResponse;
-import com.leodelmiro.estabelecimento.adapters.in.controller.response.ProdutoResponse;
 import com.leodelmiro.estabelecimento.application.ports.in.cliente.CadastraClienteInputPort;
 import com.leodelmiro.estabelecimento.application.ports.in.cliente.IdentificaClienteInputPort;
 import jakarta.validation.Valid;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/v1/clientes")
@@ -29,17 +27,12 @@ public class ClienteController {
 
     @PostMapping
     public ResponseEntity<ClienteResponse> cadastra(@Valid @RequestBody IdentificaClienteRequest identificaClienteRequest) {
-        try {
-            var cliente = clienteMapper.toCLiente(identificaClienteRequest);
-            cliente = cadastraClienteInputPort.cadastrar(cliente);
-            var clienteResponse = clienteMapper.toClienteResponse(cliente);
-            URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                    .buildAndExpand(clienteResponse.id()).toUri();
-            return ResponseEntity.created(uri).body(clienteResponse);
-        } catch (Exception exception) {
-            System.out.println(exception.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
+        var cliente = clienteMapper.toCLiente(identificaClienteRequest);
+        cliente = cadastraClienteInputPort.cadastrar(cliente);
+        var clienteResponse = clienteMapper.toClienteResponse(cliente);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(clienteResponse.id()).toUri();
+        return ResponseEntity.created(uri).body(clienteResponse);
     }
 
     @GetMapping("/{cpf}")
