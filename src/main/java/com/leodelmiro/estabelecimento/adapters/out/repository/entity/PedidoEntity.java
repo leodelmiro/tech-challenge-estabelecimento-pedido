@@ -108,10 +108,6 @@ public class PedidoEntity {
         this.itens.addAll(itens);
     }
 
-    public void addItens(Set<ItemPedidoEntity> itens) {
-        this.itens.addAll(itens);
-    }
-
     public List<ItemPedidoEntity> getItens() {
         return this.itens;
     }

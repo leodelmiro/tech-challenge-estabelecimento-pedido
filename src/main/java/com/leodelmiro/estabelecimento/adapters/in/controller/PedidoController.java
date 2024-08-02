@@ -32,10 +32,10 @@ public class PedidoController {
     private BuscaProdutoInputPort buscaProdutoInputPort;
 
     @Autowired
-    private FechaPedidoInputPort fechaPedidoInputPort;
+    private RemoveProdutoPedidoInputPort removeProdutoPedidoInputPort;
 
     @Autowired
-    private RemoveProdutoPedidoInputPort removeProdutoPedidoInputPort;
+    private AvancaStatusPedidoInputPort avancaStatusPedidoInputPort;
 
     @Autowired
     private PedidoMapper pedidoMapper;
@@ -85,10 +85,10 @@ public class PedidoController {
         }
     }
 
-    @PatchMapping("/{id}/fecha")
-    public ResponseEntity<PedidoResponse> fecha(@PathVariable Long id) {
+    @PatchMapping("/{id}/produtos/{idProduto}")
+    public ResponseEntity<PedidoResponse> remove(@PathVariable Long id, @PathVariable Long idProduto, @RequestParam int quantidade) {
         try {
-            var pedido = fechaPedidoInputPort.fechar(id);
+            var pedido = removeProdutoPedidoInputPort.remover(id, idProduto, quantidade);
             var pedidoResponse = pedidoMapper.toPedidoResponse(pedido);
             return ResponseEntity.ok().body(pedidoResponse);
         } catch (Exception exception) {
@@ -97,10 +97,10 @@ public class PedidoController {
         }
     }
 
-    @PatchMapping("/{id}/produtos/{idProduto}")
-    public ResponseEntity<PedidoResponse> fecha(@PathVariable Long id, @PathVariable Long idProduto, @RequestParam int quantidade) {
+    @PatchMapping("/{id}/avanca")
+    public ResponseEntity<PedidoResponse> avancaStatus(@PathVariable Long id) {
         try {
-            var pedido = removeProdutoPedidoInputPort.remover(id, idProduto, quantidade);
+            var pedido = avancaStatusPedidoInputPort.avancar(id);
             var pedidoResponse = pedidoMapper.toPedidoResponse(pedido);
             return ResponseEntity.ok().body(pedidoResponse);
         } catch (Exception exception) {

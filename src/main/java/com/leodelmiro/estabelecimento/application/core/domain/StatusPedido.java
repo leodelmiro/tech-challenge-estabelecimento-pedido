@@ -18,4 +18,8 @@ public enum StatusPedido {
     public int getValor() {
         return valor;
     }
+
+    public StatusPedido next() {
+        return values()[(this.ordinal() + 1)];
+    }
 }

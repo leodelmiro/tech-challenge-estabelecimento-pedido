@@ -5,15 +5,14 @@ import com.leodelmiro.estabelecimento.adapters.out.repository.entity.ItemPedidoE
 import com.leodelmiro.estabelecimento.adapters.out.repository.mapper.ItemPedidoEntityMapper;
 import com.leodelmiro.estabelecimento.adapters.out.repository.mapper.PedidoEntityMapper;
 import com.leodelmiro.estabelecimento.application.core.domain.Pedido;
-import com.leodelmiro.estabelecimento.application.ports.out.pedido.FechaPedidoOutputPort;
+import com.leodelmiro.estabelecimento.application.ports.out.pedido.AvancaStatusPedidoOutputPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
-public class FechaPedidoAdapter implements FechaPedidoOutputPort {
+public class AvancaStatusPedidoAdapter implements AvancaStatusPedidoOutputPort {
 
     @Autowired
     private PedidoRepository pedidoRepository;
@@ -25,7 +24,7 @@ public class FechaPedidoAdapter implements FechaPedidoOutputPort {
     private ItemPedidoEntityMapper itemPedidoEntityMapper;
 
     @Override
-    public Pedido fechar(Pedido pedido) {
+    public Pedido avancar(Pedido pedido) {
         var pedidoEntity = pedidoEntityMapper.toPedidoEntity(pedido);
         List<ItemPedidoEntity> itemPedidoEntities = pedido.getItens().stream()
                 .map(item -> {
@@ -37,7 +36,7 @@ public class FechaPedidoAdapter implements FechaPedidoOutputPort {
 
         pedidoEntity.getItens().clear();
         pedidoEntity.addItens(itemPedidoEntities);
-        var pedidoFechado = pedidoRepository.save(pedidoEntity);
-        return pedidoEntityMapper.toPedido(pedidoFechado);
+        var pedidoAvancado = pedidoRepository.save(pedidoEntity);
+        return pedidoEntityMapper.toPedido(pedidoAvancado);
     }
 }
