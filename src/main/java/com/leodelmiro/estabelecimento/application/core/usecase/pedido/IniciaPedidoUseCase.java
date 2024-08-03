@@ -1,5 +1,6 @@
 package com.leodelmiro.estabelecimento.application.core.usecase.pedido;
 
+import com.leodelmiro.estabelecimento.application.core.domain.Cliente;
 import com.leodelmiro.estabelecimento.application.core.domain.Pedido;
 import com.leodelmiro.estabelecimento.application.core.domain.StatusPedido;
 import com.leodelmiro.estabelecimento.application.ports.in.cliente.IdentificaClienteInputPort;
@@ -21,7 +22,7 @@ public class IniciaPedidoUseCase implements IniciaPedidoInputPort {
 
     @Override
     public Pedido iniciar(String cpf) {
-        var possivelCliente = identificaClienteInputPort.identificar(cpf).orElseThrow();
+        Cliente possivelCliente = retornarPossivelCliente(cpf);
         var pedido = new Pedido(
                 possivelCliente,
                 StatusPedido.PENDENTE_FECHAMENTO,
@@ -29,5 +30,11 @@ public class IniciaPedidoUseCase implements IniciaPedidoInputPort {
                 0L
         );
         return iniciaPedidoOutputPort.iniciar(pedido);
+    }
+
+    private Cliente retornarPossivelCliente(String cpf) {
+        Cliente possivelCliente = null;
+        if(!cpf.isBlank()) possivelCliente = identificaClienteInputPort.identificar(cpf).orElseThrow();
+        return possivelCliente;
     }
 }

@@ -4,3 +4,8 @@ spring:
     url: jdbc:postgresql://localhost:5432/estabelecimento
     username: postgres
     password: 1234
+  mvc:
+    static-path-pattern: /swagger*
+
+springdoc:
+  swagger-ui.path: /swagger-ui.html
