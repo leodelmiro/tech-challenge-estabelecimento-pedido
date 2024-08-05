@@ -1,1 +1,0 @@
-INSERT INTO tb_produto (categoria,descricao,nome,preco, criado_em) VALUES (1, 'Lanche bom mesmo', 'Lanche 1', 1.22, current_timestamp());

@@ -1,11 +1,9 @@
 spring:
   datasource:
-    driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/estabelecimento
-    username: postgres
-    password: 1234
-  mvc:
-    static-path-pattern: /swagger*
-
-springdoc:
-  swagger-ui.path: /swagger-ui.html
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/estabelecimento}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:1234}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect

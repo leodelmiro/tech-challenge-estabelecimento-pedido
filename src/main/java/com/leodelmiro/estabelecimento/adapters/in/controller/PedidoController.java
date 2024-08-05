@@ -51,7 +51,7 @@ public class PedidoController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Produto criado")
     })
-    @PostMapping("/inicia")
+    @PostMapping
     public ResponseEntity<PedidoResponse> inicia(@RequestParam(defaultValue = "") String cpf) {
         var pedido = iniciaPedidoInputPort.iniciar(cpf);
         var pedidoResponse = pedidoMapper.toPedidoResponse(pedido);

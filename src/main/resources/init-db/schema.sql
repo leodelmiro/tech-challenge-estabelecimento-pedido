@@ -1,9 +1,3 @@
---psql -U postgres
-
-CREATE DATABASE estabelecimento;
--- \c estabelecimento;
--- DROP TABLE tb_imagem;
-
 CREATE TABLE tb_produto (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(150) NOT NULL,

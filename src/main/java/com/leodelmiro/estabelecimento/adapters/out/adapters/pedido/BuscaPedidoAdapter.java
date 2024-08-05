@@ -19,7 +19,7 @@ public class BuscaPedidoAdapter implements BuscaPedidoOutputPort {
 
     @Override
     public Pedido buscar(Long id) {
-        PedidoEntity pedido = pedidoRepository.findById(id).orElseThrow();
+        PedidoEntity pedido = pedidoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado"));
         return pedidoEntityMapper.toPedido(pedido);
     }
 }

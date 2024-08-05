@@ -6,6 +6,7 @@ import com.leodelmiro.estabelecimento.adapters.out.repository.mapper.ProdutoEnti
 import com.leodelmiro.estabelecimento.application.core.domain.Produto;
 import com.leodelmiro.estabelecimento.application.ports.out.produto.BuscaProdutoOutputPort;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,7 +20,7 @@ public class BuscaProdutoAdapter implements BuscaProdutoOutputPort {
 
     @Override
     public Produto buscar(Long id) {
-        ProdutoEntity produto = produtoRepository.findById(id).orElseThrow();
+        ProdutoEntity produto = produtoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
         return produtoEntityMapper.toProduto(produto);
     }
 }
