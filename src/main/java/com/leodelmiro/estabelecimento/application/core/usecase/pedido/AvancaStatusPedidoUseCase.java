@@ -22,6 +22,7 @@ public class AvancaStatusPedidoUseCase implements AvancaStatusPedidoInputPort {
     public Pedido avancar(Long id) {
         var pedidoAAvancar = buscaPedidoInputPort.buscar(id);
         validarPedido(pedidoAAvancar);
+        // TODO VALIDAR API PAGO PARA AVANÇAR STATUS PENDENTE DE PAGAMENTO PARA PAGO
         pedidoAAvancar.setStatus(pedidoAAvancar.getStatus().next());
         return avancaStatusPedidoOutputPort.avancar(pedidoAAvancar);
     }
