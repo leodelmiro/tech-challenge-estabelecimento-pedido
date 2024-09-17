@@ -1,8 +1,8 @@
 package com.leodelmiro.estabelecimento.config.pedido;
 
-import com.leodelmiro.estabelecimento.adapters.out.adapters.pedido.IniciaPedidoAdapter;
-import com.leodelmiro.estabelecimento.application.core.usecase.cliente.IdentificaClienteUseCase;
-import com.leodelmiro.estabelecimento.application.core.usecase.pedido.IniciaPedidoUseCase;
+import com.leodelmiro.estabelecimento.dataprovider.gateway.pedido.IniciaPedidoGatewayImpl;
+import com.leodelmiro.estabelecimento.core.usecase.cliente.impl.IdentificaClienteUseCaseImpl;
+import com.leodelmiro.estabelecimento.core.usecase.pedido.impl.IniciaPedidoUseCaseImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,10 +10,10 @@ import org.springframework.context.annotation.Configuration;
 public class IniciaPedidoConfig {
 
     @Bean
-    public IniciaPedidoUseCase iniciaPedidoUseCase(
-            IniciaPedidoAdapter iniciaPedidoAdapter,
-            IdentificaClienteUseCase identificaClienteUseCase
+    public IniciaPedidoUseCaseImpl iniciaPedidoUseCase(
+            IniciaPedidoGatewayImpl iniciaPedidoGatewayImpl,
+            IdentificaClienteUseCaseImpl identificaClienteUseCaseImpl
     ) {
-        return new IniciaPedidoUseCase(iniciaPedidoAdapter, identificaClienteUseCase);
+        return new IniciaPedidoUseCaseImpl(iniciaPedidoGatewayImpl, identificaClienteUseCaseImpl);
     }
 }

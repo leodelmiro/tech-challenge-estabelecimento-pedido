@@ -1,7 +1,7 @@
 package com.leodelmiro.estabelecimento.config.produto;
 
-import com.leodelmiro.estabelecimento.adapters.out.adapters.produto.RemoveProdutoAdapter;
-import com.leodelmiro.estabelecimento.application.core.usecase.produto.RemoveProdutoUseCase;
+import com.leodelmiro.estabelecimento.dataprovider.gateway.produto.RemoveProdutoGatewayImpl;
+import com.leodelmiro.estabelecimento.core.usecase.produto.impl.RemoveProdutoUseCaseImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 public class RemoveProdutoConfig {
 
     @Bean
-    public RemoveProdutoUseCase removeProdutoUseCase(
-            RemoveProdutoAdapter removeProdutoAdapter
+    public RemoveProdutoUseCaseImpl removeProdutoUseCase(
+            RemoveProdutoGatewayImpl removeProdutoGatewayImpl
     ) {
-        return new RemoveProdutoUseCase(removeProdutoAdapter);
+        return new RemoveProdutoUseCaseImpl(removeProdutoGatewayImpl);
     }
 }

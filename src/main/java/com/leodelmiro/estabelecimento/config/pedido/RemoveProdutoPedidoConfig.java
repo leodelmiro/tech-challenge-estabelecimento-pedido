@@ -1,9 +1,9 @@
 package com.leodelmiro.estabelecimento.config.pedido;
 
-import com.leodelmiro.estabelecimento.adapters.out.adapters.pedido.RemoveProdutoPedidoAdapter;
-import com.leodelmiro.estabelecimento.application.core.usecase.pedido.BuscaPedidoUseCase;
-import com.leodelmiro.estabelecimento.application.core.usecase.pedido.RemoveProdutoPedidoUseCase;
-import com.leodelmiro.estabelecimento.application.core.usecase.produto.BuscaProdutoUseCase;
+import com.leodelmiro.estabelecimento.dataprovider.gateway.pedido.RemoveProdutoPedidoGatewayImpl;
+import com.leodelmiro.estabelecimento.core.usecase.pedido.impl.BuscaPedidoUseCaseImpl;
+import com.leodelmiro.estabelecimento.core.usecase.pedido.impl.RemoveProdutoPedidoUseCaseImpl;
+import com.leodelmiro.estabelecimento.core.usecase.produto.impl.BuscaProdutoUseCaseImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,11 +11,11 @@ import org.springframework.context.annotation.Configuration;
 public class RemoveProdutoPedidoConfig {
 
     @Bean
-    public RemoveProdutoPedidoUseCase removeProdutoPedidoUseCase(
-            RemoveProdutoPedidoAdapter removeProdutoPedidoAdapter,
-            BuscaPedidoUseCase buscaPedidoUseCase,
-            BuscaProdutoUseCase buscaProdutoUseCase
+    public RemoveProdutoPedidoUseCaseImpl removeProdutoPedidoUseCase(
+            RemoveProdutoPedidoGatewayImpl removeProdutoPedidoGatewayImpl,
+            BuscaPedidoUseCaseImpl buscaPedidoUseCaseImpl,
+            BuscaProdutoUseCaseImpl buscaProdutoUseCaseImpl
     ) {
-        return new RemoveProdutoPedidoUseCase(removeProdutoPedidoAdapter, buscaPedidoUseCase, buscaProdutoUseCase);
+        return new RemoveProdutoPedidoUseCaseImpl(removeProdutoPedidoGatewayImpl, buscaPedidoUseCaseImpl, buscaProdutoUseCaseImpl);
     }
 }

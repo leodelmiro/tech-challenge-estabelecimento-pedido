@@ -1,7 +1,7 @@
 package com.leodelmiro.estabelecimento.config.produto;
 
-import com.leodelmiro.estabelecimento.adapters.out.adapters.produto.ListaProdutosAdapter;
-import com.leodelmiro.estabelecimento.application.core.usecase.produto.ListaProdutosUseCase;
+import com.leodelmiro.estabelecimento.dataprovider.gateway.produto.ListaProdutosGatewayImpl;
+import com.leodelmiro.estabelecimento.core.usecase.produto.impl.ListaProdutosUseCaseImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 public class ListaProdutosConfig {
 
     @Bean
-    public ListaProdutosUseCase listaProdutosUseCase(
-            ListaProdutosAdapter listaProdutosAdapter
+    public ListaProdutosUseCaseImpl listaProdutosUseCase(
+            ListaProdutosGatewayImpl listaProdutosGatewayImpl
     ) {
-        return new ListaProdutosUseCase(listaProdutosAdapter);
+        return new ListaProdutosUseCaseImpl(listaProdutosGatewayImpl);
     }
 }

@@ -1,8 +1,8 @@
 package com.leodelmiro.estabelecimento.config.pedido;
 
-import com.leodelmiro.estabelecimento.adapters.out.adapters.pedido.AvancaStatusPedidoAdapter;
-import com.leodelmiro.estabelecimento.application.core.usecase.pedido.AvancaStatusPedidoUseCase;
-import com.leodelmiro.estabelecimento.application.core.usecase.pedido.BuscaPedidoUseCase;
+import com.leodelmiro.estabelecimento.dataprovider.gateway.pedido.AvancaStatusPedidoGatewayImpl;
+import com.leodelmiro.estabelecimento.core.usecase.pedido.impl.AvancaStatusPedidoUseCaseImpl;
+import com.leodelmiro.estabelecimento.core.usecase.pedido.impl.BuscaPedidoUseCaseImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,10 +10,10 @@ import org.springframework.context.annotation.Configuration;
 public class AvancaStatusPedidoConfig {
 
     @Bean
-    public AvancaStatusPedidoUseCase avancaStatusPedidoUseCase(
-            AvancaStatusPedidoAdapter avancaStatusPedidoAdapter,
-            BuscaPedidoUseCase buscaPedidoUseCase
+    public AvancaStatusPedidoUseCaseImpl avancaStatusPedidoUseCase(
+            AvancaStatusPedidoGatewayImpl avancaStatusPedidoGatewayImpl,
+            BuscaPedidoUseCaseImpl buscaPedidoUseCaseImpl
     ) {
-        return new AvancaStatusPedidoUseCase(avancaStatusPedidoAdapter, buscaPedidoUseCase);
+        return new AvancaStatusPedidoUseCaseImpl(avancaStatusPedidoGatewayImpl, buscaPedidoUseCaseImpl);
     }
 }

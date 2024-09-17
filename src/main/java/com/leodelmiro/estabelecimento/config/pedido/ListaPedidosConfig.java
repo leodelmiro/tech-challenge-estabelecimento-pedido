@@ -1,9 +1,7 @@
 package com.leodelmiro.estabelecimento.config.pedido;
 
-import com.leodelmiro.estabelecimento.adapters.out.adapters.pedido.ListaPedidosAdapter;
-import com.leodelmiro.estabelecimento.adapters.out.adapters.produto.ListaProdutosAdapter;
-import com.leodelmiro.estabelecimento.application.core.usecase.pedido.ListaPedidosUseCase;
-import com.leodelmiro.estabelecimento.application.core.usecase.produto.ListaProdutosUseCase;
+import com.leodelmiro.estabelecimento.dataprovider.gateway.pedido.ListaPedidosGatewayImpl;
+import com.leodelmiro.estabelecimento.core.usecase.pedido.impl.ListaPedidosUseCaseImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 public class ListaPedidosConfig {
 
     @Bean
-    public ListaPedidosUseCase listaPedidosUseCase(
-            ListaPedidosAdapter listaPedidosAdapter
+    public ListaPedidosUseCaseImpl listaPedidosUseCase(
+            ListaPedidosGatewayImpl listaPedidosGatewayImpl
     ) {
-        return new ListaPedidosUseCase(listaPedidosAdapter);
+        return new ListaPedidosUseCaseImpl(listaPedidosGatewayImpl);
     }
 }

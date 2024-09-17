@@ -1,7 +1,7 @@
 package com.leodelmiro.estabelecimento.config.pedido;
 
-import com.leodelmiro.estabelecimento.adapters.out.adapters.pedido.BuscaPedidoAdapter;
-import com.leodelmiro.estabelecimento.application.core.usecase.pedido.BuscaPedidoUseCase;
+import com.leodelmiro.estabelecimento.dataprovider.gateway.pedido.BuscaPedidoGatewayImpl;
+import com.leodelmiro.estabelecimento.core.usecase.pedido.impl.BuscaPedidoUseCaseImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 public class BuscaPedidoConfig {
 
     @Bean
-    public BuscaPedidoUseCase buscaPedidoUseCase(
-            BuscaPedidoAdapter buscaPedidoAdapter
+    public BuscaPedidoUseCaseImpl buscaPedidoUseCase(
+            BuscaPedidoGatewayImpl buscaPedidoGatewayImpl
     ) {
-        return new BuscaPedidoUseCase(buscaPedidoAdapter);
+        return new BuscaPedidoUseCaseImpl(buscaPedidoGatewayImpl);
     }
 }

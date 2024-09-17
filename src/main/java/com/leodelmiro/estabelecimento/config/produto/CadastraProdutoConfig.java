@@ -1,7 +1,7 @@
 package com.leodelmiro.estabelecimento.config.produto;
 
-import com.leodelmiro.estabelecimento.adapters.out.adapters.produto.CadastraProdutoAdapter;
-import com.leodelmiro.estabelecimento.application.core.usecase.produto.CadastraProdutoUseCase;
+import com.leodelmiro.estabelecimento.dataprovider.gateway.produto.CadastraProdutoGatewayImpl;
+import com.leodelmiro.estabelecimento.core.usecase.produto.impl.CadastraProdutoUseCaseImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 public class CadastraProdutoConfig {
 
     @Bean
-    public CadastraProdutoUseCase cadastraProdutoUseCase(
-            CadastraProdutoAdapter cadastraProdutoAdapter
+    public CadastraProdutoUseCaseImpl cadastraProdutoUseCase(
+            CadastraProdutoGatewayImpl cadastraProdutoGatewayImpl
     ) {
-        return new CadastraProdutoUseCase(cadastraProdutoAdapter);
+        return new CadastraProdutoUseCaseImpl(cadastraProdutoGatewayImpl);
     }
 }

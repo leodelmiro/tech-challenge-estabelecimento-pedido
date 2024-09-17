@@ -1,7 +1,7 @@
 package com.leodelmiro.estabelecimento.config.produto;
 
-import com.leodelmiro.estabelecimento.adapters.out.adapters.produto.BuscaProdutoAdapter;
-import com.leodelmiro.estabelecimento.application.core.usecase.produto.BuscaProdutoUseCase;
+import com.leodelmiro.estabelecimento.dataprovider.gateway.produto.BuscaProdutoGatewayImpl;
+import com.leodelmiro.estabelecimento.core.usecase.produto.impl.BuscaProdutoUseCaseImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 public class BuscaProdutoConfig {
 
     @Bean
-    public BuscaProdutoUseCase buscaProdutoUseCase(
-            BuscaProdutoAdapter buscaProdutoAdapter
+    public BuscaProdutoUseCaseImpl buscaProdutoUseCase(
+            BuscaProdutoGatewayImpl buscaProdutoGatewayImpl
     ) {
-        return new BuscaProdutoUseCase(buscaProdutoAdapter);
+        return new BuscaProdutoUseCaseImpl(buscaProdutoGatewayImpl);
     }
 }

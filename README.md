@@ -16,19 +16,15 @@ de pedidos (fast-food), nesta primeira fase a arquitetura da aplicação consist
 
 ## Estrutura do Projeto
 
-- Application
-    - Core: Sem acesso ao mundo externo, livre de frameworks e isolado.
-        - Domain: Pode ser acesso por qualquer um.
-        - Usecase: Regras de negócio
-    - Ports
-        - In: Entradas ao core
-        - Out: Saidas do core
-- Adapters: Implementações das portas de entrada e saida
-    - In: Entrada
-        - Controller: Controllers Http
-    - Out: Saida
-        - Adapters: Implementações das portas de saida
-        - Repository: Database
+- Entrypoint: Entrada de acesso externo para a aplicação
+  - Api: Entrada de acesso via Rest a aplicação
+- Core: Sem acesso ao mundo externo, livre de frameworks e isolado.
+  - Domain: Pode ser acesso por qualquer um.
+  - Usecase: Regras de negócio
+  - Dataprovider: Interfaces para o dados do mundo externo
+- Dataprovider: Implmentações para o mundo externo
+    - Gateway: Implementações das Interfaces de acesso do Core.
+    - Repository: Database
 - Config: Configurações do Projeto
 
 ## Rodando o Projeto Local

@@ -1,7 +1,7 @@
 package com.leodelmiro.estabelecimento.config.cliente;
 
-import com.leodelmiro.estabelecimento.adapters.out.adapters.cliente.IdentificaClienteAdapter;
-import com.leodelmiro.estabelecimento.application.core.usecase.cliente.IdentificaClienteUseCase;
+import com.leodelmiro.estabelecimento.dataprovider.gateway.cliente.IdentificaClienteGatewayImpl;
+import com.leodelmiro.estabelecimento.core.usecase.cliente.impl.IdentificaClienteUseCaseImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 public class IdentificaClienteConfig {
 
     @Bean
-    public IdentificaClienteUseCase identificaClienteUseCase(
-            IdentificaClienteAdapter identificaClienteAdapter
+    public IdentificaClienteUseCaseImpl identificaClienteUseCase(
+            IdentificaClienteGatewayImpl identificaClienteGatewayImpl
     ) {
-        return new IdentificaClienteUseCase(identificaClienteAdapter);
+        return new IdentificaClienteUseCaseImpl(identificaClienteGatewayImpl);
     }
 }
