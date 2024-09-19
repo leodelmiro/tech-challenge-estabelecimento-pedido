@@ -1,13 +1,11 @@
 package com.leodelmiro.estabelecimento.entrypoint.api;
 
-import com.leodelmiro.estabelecimento.entrypoint.api.request.AdicionaProdutoAoPedidoRequest;
-import com.leodelmiro.estabelecimento.entrypoint.api.mapper.PedidoMapper;
-import com.leodelmiro.estabelecimento.entrypoint.api.response.PedidoResponse;
-import com.leodelmiro.estabelecimento.core.domain.ItemPedido;
-import com.leodelmiro.estabelecimento.core.domain.Pedido;
-import com.leodelmiro.estabelecimento.application.ports.in.pedido.*;
 import com.leodelmiro.estabelecimento.core.usecase.pedido.*;
 import com.leodelmiro.estabelecimento.core.usecase.produto.BuscaProdutoUseCase;
+import com.leodelmiro.estabelecimento.entrypoint.api.mapper.PedidoMapper;
+import com.leodelmiro.estabelecimento.entrypoint.api.request.AdicionaProdutoAoPedidoRequest;
+import com.leodelmiro.estabelecimento.entrypoint.api.response.PedidoResponse;
+import com.leodelmiro.estabelecimento.entrypoint.controller.PedidoController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -19,7 +17,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Tag(name = "Pedido", description = "Endpoints relacionados ao Pedido")
 @RestController
@@ -54,8 +51,7 @@ public class PedidoApi {
     })
     @PostMapping
     public ResponseEntity<PedidoResponse> inicia(@RequestParam(defaultValue = "") String cpf) {
-        var pedido = iniciaPedidoUseCase.iniciar(cpf);
-        var pedidoResponse = pedidoMapper.toPedidoResponse(pedido);
+        var pedidoResponse = PedidoController.iniciar(cpf, iniciaPedidoUseCase, pedidoMapper);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(pedidoResponse.id()).toUri();
         return ResponseEntity.created(uri).body(pedidoResponse);
@@ -69,8 +65,8 @@ public class PedidoApi {
     })
     @GetMapping
     public ResponseEntity<Set<PedidoResponse>> listarTodos() {
-        var pedidos = listaPedidosUseCase.buscar();
-        return ResponseEntity.ok().body(transformarSetPedidosParaPedidosResponse(pedidos));
+        var pedidos = PedidoController.listarTodos(listaPedidosUseCase, pedidoMapper);
+        return ResponseEntity.ok().body(pedidos);
     }
 
     @Operation(
@@ -81,8 +77,8 @@ public class PedidoApi {
     })
     @GetMapping("/fila")
     public ResponseEntity<Set<PedidoResponse>> listarPedidosNaFila() {
-        var pedidos = listaPedidosUseCase.listarPedidosNaFila();
-        return ResponseEntity.ok().body(transformarSetPedidosParaPedidosResponse(pedidos));
+        var pedidos = PedidoController.listarPedidosNaFila(listaPedidosUseCase, pedidoMapper);
+        return ResponseEntity.ok().body(pedidos);
     }
 
     @Operation(
@@ -94,14 +90,11 @@ public class PedidoApi {
     @PatchMapping("/{id}")
     public ResponseEntity<PedidoResponse> adicionaProduto(@PathVariable Long id,
                                                           @RequestBody AdicionaProdutoAoPedidoRequest adicionaProdutoAoPedidoRequest) {
-        var itensPedido = adicionaProdutoAoPedidoRequest.itens().stream().map(
-                item -> {
-                    var produto = buscaProdutoUseCase.buscar(item.idProduto());
-                    return new ItemPedido(produto, item.quantidade());
-                }
-        ).toList();
-        var pedido = adicionaProdutoAoPedidoUseCase.adicionar(id, itensPedido);
-        var pedidoResponse = pedidoMapper.toPedidoResponse(pedido);
+        var pedidoResponse = PedidoController.adicionarProduto(id,
+                adicionaProdutoAoPedidoRequest,
+                adicionaProdutoAoPedidoUseCase,
+                buscaProdutoUseCase,
+                pedidoMapper);
         return ResponseEntity.ok().body(pedidoResponse);
     }
 
@@ -115,8 +108,7 @@ public class PedidoApi {
     public ResponseEntity<PedidoResponse> remove(@PathVariable Long id,
                                                  @PathVariable Long idProduto,
                                                  @RequestParam(defaultValue = "1") int quantidade) {
-        var pedido = removeProdutoPedidoUseCase.remover(id, idProduto, quantidade);
-        var pedidoResponse = pedidoMapper.toPedidoResponse(pedido);
+        var pedidoResponse = PedidoController.remover(id, idProduto, quantidade, removeProdutoPedidoUseCase, pedidoMapper);
         return ResponseEntity.ok().body(pedidoResponse);
     }
 
@@ -128,15 +120,8 @@ public class PedidoApi {
     })
     @PatchMapping("/{id}/avanca")
     public ResponseEntity<PedidoResponse> avancaStatus(@PathVariable Long id) {
-        var pedido = avancaStatusPedidoUseCase.avancar(id);
-        var pedidoResponse = pedidoMapper.toPedidoResponse(pedido);
+        var pedidoResponse = PedidoController.avancaStatus(id, avancaStatusPedidoUseCase, pedidoMapper);
         return ResponseEntity.ok().body(pedidoResponse);
     }
 
-    private Set<PedidoResponse> transformarSetPedidosParaPedidosResponse(Set<Pedido> pedidos) {
-        return pedidos.stream()
-                .map(pedido -> pedidoMapper.toPedidoResponse(pedido))
-                .collect(Collectors.toSet()
-                );
-    }
 }

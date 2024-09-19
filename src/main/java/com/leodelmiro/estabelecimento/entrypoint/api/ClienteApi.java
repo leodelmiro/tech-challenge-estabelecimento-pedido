@@ -1,10 +1,11 @@
 package com.leodelmiro.estabelecimento.entrypoint.api;
 
+import com.leodelmiro.estabelecimento.core.usecase.cliente.CadastraClienteUseCase;
+import com.leodelmiro.estabelecimento.core.usecase.cliente.IdentificaClienteUseCase;
 import com.leodelmiro.estabelecimento.entrypoint.api.mapper.ClienteMapper;
 import com.leodelmiro.estabelecimento.entrypoint.api.request.IdentificaClienteRequest;
 import com.leodelmiro.estabelecimento.entrypoint.api.response.ClienteResponse;
-import com.leodelmiro.estabelecimento.core.usecase.cliente.CadastraClienteUseCase;
-import com.leodelmiro.estabelecimento.core.usecase.cliente.IdentificaClienteUseCase;
+import com.leodelmiro.estabelecimento.entrypoint.controller.ClienteController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -23,6 +24,7 @@ import java.net.URI;
 @RestController
 @RequestMapping("/api/v1/clientes")
 public class ClienteApi {
+
     @Autowired
     private IdentificaClienteUseCase identificaClienteUseCase;
 
@@ -40,9 +42,8 @@ public class ClienteApi {
     })
     @PostMapping
     public ResponseEntity<ClienteResponse> cadastra(@Valid @RequestBody IdentificaClienteRequest identificaClienteRequest) {
-        var cliente = clienteMapper.toCLiente(identificaClienteRequest);
-        cliente = cadastraClienteUseCase.cadastrar(cliente);
-        var clienteResponse = clienteMapper.toClienteResponse(cliente);
+        // TODO REFACTOR PARA PRESENTER
+        var clienteResponse = ClienteController.cadastra(identificaClienteRequest, cadastraClienteUseCase, clienteMapper);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(clienteResponse.id()).toUri();
         return ResponseEntity.created(uri).body(clienteResponse);
@@ -57,9 +58,10 @@ public class ClienteApi {
     })
     @GetMapping("/{cpf}")
     public ResponseEntity<ClienteResponse> identificar(@PathVariable final String cpf) {
+        // TODO REFACTOR PARA PRESENTER
         try {
-            var cliente = identificaClienteUseCase.identificar(cpf).orElseThrow();
-            return ResponseEntity.ok().body(clienteMapper.toClienteResponse(cliente));
+            var cliente = ClienteController.identificar(cpf, identificaClienteUseCase, clienteMapper);
+            return ResponseEntity.ok().body(cliente);
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
             return ResponseEntity.notFound().build();

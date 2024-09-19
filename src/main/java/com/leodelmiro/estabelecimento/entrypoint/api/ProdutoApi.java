@@ -1,11 +1,10 @@
 package com.leodelmiro.estabelecimento.entrypoint.api;
 
-import com.leodelmiro.estabelecimento.entrypoint.api.response.ProdutoResponse;
+import com.leodelmiro.estabelecimento.core.usecase.produto.*;
 import com.leodelmiro.estabelecimento.entrypoint.api.mapper.ProdutoMapper;
 import com.leodelmiro.estabelecimento.entrypoint.api.request.CadastraProdutoRequest;
-import com.leodelmiro.estabelecimento.core.domain.Produto;
-import com.leodelmiro.estabelecimento.application.ports.in.produto.*;
-import com.leodelmiro.estabelecimento.core.usecase.produto.*;
+import com.leodelmiro.estabelecimento.entrypoint.api.response.ProdutoResponse;
+import com.leodelmiro.estabelecimento.entrypoint.controller.ProdutoController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -20,7 +19,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Tag(name = "Produto", description = "Endpoints relacionados ao Produto")
 @RestController
@@ -52,9 +50,7 @@ public class ProdutoApi {
     })
     @PostMapping
     public ResponseEntity<ProdutoResponse> cadastrar(@Valid @RequestBody CadastraProdutoRequest cadastraProdutoRequest) {
-        var produto = produtoMapper.toProduto(cadastraProdutoRequest);
-        var produtoCadastrado = cadastraProdutoUseCase.cadastrar(produto);
-        var produtoResponse = produtoMapper.toProdutoResponse(produtoCadastrado);
+        var produtoResponse = ProdutoController.cadastrar(cadastraProdutoRequest, cadastraProdutoUseCase, produtoMapper);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(produtoResponse.id()).toUri();
         return ResponseEntity.created(uri).body(produtoResponse);
@@ -70,8 +66,8 @@ public class ProdutoApi {
     @GetMapping("/{id}")
     public ResponseEntity<ProdutoResponse> buscar(@PathVariable final Long id) {
         try {
-            var produto = buscaProdutoUseCase.buscar(id);
-            return ResponseEntity.ok().body(produtoMapper.toProdutoResponse(produto));
+            var produtoResponse = ProdutoController.buscar(id, buscaProdutoUseCase, produtoMapper);
+            return ResponseEntity.ok().body(produtoResponse);
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
             return ResponseEntity.notFound().build();
@@ -86,8 +82,8 @@ public class ProdutoApi {
     })
     @GetMapping
     public ResponseEntity<Set<ProdutoResponse>> listarTodos() {
-        var produtos = listaProdutosUseCase.listarTodos();
-        return ResponseEntity.ok().body(transformarSetProdutosParaProdutoResponse(produtos));
+        var produtos = ProdutoController.listarTodos(listaProdutosUseCase, produtoMapper);
+        return ResponseEntity.ok().body(produtos);
     }
 
 
@@ -99,8 +95,8 @@ public class ProdutoApi {
     })
     @GetMapping("/lanches")
     public ResponseEntity<Set<ProdutoResponse>> listarLanches() {
-        var produtos = listaProdutosUseCase.listarPorLanches();
-        return ResponseEntity.ok().body(transformarSetProdutosParaProdutoResponse(produtos));
+        var produtos = ProdutoController.listarLanches(listaProdutosUseCase, produtoMapper);
+        return ResponseEntity.ok().body(produtos);
     }
 
     @Operation(
@@ -111,8 +107,8 @@ public class ProdutoApi {
     })
     @GetMapping("/acompanhamentos")
     public ResponseEntity<Set<ProdutoResponse>> listarAcompanhamentos() {
-        var produtos = listaProdutosUseCase.listarPorAcompanhamentos();
-        return ResponseEntity.ok().body(transformarSetProdutosParaProdutoResponse(produtos));
+        var produtos = ProdutoController.listarAcompanhamentos(listaProdutosUseCase, produtoMapper);
+        return ResponseEntity.ok().body(produtos);
     }
 
     @Operation(
@@ -123,8 +119,8 @@ public class ProdutoApi {
     })
     @GetMapping("/bebidas")
     public ResponseEntity<Set<ProdutoResponse>> listarBebidas() {
-        var produtos = listaProdutosUseCase.listarPorBebidas();
-        return ResponseEntity.ok().body(transformarSetProdutosParaProdutoResponse(produtos));
+        var produtos = ProdutoController.listarBebidas(listaProdutosUseCase, produtoMapper);
+        return ResponseEntity.ok().body(produtos);
     }
 
     @Operation(
@@ -135,15 +131,8 @@ public class ProdutoApi {
     })
     @GetMapping("/sobremesas")
     public ResponseEntity<Set<ProdutoResponse>> listarSobremesas() {
-        var produtos = listaProdutosUseCase.listarPorSobremesas();
-        return ResponseEntity.ok().body(transformarSetProdutosParaProdutoResponse(produtos));
-    }
-
-    private Set<ProdutoResponse> transformarSetProdutosParaProdutoResponse(Set<Produto> produtos) {
-        return produtos.stream()
-                .map(produto -> produtoMapper.toProdutoResponse(produto))
-                .collect(Collectors.toSet()
-                );
+        var produtos = ProdutoController.listarSobremesas(listaProdutosUseCase, produtoMapper);
+        return ResponseEntity.ok().body(produtos);
     }
 
     @Operation(
@@ -156,9 +145,8 @@ public class ProdutoApi {
     @PutMapping("/{id}")
     public ResponseEntity<ProdutoResponse> editar(@PathVariable final Long id, @Valid @RequestBody CadastraProdutoRequest cadastraProdutoRequest) {
         try {
-            var produto = produtoMapper.toProduto(cadastraProdutoRequest);
-            produto = editaProdutoUseCase.editar(produto, id);
-            return ResponseEntity.ok().body(produtoMapper.toProdutoResponse(produto));
+            var produtoResponse = ProdutoController.editar(id, cadastraProdutoRequest, editaProdutoUseCase, produtoMapper);
+            return ResponseEntity.ok().body(produtoResponse);
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
             return ResponseEntity.notFound().build();
@@ -172,8 +160,8 @@ public class ProdutoApi {
             @ApiResponse(responseCode = "204", description = "Produto removido")
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<ProdutoResponse> remover(@PathVariable final Long id) {
-        removeProdutoUseCase.remover(id);
+    public ResponseEntity<Void> remover(@PathVariable final Long id) {
+        ProdutoController.remover(id, removeProdutoUseCase);
         return ResponseEntity.noContent().build();
     }
 }

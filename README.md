@@ -18,6 +18,7 @@ de pedidos (fast-food), nesta primeira fase a arquitetura da aplicação consist
 
 - Entrypoint: Entrada de acesso externo para a aplicação
   - Api: Entrada de acesso via Rest a aplicação
+  - Controller: Controlador da lógica dos UseCases do que chega na aplicação.
 - Core: Sem acesso ao mundo externo, livre de frameworks e isolado.
   - Domain: Pode ser acesso por qualquer um.
   - Usecase: Regras de negócio

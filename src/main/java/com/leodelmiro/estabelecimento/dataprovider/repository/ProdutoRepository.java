@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public interface ProdutoRepository extends JpaRepository<ProdutoEntity, Long> {
+    // TODO VERIFICAR N+1 CONSULTAS
     @Query("SELECT p FROM ProdutoEntity p LEFT JOIN FETCH p.imagens WHERE p.categoria = 0")
     List<ProdutoEntity> listarPorLanches();
     @Query("SELECT p FROM ProdutoEntity p LEFT JOIN FETCH p.imagens WHERE p.categoria = 1")
