@@ -1,15 +1,14 @@
 package com.leodelmiro.estabelecimento.entrypoint.controller;
 
 import com.leodelmiro.estabelecimento.core.domain.ItemPedido;
-import com.leodelmiro.estabelecimento.core.domain.Pedido;
 import com.leodelmiro.estabelecimento.core.usecase.pedido.*;
 import com.leodelmiro.estabelecimento.core.usecase.produto.BuscaProdutoUseCase;
 import com.leodelmiro.estabelecimento.entrypoint.api.mapper.PedidoMapper;
 import com.leodelmiro.estabelecimento.entrypoint.api.request.AdicionaProdutoAoPedidoRequest;
 import com.leodelmiro.estabelecimento.entrypoint.api.response.PedidoResponse;
+import com.leodelmiro.estabelecimento.entrypoint.presenter.PedidoPresenter;
 
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class PedidoController {
 
@@ -24,14 +23,13 @@ public class PedidoController {
     public static Set<PedidoResponse> listarTodos(ListaPedidosUseCase listaPedidosUseCase,
                                                   PedidoMapper pedidoMapper) {
         var pedidos = listaPedidosUseCase.buscar();
-        return transformarSetPedidosParaPedidosResponse(pedidos, pedidoMapper);
+        return PedidoPresenter.transformarSetPedidosParaPedidosResponse(pedidos, pedidoMapper);
     }
 
     public static Set<PedidoResponse> listarPedidosNaFila(ListaPedidosUseCase listaPedidosUseCase,
                                                           PedidoMapper pedidoMapper) {
-        // TODO QUEBRAR PARA USE CASE FILA
         var pedidos = listaPedidosUseCase.listarPedidosNaFila();
-        return transformarSetPedidosParaPedidosResponse(pedidos, pedidoMapper);
+        return PedidoPresenter.transformarSetPedidosParaPedidosResponse(pedidos, pedidoMapper);
     }
 
     public static PedidoResponse adicionarProduto(Long id,
@@ -67,13 +65,5 @@ public class PedidoController {
                                               PedidoMapper pedidoMapper) {
         var pedido = avancaStatusPedidoUseCase.avancar(id);
         return pedidoMapper.toPedidoResponse(pedido);
-    }
-
-    // TODO TRANSFORMAR PARA PRESENTER
-    private static Set<PedidoResponse> transformarSetPedidosParaPedidosResponse(Set<Pedido> pedidos, PedidoMapper pedidoMapper) {
-        return pedidos.stream()
-                .map(pedidoMapper::toPedidoResponse)
-                .collect(Collectors.toSet()
-                );
     }
 }

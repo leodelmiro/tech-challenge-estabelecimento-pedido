@@ -42,7 +42,6 @@ public class ClienteApi {
     })
     @PostMapping
     public ResponseEntity<ClienteResponse> cadastra(@Valid @RequestBody IdentificaClienteRequest identificaClienteRequest) {
-        // TODO REFACTOR PARA PRESENTER
         var clienteResponse = ClienteController.cadastra(identificaClienteRequest, cadastraClienteUseCase, clienteMapper);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(clienteResponse.id()).toUri();
@@ -58,7 +57,6 @@ public class ClienteApi {
     })
     @GetMapping("/{cpf}")
     public ResponseEntity<ClienteResponse> identificar(@PathVariable final String cpf) {
-        // TODO REFACTOR PARA PRESENTER
         try {
             var cliente = ClienteController.identificar(cpf, identificaClienteUseCase, clienteMapper);
             return ResponseEntity.ok().body(cliente);

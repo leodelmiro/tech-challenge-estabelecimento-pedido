@@ -5,6 +5,7 @@ import com.leodelmiro.estabelecimento.core.usecase.produto.*;
 import com.leodelmiro.estabelecimento.entrypoint.api.mapper.ProdutoMapper;
 import com.leodelmiro.estabelecimento.entrypoint.api.request.CadastraProdutoRequest;
 import com.leodelmiro.estabelecimento.entrypoint.api.response.ProdutoResponse;
+import com.leodelmiro.estabelecimento.entrypoint.presenter.ProdutoPresenter;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -29,31 +30,31 @@ public class ProdutoController {
 
     public static Set<ProdutoResponse> listarTodos(ListaProdutosUseCase listaProdutosUseCase, ProdutoMapper produtoMapper) {
         var produtos = listaProdutosUseCase.listarTodos();
-        return transformarSetProdutosParaProdutoResponse(produtos, produtoMapper);
+        return ProdutoPresenter.transformarSetProdutosParaProdutoResponse(produtos, produtoMapper);
     }
 
 
     public static Set<ProdutoResponse> listarLanches(ListaProdutosUseCase listaProdutosUseCase, ProdutoMapper produtoMapper) {
         var produtos = listaProdutosUseCase.listarPorLanches();
-        return transformarSetProdutosParaProdutoResponse(produtos, produtoMapper);
+        return ProdutoPresenter.transformarSetProdutosParaProdutoResponse(produtos, produtoMapper);
     }
 
 
     public static Set<ProdutoResponse> listarAcompanhamentos(ListaProdutosUseCase listaProdutosUseCase, ProdutoMapper produtoMapper) {
         var produtos = listaProdutosUseCase.listarPorAcompanhamentos();
-        return transformarSetProdutosParaProdutoResponse(produtos, produtoMapper);
+        return ProdutoPresenter.transformarSetProdutosParaProdutoResponse(produtos, produtoMapper);
     }
 
 
     public static Set<ProdutoResponse> listarBebidas(ListaProdutosUseCase listaProdutosUseCase, ProdutoMapper produtoMapper) {
         var produtos = listaProdutosUseCase.listarPorBebidas();
-        return transformarSetProdutosParaProdutoResponse(produtos, produtoMapper);
+        return ProdutoPresenter.transformarSetProdutosParaProdutoResponse(produtos, produtoMapper);
     }
 
 
     public static Set<ProdutoResponse> listarSobremesas(ListaProdutosUseCase listaProdutosUseCase, ProdutoMapper produtoMapper) {
         var produtos = listaProdutosUseCase.listarPorSobremesas();
-        return transformarSetProdutosParaProdutoResponse(produtos, produtoMapper);
+        return ProdutoPresenter.transformarSetProdutosParaProdutoResponse(produtos, produtoMapper);
     }
 
 
@@ -61,6 +62,7 @@ public class ProdutoController {
                                          CadastraProdutoRequest cadastraProdutoRequest,
                                          EditaProdutoUseCase editaProdutoUseCase,
                                          ProdutoMapper produtoMapper) {
+        // TODO VALIDAR PRODUTO
         var produto = produtoMapper.toProduto(cadastraProdutoRequest);
         produto = editaProdutoUseCase.editar(produto, id);
         return produtoMapper.toProdutoResponse(produto);
@@ -70,13 +72,4 @@ public class ProdutoController {
         removeProdutoUseCase.remover(id);
     }
 
-
-    // TODO USAR PRESENTER
-    private static Set<ProdutoResponse> transformarSetProdutosParaProdutoResponse(Set<Produto> produtos,
-                                                                                  ProdutoMapper produtoMapper) {
-        return produtos.stream()
-                .map(produtoMapper::toProdutoResponse)
-                .collect(Collectors.toSet()
-                );
-    }
 }
