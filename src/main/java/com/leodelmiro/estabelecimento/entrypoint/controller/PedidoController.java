@@ -1,5 +1,6 @@
 package com.leodelmiro.estabelecimento.entrypoint.controller;
 
+import com.leodelmiro.estabelecimento.core.domain.CPF;
 import com.leodelmiro.estabelecimento.core.domain.ItemPedido;
 import com.leodelmiro.estabelecimento.core.usecase.pedido.*;
 import com.leodelmiro.estabelecimento.core.usecase.produto.BuscaProdutoUseCase;
@@ -15,8 +16,7 @@ public class PedidoController {
     public static PedidoResponse iniciar(String cpf,
                                          IniciaPedidoUseCase iniciaPedidoUseCase,
                                          PedidoMapper pedidoMapper) {
-        // TODO VALIDAR CPF
-        var pedido = iniciaPedidoUseCase.iniciar(cpf);
+        var pedido = iniciaPedidoUseCase.iniciar(new CPF(cpf));
         return pedidoMapper.toPedidoResponse(pedido);
     }
 

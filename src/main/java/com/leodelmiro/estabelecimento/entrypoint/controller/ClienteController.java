@@ -1,5 +1,6 @@
 package com.leodelmiro.estabelecimento.entrypoint.controller;
 
+import com.leodelmiro.estabelecimento.core.domain.CPF;
 import com.leodelmiro.estabelecimento.core.usecase.cliente.CadastraClienteUseCase;
 import com.leodelmiro.estabelecimento.core.usecase.cliente.IdentificaClienteUseCase;
 import com.leodelmiro.estabelecimento.entrypoint.api.mapper.ClienteMapper;
@@ -16,7 +17,6 @@ public class ClienteController {
     }
 
     public static ClienteResponse identificar(final String cpf, IdentificaClienteUseCase identificaClienteUseCase, ClienteMapper clienteMapper) {
-        // TODO VALIDA CPF
-        return identificaClienteUseCase.identificar(cpf).map(clienteMapper::toClienteResponse).orElseThrow();
+        return identificaClienteUseCase.identificar(new CPF(cpf)).map(clienteMapper::toClienteResponse).orElseThrow();
     }
 }

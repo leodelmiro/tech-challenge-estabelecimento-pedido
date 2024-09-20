@@ -1,5 +1,6 @@
 package com.leodelmiro.estabelecimento.dataprovider.gateway.cliente;
 
+import com.leodelmiro.estabelecimento.core.domain.CPF;
 import com.leodelmiro.estabelecimento.dataprovider.repository.ClienteRepository;
 import com.leodelmiro.estabelecimento.dataprovider.repository.mapper.ClienteEntityMapper;
 import com.leodelmiro.estabelecimento.core.domain.Cliente;
@@ -19,8 +20,8 @@ public class IdentificaClienteGatewayImpl implements IdentificaClienteGateway {
     private ClienteEntityMapper clienteEntityMapper;
 
     @Override
-    public Optional<Cliente> identificar(String cpf) {
-        return clienteRepository.findClienteByCpf(cpf)
+    public Optional<Cliente> identificar(CPF cpf) {
+        return clienteRepository.findClienteByCpf(cpf.getCpf())
                 .map(clienteEntityMapper::toCliente);
     }
 }

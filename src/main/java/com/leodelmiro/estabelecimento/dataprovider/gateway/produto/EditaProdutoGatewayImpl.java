@@ -19,7 +19,6 @@ public class EditaProdutoGatewayImpl implements EditaProdutoGateway {
     @Override
     public Produto editar(Produto produto, Long id) {
         var produtoASerEditado = produtoEntityMapper.toProdutoEntity(produto);
-        produtoASerEditado.getImagens().forEach(imagemEntity -> imagemEntity.setProduto(produtoASerEditado));
         produtoASerEditado.setId(id);
         var produtoEditado = produtoRepository.save(produtoASerEditado);
         return produtoEntityMapper.toProduto(produtoEditado);

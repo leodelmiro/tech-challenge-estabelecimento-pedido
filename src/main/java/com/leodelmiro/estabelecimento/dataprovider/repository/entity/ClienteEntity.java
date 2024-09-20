@@ -1,5 +1,6 @@
 package com.leodelmiro.estabelecimento.dataprovider.repository.entity;
 
+import com.leodelmiro.estabelecimento.core.domain.CPF;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -12,7 +13,8 @@ public class ClienteEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String cpf;
+    @Embedded
+    private CPFEntity cpf;
 
     private String nome;
 
@@ -24,7 +26,7 @@ public class ClienteEntity {
     public ClienteEntity() {
     }
 
-    public ClienteEntity(Long id, String cpf, String nome, String email, LocalDateTime criadoEm) {
+    public ClienteEntity(Long id, CPFEntity cpf, String nome, String email, LocalDateTime criadoEm) {
         this.id = id;
         this.cpf = cpf;
         this.nome = nome;
@@ -40,11 +42,11 @@ public class ClienteEntity {
         this.id = id;
     }
 
-    public String getCpf() {
+    public CPFEntity getCpf() {
         return cpf;
     }
 
-    public void setCpf(String cpf) {
+    public void setCpf(CPFEntity cpf) {
         this.cpf = cpf;
     }
 
