@@ -1,6 +1,5 @@
 package com.leodelmiro.estabelecimento.entrypoint.controller;
 
-import com.leodelmiro.estabelecimento.core.domain.Produto;
 import com.leodelmiro.estabelecimento.core.usecase.produto.*;
 import com.leodelmiro.estabelecimento.entrypoint.api.mapper.ProdutoMapper;
 import com.leodelmiro.estabelecimento.entrypoint.api.request.CadastraProdutoRequest;
@@ -8,13 +7,11 @@ import com.leodelmiro.estabelecimento.entrypoint.api.response.ProdutoResponse;
 import com.leodelmiro.estabelecimento.entrypoint.presenter.ProdutoPresenter;
 
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class ProdutoController {
     public static ProdutoResponse cadastrar(CadastraProdutoRequest cadastraProdutoRequest,
                                             CadastraProdutoUseCase cadastraProdutoUseCase,
                                             ProdutoMapper produtoMapper) {
-        // TODO DO VALIDAR OBJETO PRODUTO
         var produto = produtoMapper.toProduto(cadastraProdutoRequest);
         var produtoCadastrado = cadastraProdutoUseCase.cadastrar(produto);
         return produtoMapper.toProdutoResponse(produtoCadastrado);
@@ -62,7 +59,6 @@ public class ProdutoController {
                                          CadastraProdutoRequest cadastraProdutoRequest,
                                          EditaProdutoUseCase editaProdutoUseCase,
                                          ProdutoMapper produtoMapper) {
-        // TODO VALIDAR PRODUTO
         var produto = produtoMapper.toProduto(cadastraProdutoRequest);
         produto = editaProdutoUseCase.editar(produto, id);
         return produtoMapper.toProdutoResponse(produto);

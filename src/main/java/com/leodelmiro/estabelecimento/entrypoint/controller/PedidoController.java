@@ -44,7 +44,6 @@ public class PedidoController {
                     return new ItemPedido(produto, item.quantidade());
                 }
         ).toList();
-        // TODO VALIDAR PEDIDO
         var pedido = adicionaProdutoAoPedidoUseCase.adicionar(id, itensPedido);
         return pedidoMapper.toPedidoResponse(pedido);
     }
@@ -54,7 +53,6 @@ public class PedidoController {
                                          int quantidade,
                                          RemoveProdutoPedidoUseCase removeProdutoPedidoUseCase,
                                          PedidoMapper pedidoMapper) {
-        // TODO VALIDAR DADOS NO PEDIDO
         var pedido = removeProdutoPedidoUseCase.remover(id, idProduto, quantidade);
         return pedidoMapper.toPedidoResponse(pedido);
     }

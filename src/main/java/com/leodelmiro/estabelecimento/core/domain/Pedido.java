@@ -20,14 +20,36 @@ public class Pedido {
     public Pedido() {
     }
 
-    public Pedido(Cliente cliente, StatusPedido status, BigDecimal precoTotal, Long tempoTotalDePreparoEmSegundos) {
+    public Pedido(Cliente cliente,
+                  StatusPedido status,
+                  BigDecimal precoTotal,
+                  Long tempoTotalDePreparoEmSegundos) {
+        if (cliente == null) throw new IllegalArgumentException("Cliente não pode ser null");
+        if (status == null) throw new IllegalArgumentException("Status não pode ser null");
+        if (precoTotal == null || precoTotal.compareTo(BigDecimal.ZERO) < 0)
+            throw new IllegalArgumentException("Preço deve ser igual ou maior que 0");
+        if (tempoTotalDePreparoEmSegundos == null || tempoTotalDePreparoEmSegundos < 0)
+            throw new IllegalArgumentException("Tempo de preparo deve ser igual ou maior que 0");
+
         this.cliente = cliente;
         this.status = status;
         this.precoTotal = precoTotal;
         this.tempoTotalDePreparoEmSegundos = tempoTotalDePreparoEmSegundos;
     }
 
-    public Pedido(Long id, Cliente cliente, BigDecimal precoTotal, StatusPedido status, Long tempoTotalDePreparoEmSegundos, LocalDateTime criadoEm) {
+    public Pedido(Long id,
+                  Cliente cliente,
+                  BigDecimal precoTotal,
+                  StatusPedido status,
+                  Long tempoTotalDePreparoEmSegundos,
+                  LocalDateTime criadoEm) {
+        if (cliente == null) throw new IllegalArgumentException("Cliente não pode ser null");
+        if (precoTotal == null || precoTotal.compareTo(BigDecimal.ZERO) < 0)
+            throw new IllegalArgumentException("Preço deve ser igual ou maior que 0");
+        if (status == null) throw new IllegalArgumentException("Status não pode ser null");
+        if (tempoTotalDePreparoEmSegundos == null || tempoTotalDePreparoEmSegundos < 0)
+            throw new IllegalArgumentException("Tempo de preparo deve ser igual ou maior que 0");
+
         this.id = id;
         this.cliente = cliente;
         this.precoTotal = precoTotal;

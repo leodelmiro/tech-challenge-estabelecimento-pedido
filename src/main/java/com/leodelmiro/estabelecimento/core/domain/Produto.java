@@ -1,6 +1,7 @@
 package com.leodelmiro.estabelecimento.core.domain;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
@@ -24,13 +25,22 @@ public class Produto {
                    String nome,
                    Categoria categoria,
                    BigDecimal preco,
-                   String descricao, Long tempoDePreparoEmSegundos,
+                   String descricao,
+                   Long tempoDePreparoEmSegundos,
                    LocalDateTime criadoEm
-                   ) {
+    ) {
+        if (nome.isBlank()) throw new IllegalArgumentException("Nome não pode ser vazio");
+        if (categoria == null) throw new IllegalArgumentException("Categoria não pode ser null");
+        if (preco == null || preco.compareTo(BigDecimal.ZERO) < 0)
+            throw new IllegalArgumentException("Preço deve ser igual ou maior que 0");
+        if (descricao.isBlank()) throw new IllegalArgumentException("Descrição não pode ser vazio");
+        if (tempoDePreparoEmSegundos == null || tempoDePreparoEmSegundos < 0)
+            throw new IllegalArgumentException("Tempo de preparo deve ser igual ou maior que 0");
+
         this.id = id;
         this.nome = nome;
         this.categoria = categoria;
-        this.preco = preco.setScale(2);
+        this.preco = preco.setScale(2, RoundingMode.DOWN);
         this.descricao = descricao;
         this.tempoDePreparoEmSegundos = tempoDePreparoEmSegundos;
         this.criadoEm = (criadoEm == null) ? LocalDateTime.now() : criadoEm;
@@ -65,7 +75,7 @@ public class Produto {
     }
 
     public void setPreco(BigDecimal preco) {
-        this.preco = preco.setScale(2);
+        this.preco = preco.setScale(2, RoundingMode.DOWN);
     }
 
     public String getDescricao() {

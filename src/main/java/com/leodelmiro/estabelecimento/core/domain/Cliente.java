@@ -14,6 +14,9 @@ public class Cliente {
     }
 
     public Cliente(Long id, CPF cpf, String nome, String email, LocalDateTime criadoEm) {
+        if (nome.isBlank()) throw new IllegalArgumentException("Nome não pode ser vazio");
+        if (email.isBlank()) throw new IllegalArgumentException("Email não pode ser vazio");
+
         this.id = id;
         this.cpf = cpf;
         this.nome = nome;

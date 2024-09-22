@@ -10,7 +10,6 @@ import com.leodelmiro.estabelecimento.entrypoint.api.response.ClienteResponse;
 public class ClienteController {
 
     public static ClienteResponse cadastra(IdentificaClienteRequest identificaClienteRequest, CadastraClienteUseCase cadastraClienteUseCase, ClienteMapper clienteMapper) {
-        // TODO VALIDA REQUEST NO OBJETO CLIENTE
         var cliente = clienteMapper.toCLiente(identificaClienteRequest);
         cliente = cadastraClienteUseCase.cadastrar(cliente);
         return clienteMapper.toClienteResponse(cliente);
