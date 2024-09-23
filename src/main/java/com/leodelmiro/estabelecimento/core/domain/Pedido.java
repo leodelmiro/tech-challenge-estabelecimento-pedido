@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.leodelmiro.estabelecimento.core.domain.StatusPedido.PENDENTE_FECHAMENTO;
+
 public class Pedido {
     private Long id;
     private Cliente cliente;
@@ -107,7 +109,13 @@ public class Pedido {
     }
 
     public void removeItem(ItemPedido item) {
+        if (estaPedidoSemItens()) throw new IllegalStateException("Impossível remover itens de pedido vazio");
+
         this.itens.remove(item);
+    }
+
+    private boolean estaPedidoSemItens() {
+        return this.getItens().isEmpty();
     }
 
     public void addItem(ItemPedido item) {
@@ -115,7 +123,14 @@ public class Pedido {
     }
 
     public void addItens(List<ItemPedido> itens) {
+        if (estaPedidoFechado())
+            throw new IllegalStateException("Impossível adicionar produtos,pedido já foi fechado");
+
         this.itens.addAll(itens);
+    }
+
+    private boolean estaPedidoFechado() {
+        return this.getStatus() != PENDENTE_FECHAMENTO;
     }
 
     public List<ItemPedido> getItens() {
@@ -151,6 +166,17 @@ public class Pedido {
     public boolean temProduto(Long idProduto) {
         return getItemPedidoPorProduto(idProduto) != null;
     }
+
+    public void avancarStatus() {
+        if (this.getStatus() == StatusPedido.AGUARDANDO_PAGAMENTO && !this.estaPago())
+            throw new IllegalStateException("Produto precisa ser pago para avançar");
+        this.getStatus().next();
+    }
+
+    private boolean estaPago() {
+        return pagoEm != null;
+    }
+
 
     @Override
     public boolean equals(Object o) {
