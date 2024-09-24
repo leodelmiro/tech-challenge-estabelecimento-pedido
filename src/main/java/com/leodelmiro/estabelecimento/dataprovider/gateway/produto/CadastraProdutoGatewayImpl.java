@@ -19,6 +19,7 @@ public class CadastraProdutoGatewayImpl implements CadastraProdutoGateway {
     @Override
     public Produto cadastrar(Produto produto) {
         var produtoEntity = produtoEntityMapper.toProdutoEntity(produto);
+        produtoEntity.getImagens().forEach(imagemEntity -> imagemEntity.setProduto(produtoEntity));
         produtoRepository.save(produtoEntity);
         return produtoEntityMapper.toProduto(produtoEntity);
     }

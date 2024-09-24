@@ -34,8 +34,6 @@ public class IniciaPedidoUseCaseImpl implements IniciaPedidoUseCase {
     }
 
     private Cliente retornarPossivelCliente(CPF cpf) {
-        Cliente possivelCliente = null;
-        if (cpf != null) possivelCliente = identificaClienteUseCase.identificar(cpf).orElseThrow();
-        return possivelCliente;
+        return (cpf != null) ? identificaClienteUseCase.identificar(cpf).orElseThrow() : null;
     }
 }

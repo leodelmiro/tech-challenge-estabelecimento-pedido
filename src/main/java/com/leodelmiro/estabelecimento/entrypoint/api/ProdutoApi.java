@@ -3,6 +3,7 @@ package com.leodelmiro.estabelecimento.entrypoint.api;
 import com.leodelmiro.estabelecimento.core.usecase.produto.*;
 import com.leodelmiro.estabelecimento.entrypoint.api.mapper.ProdutoMapper;
 import com.leodelmiro.estabelecimento.entrypoint.api.request.CadastraProdutoRequest;
+import com.leodelmiro.estabelecimento.entrypoint.api.request.EditaProdutoRequest;
 import com.leodelmiro.estabelecimento.entrypoint.api.response.ProdutoResponse;
 import com.leodelmiro.estabelecimento.entrypoint.controller.ProdutoController;
 import io.swagger.v3.oas.annotations.Operation;
@@ -143,9 +144,9 @@ public class ProdutoApi {
             @ApiResponse(responseCode = "404", description = "Produto não encontrado", content = @Content(schema = @Schema(hidden = true)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<ProdutoResponse> editar(@PathVariable final Long id, @Valid @RequestBody CadastraProdutoRequest cadastraProdutoRequest) {
+    public ResponseEntity<ProdutoResponse> editar(@PathVariable final Long id, @Valid @RequestBody EditaProdutoRequest editaProdutoRequest) {
         try {
-            var produtoResponse = ProdutoController.editar(id, cadastraProdutoRequest, editaProdutoUseCase, produtoMapper);
+            var produtoResponse = ProdutoController.editar(id, editaProdutoRequest, editaProdutoUseCase, produtoMapper);
             return ResponseEntity.ok().body(produtoResponse);
         } catch (Exception exception) {
             System.out.println(exception.getMessage());

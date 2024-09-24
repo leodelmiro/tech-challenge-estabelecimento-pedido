@@ -3,6 +3,7 @@ package com.leodelmiro.estabelecimento.entrypoint.controller;
 import com.leodelmiro.estabelecimento.core.usecase.produto.*;
 import com.leodelmiro.estabelecimento.entrypoint.api.mapper.ProdutoMapper;
 import com.leodelmiro.estabelecimento.entrypoint.api.request.CadastraProdutoRequest;
+import com.leodelmiro.estabelecimento.entrypoint.api.request.EditaProdutoRequest;
 import com.leodelmiro.estabelecimento.entrypoint.api.response.ProdutoResponse;
 import com.leodelmiro.estabelecimento.entrypoint.presenter.ProdutoPresenter;
 
@@ -56,10 +57,10 @@ public class ProdutoController {
 
 
     public static ProdutoResponse editar(final Long id,
-                                         CadastraProdutoRequest cadastraProdutoRequest,
+                                         EditaProdutoRequest editaProdutoRequest,
                                          EditaProdutoUseCase editaProdutoUseCase,
                                          ProdutoMapper produtoMapper) {
-        var produto = produtoMapper.toProduto(cadastraProdutoRequest);
+        var produto = produtoMapper.toProduto(editaProdutoRequest);
         produto = editaProdutoUseCase.editar(produto, id);
         return produtoMapper.toProdutoResponse(produto);
     }

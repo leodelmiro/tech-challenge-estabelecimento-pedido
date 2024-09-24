@@ -23,6 +23,7 @@ public class CPF {
 
     public Boolean isValid(String cpf) {
         var validator = new CPFValidator();
+        validator.initialize(null);
         return cpf.matches("^[0-9]{11}$") && validator.isValid(cpf, null);
     }
 }

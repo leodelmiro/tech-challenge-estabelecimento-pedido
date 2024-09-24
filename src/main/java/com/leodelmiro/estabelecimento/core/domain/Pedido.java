@@ -26,7 +26,6 @@ public class Pedido {
                   StatusPedido status,
                   BigDecimal precoTotal,
                   Long tempoTotalDePreparoEmSegundos) {
-        if (cliente == null) throw new IllegalArgumentException("Cliente não pode ser null");
         if (status == null) throw new IllegalArgumentException("Status não pode ser null");
         if (precoTotal == null || precoTotal.compareTo(BigDecimal.ZERO) < 0)
             throw new IllegalArgumentException("Preço deve ser igual ou maior que 0");
@@ -137,9 +136,9 @@ public class Pedido {
         return this.itens;
     }
 
-    public ItemPedido getItemPedido(Long idProduto) {
+    public ItemPedido getItemPedido(Long idItem) {
         return itens.stream()
-                .filter(item -> item.getProduto().getId().equals(idProduto))
+                .filter(item -> item.getId().equals(idItem))
                 .findFirst()
                 .orElse(null);
     }
@@ -170,7 +169,8 @@ public class Pedido {
     public void avancarStatus() {
         if (this.getStatus() == StatusPedido.AGUARDANDO_PAGAMENTO && !this.estaPago())
             throw new IllegalStateException("Produto precisa ser pago para avançar");
-        this.getStatus().next();
+
+        this.status = this.status.next();
     }
 
     private boolean estaPago() {

@@ -16,7 +16,7 @@ public class PedidoController {
     public static PedidoResponse iniciar(String cpf,
                                          IniciaPedidoUseCase iniciaPedidoUseCase,
                                          PedidoMapper pedidoMapper) {
-        var pedido = iniciaPedidoUseCase.iniciar(new CPF(cpf));
+        var pedido = iniciaPedidoUseCase.iniciar((cpf.isEmpty()) ? null: new CPF(cpf));
         return pedidoMapper.toPedidoResponse(pedido);
     }
 
