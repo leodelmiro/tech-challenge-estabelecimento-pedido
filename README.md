@@ -13,6 +13,14 @@ de pedidos (fast-food), nesta primeira fase a arquitetura da aplicação consist
 - Postgres
 - Docker
 - Docker Compose
+- AWS
+- Kubernetes
+
+## Desenho Solução
+
+### Infra AWS
+
+![Tech Challenge Drawio Infra](./infraawsdrawio.png)
 
 ## Estrutura do Projeto
 
