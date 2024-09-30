@@ -1,0 +1,27 @@
+@startuml Clean Architecture
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+Person(estabelecimento, "Estabelecimento", "Estabelecimento Gerenciador")
+
+System_Boundary(avancaPedido, "Avança Pedido") {
+    Component(pedidoApi, "PedidoApi", "API", "Recebe requisições HTTP e delega para o controller")
+    Component(pedidoController, "PedidoController", "Controller", "Recebe requisições e delega para o caso de uso")
+    Component(avancaStatusPedidoUseCase, AvancaStatusPedidoUseCase, "Caso de Uso", "Contém a lógica de negócio para avançar status de pedido")
+    Component(pedido, Pedido, "Entidade", "Modelos de domínio")
+    Component(buscaPedidoUseCase, "BuscaPedidoUseCase", "Caso de Uso", "Contém a lógica de negócio para buscar dados de um pedido")
+    Component(avancaStatusPedidoGateway, "AvancaStatusPedidoGateway", "Gateway", "Acesso a inteface de comunicação externa")
+    Component(pedidoRepository, "PedidoRepository", "Repositório", "Acesso a dados e persistência")
+    ComponentDb(pedidoDb, "Pedido DB", "Banco de Dados", "Banco de Dados com informações de Pedido")
+
+    Rel(estabelecimento, pedidoApi, "Usa", "HTTP PATCH /api/v1/pedidos/1/avanca")
+    Rel(pedidoApi, pedidoController, "Chama", "Método")
+    Rel(pedidoController, avancaStatusPedidoUseCase, "Usa", "Interface de Caso de Uso")
+    Rel(avancaStatusPedidoUseCase, pedido, "Manipula", "Objeto de Domínio")
+    Rel(avancaStatusPedidoUseCase, buscaPedidoUseCase, "Usa", "Interface de Caso de Uso")
+    Rel(avancaStatusPedidoUseCase, avancaStatusPedidoGateway, "Usa", "Interface de Repositório")
+    Rel(avancaStatusPedidoGateway, pedidoRepository, "Usa", "Interface de Repositório")
+    Rel(pedidoRepository, pedidoDb, "Usa", "Spring Data")
+}
+
+SHOW_LEGEND()
+@enduml

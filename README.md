@@ -1,5 +1,15 @@
 # Tech Challenge - Estabelecimento
 
+# Índice
+
+* [Breve Descrição](#Breve-Descrição)
+* [Tecnologias Utilizadas](#Tecnologias-Utilizadas)
+* [Índice](#índice)
+* [Desenho Solução](#Desenho-Solução)
+* [Estrutura do Projeto](#Estrutura-do-Projeto)
+* [Rodando o Projeto Local](#Rodando-o-Projeto-Local)
+* [Endpoints](#Endpoints)
+
 ## Breve Descrição
 
 Aplicação se trata de um Projeto Fiap Tech Challenge - Software Architecture, simulando um projeto de um estabelecimento
@@ -20,7 +30,43 @@ de pedidos (fast-food), nesta primeira fase a arquitetura da aplicação consist
 
 ### Infra AWS
 
-![Tech Challenge Drawio Infra](./infraawsdrawio.png)
+![Tech Challenge Drawio Infra](./desenhos/infraawsdrawio.png)
+
+### Componentes
+
+- Cliente
+  - Cadastra Cliente </br>
+  ![Cadastra Cliente](./desenhos/CadastraClienteComponentes.png)
+  - Identifica Cliente </br>
+  ![Identifica Cliente](./desenhos/IdentificaClienteComponentes.png)
+
+- Produtos
+  - Cadastra Produto </br>
+    ![Cadastra Produto](./desenhos/CadastraProdutoComponentes.png)
+  - Editar Produto </br>
+    ![Editar Produto](./desenhos/EditaProdutoComponentes.png)
+  - Remover Produto </br>
+    ![Remover Produto](./desenhos/RemoveProdutoComponentes.png)
+  - Busca Produto </br>
+    ![Busca Produto](./desenhos/BuscaProdutoComponentes.png)
+  - Busca Todos os Produto e por Tipos </br>
+    ![Busca Todos os Produto e por Tipos](./desenhos/ListaProdutosComponentes.png)
+
+- Pedidos
+  - Inicia Pedido </br>
+  ![Inicia Pedido](./desenhos/IniciaPedidoComponentes.png)    
+  - Adiciona Produto ao Pedido </br>
+  ![Adiciona Produto ao Pedido](./desenhos/AdicionaProdutoAoPedidoComponentes.png)    
+  - Remove Produto Pedido </br>
+  ![Remove Produto Pedido](./desenhos/RemoveProdutoPedidoComponentes.png)    
+  - Avança Pedido </br>
+  ![Avança Pedido](./desenhos/AvancaPedidoComponentes.png)    
+  - Lista Pedidos e Lista Pedidos na Fila </br>
+  ![Lista Pedidos e Lista Pedidos na Fila](./desenhos/ListaPedidosComponentes.png)    
+
+- Webhooks
+  - Pagamentos </br>
+  ![Webhook Pagamentos](./desenhos/WebhookPagamentoComponentes.png)
 
 ## Estrutura do Projeto
 
@@ -89,8 +135,6 @@ Para executar o script, siga os passos abaixo:
     ```sh
     ./setup.sh
     ```
-
-Banco de dados
 
 ## Endpoints
 

@@ -1,0 +1,27 @@
+@startuml Clean Architecture
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+Person(estabelecimento, "Estabelecimento", "Pessoa que gerencia o estabelecimento")
+
+System_Boundary(cadastraCliente, "CadastraCliente") {
+    Component(clienteAPI, "ClienteApi", "API", "Recebe requisições HTTP e delega para o controller")
+    Component(clienteController, "ClienteController", "Controller", "Recebe requisições e delega para o caso de uso")
+    Component(cadastraClienteUseCase, "CadastraClienteUseCase", "Caso de Uso", "Contém a lógica de negócio para cadastro de cliente")
+    Component(cliente, Cliente, "Entidade", "Modelos de domínio")
+    Component(identificaClienteUseCase, "IdentificaClienteUseCase", "Caso de Uso", "Contém a lógica de negócio para identificação de cliente")
+    Component(cadastraClienteGateway, "CadastraClienteGateway", "Gateway", "Acesso a inteface de comunicação externa")
+    Component(clienteRepository, "ClientRepository", "Repositório", "Acesso a dados e persistência")
+    ComponentDb(clienteDb, "Cliente DB", "Banco de Dados", "Banco de Dados com informações de Cliente")
+
+    Rel(estabelecimento, clienteAPI, "Usa", "HTTP POST /api/v1/clientes")
+    Rel(clienteAPI, clienteController, "Chama", "Método")
+    Rel(clienteController, cadastraClienteUseCase, "Usa", "Interface de Caso de Uso")
+    Rel(cadastraClienteUseCase, cliente, "Manipula", "Objeto de Domínio")
+    Rel(cadastraClienteUseCase, identificaClienteUseCase, "Usa", "Interface de Caso de Uso")
+    Rel(cadastraClienteUseCase, cadastraClienteGateway, "Usa", "Interface de Repositório")
+    Rel(cadastraClienteGateway, clienteRepository, "Usa", "Interface de Repositório")
+    Rel(clienteRepository, clienteDb, "Usa", "Spring Data")
+}
+
+SHOW_LEGEND()
+@enduml

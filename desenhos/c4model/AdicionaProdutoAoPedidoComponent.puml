@@ -1,0 +1,27 @@
+@startuml Clean Architecture
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+Person(Cliente, "Cliente", "Pessoa que dono do pedido")
+
+System_Boundary(adicionaProdutoAoPedido, "Adiciona Produto ao Pedido") {
+    Component(pedidoApi, "PedidoApi", "API", "Recebe requisições HTTP e delega para o controller")
+    Component(pedidoController, "PedidoController", "Controller", "Recebe requisições e delega para o caso de uso")
+    Component(adicionaProdutoAoPedidoUseCase, AdicionaProdutoAoPedidoUseCase, "Caso de Uso", "Contém a lógica de negócio para adicionar produto ao pedido")
+    Component(pedido, Pedido, "Entidade", "Modelos de domínio")
+    Component(buscaPedidoUseCase, "BuscaPedidoUseCase", "Caso de Uso", "Contém a lógica de negócio para buscar dados de um pedido")
+    Component(AdicionaProdutoAoPedidoGateway, "AdicionaProdutoAoPedidoGateway", "Gateway", "Acesso a inteface de comunicação externa")
+    Component(pedidoRepository, "PedidoRepository", "Repositório", "Acesso a dados e persistência")
+    ComponentDb(pedidoDb, "Pedido DB", "Banco de Dados", "Banco de Dados com informações de Pedido")
+
+    Rel(Cliente, pedidoApi, "Usa", "HTTP PATCH /api/v1/pedidos/{idPedido}")
+    Rel(pedidoApi, pedidoController, "Chama", "Método")
+    Rel(pedidoController, adicionaProdutoAoPedidoUseCase, "Usa", "Interface de Caso de Uso")
+    Rel(adicionaProdutoAoPedidoUseCase, pedido, "Manipula", "Objeto de Domínio")
+    Rel(adicionaProdutoAoPedidoUseCase, buscaPedidoUseCase, "Usa", "Interface de Caso de Uso")
+    Rel(adicionaProdutoAoPedidoUseCase, AdicionaProdutoAoPedidoGateway, "Usa", "Interface de Repositório")
+    Rel(AdicionaProdutoAoPedidoGateway, pedidoRepository, "Usa", "Interface de Repositório")
+    Rel(pedidoRepository, pedidoDb, "Usa", "Spring Data")
+}
+
+SHOW_LEGEND()
+@enduml
