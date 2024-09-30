@@ -7,3 +7,17 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  server:
+    servlet:
+      context-path: /actuator
