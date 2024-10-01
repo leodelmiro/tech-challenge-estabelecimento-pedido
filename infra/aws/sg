@@ -1,10 +1,10 @@
 aws ec2 create-security-group \
     --group-name my-postgres-sg \
     --description "Security group for PostgreSQL access from anywhere" \
-    --vpc-id <your-vpc-id>
+    --vpc-id vpc-0db82fa3bc35a8c25
 
 aws ec2 authorize-security-group-ingress \
-    --group-id <your-security-group-id> \
+    --group-id sg-0faf0fb4d4fd4bd55 \
     --protocol tcp \
     --port 5432 \
     --cidr 0.0.0.0/0

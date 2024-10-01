@@ -1,0 +1,7 @@
+aws eks create-cluster --region us-east-1 --name my-cluster --kubernetes-version 1.30 \
+   --role-arn arn:aws:iam::373652318632:role/LabRole \
+   --resources-vpc-config subnetIds=<subnet-1>,<subnet-2>,securityGroupIds=<sg-g>
+
+aws eks create-nodegroup --cluster-name <value> --nodegroup-name <value> --subnets <value> --node-role <value>
+
+aws eks update-kubeconfig --region us-east-1 --name my-cluster

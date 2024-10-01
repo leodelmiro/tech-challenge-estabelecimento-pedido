@@ -142,11 +142,18 @@ Para executar o script, siga os passos abaixo:
    Dentro de Infra/aws existe alguns scripts que são necessários para subir aplicação já que ela faz uso de RDS. É
    necessário um SG para acesso externo e um RDS que chame ele. </br>
 
-2. **Rodando kubectl**
+2. **Criar EKS** </br>
+   Dentro de Infra/aws existe alguns scripts que são necessários para criar um cluster EKS. É necessário também um
+   NodeGroup. </br>
 
-```sh
-cd infra && kubectl apply -f kubernetes.yml
-```
+3. **Mudando o contexto do kubectl**
+    ```sh
+    aws eks update-kubeconfig --region us-east-1 --name my-cluster
+    ```
+4. **Rodando kubectl**
+    ```sh
+    cd infra && kubectl apply -f kubernetes.yml
+    ```
 
 ## Endpoints
 
