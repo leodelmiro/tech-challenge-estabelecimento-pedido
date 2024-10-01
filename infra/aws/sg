@@ -1,0 +1,10 @@
+aws ec2 create-security-group \
+    --group-name my-postgres-sg \
+    --description "Security group for PostgreSQL access from anywhere" \
+    --vpc-id <your-vpc-id>
+
+aws ec2 authorize-security-group-ingress \
+    --group-id <your-security-group-id> \
+    --protocol tcp \
+    --port 5432 \
+    --cidr 0.0.0.0/0

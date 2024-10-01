@@ -1,0 +1,13 @@
+aws rds create-db-instance \
+    --db-instance-identifier estabelecimento3 \
+    --db-instance-class db.t3.micro \
+    --engine postgres \
+    --allocated-storage 20 \
+    --master-username postgres \
+    --master-user-password 12345678 \
+    --db-name estabelecimento3 \
+    --backup-retention-period 1 \
+    --vpc-security-group-ids <your-security-group-id-criado-anteriormente> \
+    --availability-zone us-east-1a \
+    --no-publicly-accessible \
+    --no-multi-az

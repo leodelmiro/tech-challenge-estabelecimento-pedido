@@ -35,49 +35,49 @@ de pedidos (fast-food), nesta primeira fase a arquitetura da aplicação consist
 ### Componentes
 
 - Cliente
-  - Cadastra Cliente </br>
-  ![Cadastra Cliente](./desenhos/CadastraClienteComponentes.png)
-  - Identifica Cliente </br>
-  ![Identifica Cliente](./desenhos/IdentificaClienteComponentes.png)
+    - Cadastra Cliente </br>
+      ![Cadastra Cliente](./desenhos/CadastraClienteComponentes.png)
+    - Identifica Cliente </br>
+      ![Identifica Cliente](./desenhos/IdentificaClienteComponentes.png)
 
 - Produtos
-  - Cadastra Produto </br>
-    ![Cadastra Produto](./desenhos/CadastraProdutoComponentes.png)
-  - Editar Produto </br>
-    ![Editar Produto](./desenhos/EditaProdutoComponentes.png)
-  - Remover Produto </br>
-    ![Remover Produto](./desenhos/RemoveProdutoComponentes.png)
-  - Busca Produto </br>
-    ![Busca Produto](./desenhos/BuscaProdutoComponentes.png)
-  - Busca Todos os Produto e por Tipos </br>
-    ![Busca Todos os Produto e por Tipos](./desenhos/ListaProdutosComponentes.png)
+    - Cadastra Produto </br>
+      ![Cadastra Produto](./desenhos/CadastraProdutoComponentes.png)
+    - Editar Produto </br>
+      ![Editar Produto](./desenhos/EditaProdutoComponentes.png)
+    - Remover Produto </br>
+      ![Remover Produto](./desenhos/RemoveProdutoComponentes.png)
+    - Busca Produto </br>
+      ![Busca Produto](./desenhos/BuscaProdutoComponentes.png)
+    - Busca Todos os Produto e por Tipos </br>
+      ![Busca Todos os Produto e por Tipos](./desenhos/ListaProdutosComponentes.png)
 
 - Pedidos
-  - Inicia Pedido </br>
-  ![Inicia Pedido](./desenhos/IniciaPedidoComponentes.png)    
-  - Adiciona Produto ao Pedido </br>
-  ![Adiciona Produto ao Pedido](./desenhos/AdicionaProdutoAoPedidoComponentes.png)    
-  - Remove Produto Pedido </br>
-  ![Remove Produto Pedido](./desenhos/RemoveProdutoPedidoComponentes.png)    
-  - Avança Pedido </br>
-  ![Avança Pedido](./desenhos/AvancaPedidoComponentes.png)    
-  - Lista Pedidos e Lista Pedidos na Fila </br>
-  ![Lista Pedidos e Lista Pedidos na Fila](./desenhos/ListaPedidosComponentes.png)    
+    - Inicia Pedido </br>
+      ![Inicia Pedido](./desenhos/IniciaPedidoComponentes.png)
+    - Adiciona Produto ao Pedido </br>
+      ![Adiciona Produto ao Pedido](./desenhos/AdicionaProdutoAoPedidoComponentes.png)
+    - Remove Produto Pedido </br>
+      ![Remove Produto Pedido](./desenhos/RemoveProdutoPedidoComponentes.png)
+    - Avança Pedido </br>
+      ![Avança Pedido](./desenhos/AvancaPedidoComponentes.png)
+    - Lista Pedidos e Lista Pedidos na Fila </br>
+      ![Lista Pedidos e Lista Pedidos na Fila](./desenhos/ListaPedidosComponentes.png)
 
 - Webhooks
-  - Pagamentos </br>
-  ![Webhook Pagamentos](./desenhos/WebhookPagamentoComponentes.png)
+    - Pagamentos </br>
+      ![Webhook Pagamentos](./desenhos/WebhookPagamentoComponentes.png)
 
 ## Estrutura do Projeto
 
 - Entrypoint: Entrada de acesso externo para a aplicação
-  - Api: Entrada de acesso via Rest a aplicação
-  - Controller: Controlador da lógica dos UseCases do que chega na aplicação.
-  - Presenter: Camada que faz algumas transformações de dados para serem apresentadas.
+    - Api: Entrada de acesso via Rest a aplicação
+    - Controller: Controlador da lógica dos UseCases do que chega na aplicação.
+    - Presenter: Camada que faz algumas transformações de dados para serem apresentadas.
 - Core: Sem acesso ao mundo externo, livre de frameworks e isolado.
-  - Domain: Pode ser acesso por qualquer um.
-  - Usecase: Regras de negócio
-  - Dataprovider: Interfaces para o dados do mundo externo
+    - Domain: Pode ser acesso por qualquer um.
+    - Usecase: Regras de negócio
+    - Dataprovider: Interfaces para o dados do mundo externo
 - Dataprovider: Implmentações para o mundo externo
     - Gateway: Implementações das Interfaces de acesso do Core.
     - Repository: Database
@@ -136,10 +136,23 @@ Para executar o script, siga os passos abaixo:
     ./setup.sh
     ```
 
+## Executar Local com Kubernetes
+
+1. **Criar RDS** </br>
+   Dentro de Infra/aws existe alguns scripts que são necessários para subir aplicação já que ela faz uso de RDS. É
+   necessário um SG para acesso externo e um RDS que chame ele. </br>
+
+2. **Rodando kubectl**
+
+```sh
+cd infra && kubectl apply -f kubernetes.yml
+```
+
 ## Endpoints
 
 Os Endpoints da aplicação, podem ser acessados pelo Swagger ao rodar o projeto na
 url http://localhost:8080/swagger-ui/index.html
 
-**Caso preferir pode importar a collection Insomnia que se encontra no projeto, no arquivo Insomnia Collection, porém será
+**Caso preferir pode importar a collection Insomnia que se encontra no projeto, no arquivo Insomnia Collection, porém
+será
 necessário o Insomnia instalado.**
