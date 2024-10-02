@@ -28,13 +28,3 @@ external-apis:
     vendedor-id: ${SELLER_ID:827114336}
     caixa-id: ${CAIXA_ID:LOJALD01POS01}
     token: ${MERCADO_PAGO_TOKEN:TEST-3657452763101763-100208-0446e47cd6850436418091b63a34c651-827114336}
-
-logging:
-  level:
-    com.leodelmiro.estabelecimento.dataprovider.client: DEBUG
-
-feign:
-  client:
-    config:
-      MercadoPagoClient:
-        loggerLevel: full
