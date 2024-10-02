@@ -14,6 +14,7 @@ public class Pedido {
     private BigDecimal precoTotal;
     private StatusPedido status;
     private Long tempoTotalDePreparoEmSegundos;
+    private String qrCode;
     private LocalDateTime pagoEm;
     private LocalDateTime criadoEm;
 
@@ -43,6 +44,7 @@ public class Pedido {
                   BigDecimal precoTotal,
                   StatusPedido status,
                   Long tempoTotalDePreparoEmSegundos,
+                  String qrCode,
                   LocalDateTime criadoEm) {
         if (cliente == null) throw new IllegalArgumentException("Cliente não pode ser null");
         if (precoTotal == null || precoTotal.compareTo(BigDecimal.ZERO) < 0)
@@ -55,6 +57,7 @@ public class Pedido {
         this.cliente = cliente;
         this.precoTotal = precoTotal;
         this.status = status;
+        this.qrCode = qrCode;
         this.tempoTotalDePreparoEmSegundos = tempoTotalDePreparoEmSegundos;
         this.criadoEm = criadoEm;
     }
@@ -89,6 +92,14 @@ public class Pedido {
 
     public void setStatus(StatusPedido status) {
         this.status = status;
+    }
+
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
     }
 
     public Long getTempoTotalDePreparoEmSegundos() {
@@ -167,27 +178,44 @@ public class Pedido {
     }
 
     public void avancarStatus() {
-        if (this.getStatus() == StatusPedido.AGUARDANDO_PAGAMENTO && !this.estaPago())
-            throw new IllegalStateException("Produto precisa ser pago para avançar");
+        validarAvancoStatus();
 
         this.status = this.status.next();
     }
 
-    private boolean estaPago() {
-        return pagoEm != null;
+    private void validarAvancoStatus() {
+        if (estaAguardandoPagamentoEComPagamentoPendente())
+            throw new IllegalStateException("Produto precisa ser pago para avançar");
+        if (estaPendenteFechamentoESemQrCode())
+            throw new IllegalStateException("Produto precisa ser pago para avançar");
     }
 
+    private boolean estaAguardandoPagamentoEComPagamentoPendente() {
+        return this.getStatus() == StatusPedido.AGUARDANDO_PAGAMENTO && !this.estaPago();
+    }
+
+    private boolean estaPendenteFechamentoESemQrCode() {
+        return this.getStatus() == PENDENTE_FECHAMENTO && this.estaPago();
+    }
+
+    private boolean estaPago() {
+        return this.pagoEm != null;
+    }
+
+    private boolean estaComQrCode() {
+        return this.qrCode != null;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pedido pedido = (Pedido) o;
-        return Objects.equals(id, pedido.id) && Objects.equals(cliente, pedido.cliente) && Objects.equals(precoTotal, pedido.precoTotal) && status == pedido.status && Objects.equals(tempoTotalDePreparoEmSegundos, pedido.tempoTotalDePreparoEmSegundos) && Objects.equals(pagoEm, pedido.pagoEm) && Objects.equals(criadoEm, pedido.criadoEm) && Objects.equals(itens, pedido.itens);
+        return Objects.equals(id, pedido.id) && Objects.equals(cliente, pedido.cliente) && Objects.equals(precoTotal, pedido.precoTotal) && status == pedido.status && Objects.equals(tempoTotalDePreparoEmSegundos, pedido.tempoTotalDePreparoEmSegundos) && Objects.equals(qrCode, pedido.qrCode) && Objects.equals(pagoEm, pedido.pagoEm) && Objects.equals(criadoEm, pedido.criadoEm) && Objects.equals(itens, pedido.itens);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, cliente, precoTotal, status, tempoTotalDePreparoEmSegundos, pagoEm, criadoEm, itens);
+        return Objects.hash(id, cliente, precoTotal, status, tempoTotalDePreparoEmSegundos, qrCode, pagoEm, criadoEm, itens);
     }
 }

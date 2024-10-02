@@ -28,6 +28,8 @@ public class PedidoEntity {
 
     private Long tempoTotalDePreparoEmSegundos;
 
+    private String qrCode;
+
     private LocalDateTime pagoEm;
 
     @Column(nullable = false, updatable = false)
@@ -107,5 +109,13 @@ public class PedidoEntity {
 
     public List<ItemPedidoEntity> getItens() {
         return this.itens;
+    }
+
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
     }
 }

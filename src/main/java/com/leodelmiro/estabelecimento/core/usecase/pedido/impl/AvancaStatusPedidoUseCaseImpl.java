@@ -5,7 +5,7 @@ import com.leodelmiro.estabelecimento.core.dataprovider.pedido.AvancaStatusPedid
 import com.leodelmiro.estabelecimento.core.usecase.pedido.AvancaStatusPedidoUseCase;
 import com.leodelmiro.estabelecimento.core.usecase.pedido.BuscaPedidoUseCase;
 
-import static com.leodelmiro.estabelecimento.core.domain.StatusPedido.FINALIZADO;
+import static com.leodelmiro.estabelecimento.core.domain.StatusPedido.*;
 
 public class AvancaStatusPedidoUseCaseImpl implements AvancaStatusPedidoUseCase {
 
@@ -27,7 +27,7 @@ public class AvancaStatusPedidoUseCaseImpl implements AvancaStatusPedidoUseCase 
     }
 
     private void validarPedido(Pedido pedidoAAvancar) {
-        if (isPedidoSemItens(pedidoAAvancar)) throw new IllegalStateException("Impossível avancar pedido sem itens");
+        if (isPedidoAFechar(pedidoAAvancar)) throw new IllegalStateException("Pedidos a fechar devem ser feito pelo Fechar Pedido");
         if (isPedidoFinalizado(pedidoAAvancar)) throw new IllegalStateException("Impossível avancar pedido já finalizado");
     }
 
@@ -35,7 +35,7 @@ public class AvancaStatusPedidoUseCaseImpl implements AvancaStatusPedidoUseCase 
         return pedido.getStatus() == FINALIZADO;
     }
 
-    private boolean isPedidoSemItens(Pedido pedido) {
-        return pedido.getItens().isEmpty();
+    private boolean isPedidoAFechar(Pedido pedido) {
+        return pedido.getStatus() == PENDENTE_FECHAMENTO;
     }
 }

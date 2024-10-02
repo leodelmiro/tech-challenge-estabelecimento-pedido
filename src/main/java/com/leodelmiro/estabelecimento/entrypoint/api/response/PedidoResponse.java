@@ -15,6 +15,7 @@ public record PedidoResponse(
         BigDecimal precoTotal,
         StatusPedido status,
         Long tempoTotalDePreparoEmSegundos,
+        String qrCode,
         LocalDateTime pagoEm,
         LocalDateTime criadoEm,
         List<ItemPedidoResponse> itens

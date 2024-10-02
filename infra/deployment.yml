@@ -47,6 +47,16 @@ spec:
                 configMapKeyRef:
                   name: backend-estabelecimento-configmap
                   key: db_password
+            - name: MERCADO_PAGO_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-estabelecimento-configmap
+                  key: mercado_pago_url
+            - name: MERCADO_PAGO_TOKEN
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-estabelecimento-configmap
+                  key: mercado_pago_token
           ports:
             - name: http-port
               containerPort: 8080

@@ -41,6 +41,9 @@ public class PedidoApi {
     private AvancaStatusPedidoUseCase avancaStatusPedidoUseCase;
 
     @Autowired
+    private FecharPedidoUseCase fecharPedidoUseCase;
+
+    @Autowired
     private PedidoMapper pedidoMapper;
 
     @Operation(
@@ -116,11 +119,23 @@ public class PedidoApi {
             summary = "Avança Status de um Pedido",
             description = "Realiza o avanço de um Pedido para o próximo Status")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Pedido removido com sucesso")
+            @ApiResponse(responseCode = "200", description = "Pedido avançado com sucesso")
     })
     @PatchMapping("/{id}/avanca")
     public ResponseEntity<PedidoResponse> avancaStatus(@PathVariable Long id) {
-        var pedidoResponse = PedidoController.avancaStatus(id, avancaStatusPedidoUseCase, pedidoMapper);
+        var pedidoResponse = PedidoController.avancarStatus(id, avancaStatusPedidoUseCase, pedidoMapper);
+        return ResponseEntity.ok().body(pedidoResponse);
+    }
+
+    @Operation(
+            summary = "Fecha pedido",
+            description = "Fecha pedido para que seja gerado QR Code de Pagamento")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pedido fechado com sucesso")
+    })
+    @PatchMapping("/{id}/fecha")
+    public ResponseEntity<PedidoResponse> fecha(@PathVariable Long id) {
+        var pedidoResponse = PedidoController.fechar(id, fecharPedidoUseCase, pedidoMapper);
         return ResponseEntity.ok().body(pedidoResponse);
     }
 

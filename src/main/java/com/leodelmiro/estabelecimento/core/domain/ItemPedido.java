@@ -1,5 +1,7 @@
 package com.leodelmiro.estabelecimento.core.domain;
 
+import java.math.BigDecimal;
+
 public class ItemPedido {
     private Long id;
     private Produto produto;
@@ -45,5 +47,9 @@ public class ItemPedido {
 
     public Boolean temProduto(Long idProduto) {
         return this.getProduto().getId().equals(idProduto);
+    }
+
+    public BigDecimal valorTotal() {
+        return this.produto.getPreco().multiply(BigDecimal.valueOf(this.quantidade));
     }
 }

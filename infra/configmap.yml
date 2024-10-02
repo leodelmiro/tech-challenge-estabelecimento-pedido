@@ -7,3 +7,5 @@ data:
   db_url: jdbc:postgresql://estabelecimento.cxhd5ilcfd6d.us-east-1.rds.amazonaws.com:5432/estabelecimento
   db_username: "postgres"
   db_password: "12345678"
+  mercado_pago_url: "https://api.mercadopago.com/"
+  mercado_pago_token: "TEST-3657452763101763-100208-0446e47cd6850436418091b63a34c651-827114336"

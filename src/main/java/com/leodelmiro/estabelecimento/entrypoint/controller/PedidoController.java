@@ -16,7 +16,7 @@ public class PedidoController {
     public static PedidoResponse iniciar(String cpf,
                                          IniciaPedidoUseCase iniciaPedidoUseCase,
                                          PedidoMapper pedidoMapper) {
-        var pedido = iniciaPedidoUseCase.iniciar((cpf.isEmpty()) ? null: new CPF(cpf));
+        var pedido = iniciaPedidoUseCase.iniciar((cpf.isEmpty()) ? null : new CPF(cpf));
         return pedidoMapper.toPedidoResponse(pedido);
     }
 
@@ -58,10 +58,17 @@ public class PedidoController {
     }
 
 
-    public static PedidoResponse avancaStatus(Long id,
-                                              AvancaStatusPedidoUseCase avancaStatusPedidoUseCase,
-                                              PedidoMapper pedidoMapper) {
+    public static PedidoResponse avancarStatus(Long id,
+                                               AvancaStatusPedidoUseCase avancaStatusPedidoUseCase,
+                                               PedidoMapper pedidoMapper) {
         var pedido = avancaStatusPedidoUseCase.avancar(id);
+        return pedidoMapper.toPedidoResponse(pedido);
+    }
+
+    public static PedidoResponse fechar(Long id,
+                                        FecharPedidoUseCase fecharPedidoUseCase,
+                                        PedidoMapper pedidoMapper) {
+        var pedido = fecharPedidoUseCase.fechar(id);
         return pedidoMapper.toPedidoResponse(pedido);
     }
 }
