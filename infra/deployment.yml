@@ -22,7 +22,7 @@ spec:
       serviceAccountName: backend-estabelecimento-serviceaccount
       containers:
         - name: backend-estabelecimento-app
-          image: leodelmiro/fiap-estabelecimento:1727662233
+          image: leodelmiro/fiap-estabelecimento:latest
           imagePullPolicy: Always
           resources:
             requests:
