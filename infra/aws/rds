@@ -7,7 +7,7 @@ aws rds create-db-instance \
     --master-user-password 12345678 \
     --db-name estabelecimento \
     --backup-retention-period 1 \
-    --vpc-security-group-ids sg-0faf0fb4d4fd4bd55 \
+    --vpc-security-group-ids sg-0f288c0b2f529c7b3 \
     --availability-zone us-east-1a \
     --publicly-accessible \
     --no-multi-az

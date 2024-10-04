@@ -4,7 +4,7 @@ aws ec2 create-security-group \
     --vpc-id vpc-0db82fa3bc35a8c25
 
 aws ec2 authorize-security-group-ingress \
-    --group-id sg-0faf0fb4d4fd4bd55 \
+    --group-id sg-0f288c0b2f529c7b3 \
     --protocol tcp \
     --port 5432 \
     --cidr 0.0.0.0/0

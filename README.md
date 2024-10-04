@@ -136,7 +136,7 @@ Para executar o script, siga os passos abaixo:
     ./setup.sh
     ```
 
-## Executar Local com Kubernetes
+## Executar Local com Kubernetes na AWS
 
 1. **Criar RDS** </br>
    Dentro de Infra/aws existe alguns scripts que são necessários para subir aplicação já que ela faz uso de RDS. É
