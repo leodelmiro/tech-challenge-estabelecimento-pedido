@@ -13,7 +13,9 @@
 ## Breve Descrição
 
 Aplicação se trata de um Projeto Fiap Tech Challenge - Software Architecture, simulando um projeto de um estabelecimento
-de pedidos (fast-food), nesta primeira fase a arquitetura da aplicação consiste em usar Hexagonal.
+de pedidos (fast-food).
+
+Este repositório é referen na aplicação com a Solução em Clean Architecture
 
 ## Tecnologias Utilizadas
 
@@ -130,25 +132,6 @@ Para executar o script, siga os passos abaixo:
 
     ```sh
     ./setup.sh
-    ```
-
-## Executar Local com Kubernetes na AWS
-
-1. **Criar RDS** </br>
-   Dentro de Infra/aws existe alguns scripts que são necessários para subir aplicação já que ela faz uso de RDS. É
-   necessário um SG para acesso externo e um RDS que chame ele. </br>
-
-2. **Criar EKS** </br>
-   Dentro de Infra/aws existe alguns scripts que são necessários para criar um cluster EKS. É necessário também um
-   NodeGroup. </br>
-
-3. **Mudando o contexto do kubectl**
-    ```sh
-    aws eks update-kubeconfig --region us-east-1 --name my-cluster
-    ```
-4. **Rodando kubectl**
-    ```sh
-    cd infra && kubectl apply -f kubernetes.yml
     ```
 
 ## Endpoints
