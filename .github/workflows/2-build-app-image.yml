@@ -42,6 +42,10 @@ jobs:
         with:
           name: jar-artifact
           path: target/
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -52,15 +56,19 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
-      - name: Build, tag, and push image to Amazon ECR
-        id: build-image
+      - name: Build & Push image
+        uses: docker/build-push-action@v3
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+        with:
+          context: .
+          registry: ${{ steps.login-ecr.outputs.registry }}
+          push: true
+          tags: leodelmiro/fiap-estabelecimento:{{ IMAGE_TAG }}
+      - name: Image Created
+        id: image-created
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          # Build a docker container and
-          # push it to ECR so that it can
-          # be deployed to ECS.
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
