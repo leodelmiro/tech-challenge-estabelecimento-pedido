@@ -58,13 +58,11 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
       - name: Build & Push image
         uses: docker/build-push-action@v3
-        env:
-          IMAGE_TAG: ${{ github.sha }}
         with:
           context: .
           registry: ${{ steps.login-ecr.outputs.registry }}
           push: true
-          tags: ${{ steps.login-ecr.outputs.registry }}/fiap-estabelecimento:${{ env.IMAGE_TAG }}
+          tags: ${{ steps.login-ecr.outputs.registry }}/fiap-estabelecimento
       - name: Image Created
         id: image-created
         env:
