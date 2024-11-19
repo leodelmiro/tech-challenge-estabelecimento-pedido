@@ -15,7 +15,12 @@
 Aplicação se trata de um Projeto Fiap Tech Challenge - Software Architecture, simulando um projeto de um estabelecimento
 de pedidos (fast-food).
 
-Este repositório é referen na aplicação com a Solução em Clean Architecture
+Este repositório é referente a aplicação com a Solução em Clean Architecture
+
+### Demais repositórios
+-
+-
+-
 
 ## Tecnologias Utilizadas
 
@@ -96,7 +101,7 @@ Certifique-se de ter as seguintes ferramentas instaladas:
 Clone o repositório do projeto:
 
 ```sh
-git clone https://github.com/leodelmiro/tech-challenge-estabelecimento
+git clone https://github.com/leodelmiro/tech-challenge-estabelecimento-app
 ```
 
 ### 3. Executar o Script de Setup
@@ -132,7 +137,7 @@ Para executar o script, siga os passos abaixo:
 
     ```sh
     ./setup.sh
-    ```
+    ```"
 
 ## Endpoints
 
