@@ -35,3 +35,5 @@ build/
 ### VS Code ###
 .terraform/
 .terraform.lock.*
+*terraform.tfstate.*
+terraform.tfstate
