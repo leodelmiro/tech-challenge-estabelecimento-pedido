@@ -1,4 +1,4 @@
-name: 3 - [ECR] Build Docker Image
+name: 5 - [ECR] Build Docker Image
 
 on:
   pull_request:
