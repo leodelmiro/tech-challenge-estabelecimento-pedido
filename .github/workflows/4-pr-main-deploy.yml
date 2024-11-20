@@ -97,7 +97,7 @@ jobs:
         run: |
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
       - name: Update kube config
-        run: aws eks update-kubeconfig --region us-east-1 --name java_app_cluster
+        run: aws eks update-kubeconfig --region us-east-1 --name tech-fiap-app
       - name: Check for Kubernetes Secret
         id: check-secret
         run: |
