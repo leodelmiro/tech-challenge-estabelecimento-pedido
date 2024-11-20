@@ -4,7 +4,7 @@ metadata:
   name: backend-estabelecimento-configmap
   namespace: backend-estabelecimento
 data:
-  db_url: jdbc:postgresql://estabelecimento.cxhd5ilcfd6d.us-east-1.rds.amazonaws.com:5432/estabelecimento
+  db_url: jdbc:postgresql://estabelecimento.cpmueqg0y0dn.us-east-1.rds.amazonaws.com:5432/estabelecimento
   db_username: "postgres"
   db_password: "12345678"
   mercado_pago_url: "https://api.mercadopago.com/"
