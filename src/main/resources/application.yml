@@ -7,11 +7,11 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-  data:
-    redis:
-      host: ${SPRING_REDIS_URL:localhost}
-      port: ${SPRING_REDIS_PORT:6379}
-      password: ${SPRING_REDIS_PASSWORD:redis}
+#  data:
+#    redis:
+#      host: ${SPRING_REDIS_URL:localhost}
+#      port: ${SPRING_REDIS_PORT:6379}
+#      password: ${SPRING_REDIS_PASSWORD:redis}
 
 management:
   endpoints:
