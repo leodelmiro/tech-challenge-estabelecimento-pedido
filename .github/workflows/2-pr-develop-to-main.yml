@@ -1,4 +1,4 @@
-name: 3 - [DEVELOP] Build app e Push Image
+name: 2 - [DEVELOP] Build app e Push Image
 
 on:
   pull_request:
