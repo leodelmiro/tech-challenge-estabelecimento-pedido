@@ -10,6 +10,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.merged == true }}
     env:
       SECRET_NAME: 'ecrpullsecret'
       ECR_USERNAME: 'AWS'

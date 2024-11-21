@@ -1,4 +1,4 @@
-name: 2 - [FEAT] Terraform Format and Validate
+name: 2 - [FEAT] Execute Tests
 
 on:
   pull_request:
@@ -8,7 +8,6 @@ on:
 jobs:
   run-tests:
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.merged == true }}
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 21
