@@ -17,7 +17,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Tests
-        run: mvn -B test --file ./pom.xml
+        run: mvn -B test
       - name: Create pull request
         id: open-pr
         uses: repo-sync/pull-request@v2
