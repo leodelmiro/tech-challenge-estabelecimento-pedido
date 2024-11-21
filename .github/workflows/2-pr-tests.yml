@@ -2,6 +2,9 @@ name: 2 - [FEAT] Execute Tests
 
 on:
   pull_request:
+    types:
+      - "opened"
+      - "synchronize"
     branches:
       - "develop"
 
