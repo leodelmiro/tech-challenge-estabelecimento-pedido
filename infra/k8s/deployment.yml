@@ -24,8 +24,6 @@ spec:
         - name: backend-estabelecimento-app
           image: 975049952960.dkr.ecr.us-east-1.amazonaws.com/fiap-estabelecimento:latest
           imagePullPolicy: Always
-          imagePullSecrets:
-            - name: ecrpullsecret
           resources:
             requests:
               cpu: "256m"
