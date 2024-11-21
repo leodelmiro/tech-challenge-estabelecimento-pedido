@@ -40,4 +40,4 @@ jobs:
           kubectl apply -f ./deployment/k8s/serviceaccount.yml
           kubectl apply -f ./deployment/k8s/deployment.yml
           kubectl apply -f ./deployment/k8s/service.yml
-          kubectl apply -f ./infra/k8s/hpa.yml
+          kubectl apply -f ./deployment/k8s/hpa.yml
