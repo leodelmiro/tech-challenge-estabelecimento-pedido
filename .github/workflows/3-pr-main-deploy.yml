@@ -11,10 +11,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     if: ${{ github.event.pull_request.merged == true }}
-    env:
-      SECRET_NAME: 'ecrpullsecret'
-      ECR_USERNAME: 'AWS'
-      ECR_EMAIL: 'leodelmiroms@gmail.com'
     steps:
       - uses: actions/checkout@v4
       - uses: azure/setup-kubectl@v4
@@ -33,8 +29,11 @@ jobs:
       - name: Update kube config
         run: aws eks update-kubeconfig --region us-east-1 --name tech-fiap-app
       - name: Deploy to EKS
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: latest
         run: |
-          echo $(kubectl version) >> $GITHUB_OUTPUT
+          sed -i.bak "s|DOCKER_IMAGE|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|g" deployment/k8s/deployment.yml && \
           kubectl apply -f deployment/k8s/namespace.yml 
           kubectl apply -f deployment/k8s/configmap.yml
           kubectl apply -f deployment/k8s/serviceaccount.yml
