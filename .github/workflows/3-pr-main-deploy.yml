@@ -18,9 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: azure/setup-kubectl@v4
-        id: install-kubectl
         with:
-          version: '1.30'
+          version: 'v1.30.0'
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
