@@ -6,6 +6,7 @@ import com.leodelmiro.estabelecimento.dataprovider.repository.mapper.ProdutoEnti
 import com.leodelmiro.estabelecimento.core.domain.Produto;
 import com.leodelmiro.estabelecimento.core.dataprovider.produto.ListaProdutosGateway;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,30 +23,35 @@ public class ListaProdutosGatewayImpl implements ListaProdutosGateway {
     private ProdutoEntityMapper produtoEntityMapper;
 
     @Override
+    @Cacheable(cacheNames = "produtos")
     public Set<Produto> listarTodos() {
         List<ProdutoEntity> produtosEntity = produtoRepository.findAll();
         return transformarListaProdutosEntityParaSetProdutos(produtosEntity);
     }
 
     @Override
+    @Cacheable(cacheNames = "lanches")
     public Set<Produto> listarPorLanches() {
         List<ProdutoEntity> produtosEntity = produtoRepository.listarPorLanches();
         return transformarListaProdutosEntityParaSetProdutos(produtosEntity);
     }
 
     @Override
+    @Cacheable(cacheNames = "acompanhamentos")
     public Set<Produto> listarPorAcompanhamentos() {
         List<ProdutoEntity> produtosEntity = produtoRepository.listarPorAcompanhamentos();
         return transformarListaProdutosEntityParaSetProdutos(produtosEntity);
     }
 
     @Override
+    @Cacheable(cacheNames = "bebidas")
     public Set<Produto> listarPorBebidas() {
         List<ProdutoEntity> produtosEntity = produtoRepository.listarPorBebidas();
         return transformarListaProdutosEntityParaSetProdutos(produtosEntity);
     }
 
     @Override
+    @Cacheable(cacheNames = "sobremesas")
     public Set<Produto> listarPorSobremesas() {
         List<ProdutoEntity> produtosEntity = produtoRepository.listarPorSobremesas();
         return transformarListaProdutosEntityParaSetProdutos(produtosEntity);
