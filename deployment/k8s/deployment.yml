@@ -57,6 +57,11 @@ spec:
                 configMapKeyRef:
                   name: backend-estabelecimento-configmap
                   key: mercado_pago_token
+            - name: SPRING_REDIS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-estabelecimento-configmap
+                  key: redis_url
           ports:
             - name: http-port
               containerPort: 8080
