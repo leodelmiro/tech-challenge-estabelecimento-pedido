@@ -33,7 +33,6 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: latest
         run: |
-          echo $(kubectl version)
           sed -i.bak "s|DOCKER_IMAGE|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|g" deployment/k8s/deployment.yml && \
           kubectl apply -f ./deployment/k8s/namespace.yml 
           kubectl apply -f ./deployment/k8s/configmap.yml
