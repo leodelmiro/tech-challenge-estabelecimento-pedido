@@ -18,9 +18,10 @@ de pedidos (fast-food).
 Este repositório é referente a aplicação com a Solução em Clean Architecture
 
 ### Demais repositórios
--
--
--
+- https://github.com/leodelmiro/tech-challenge-estabelecimento-db
+- https://github.com/leodelmiro/tech-challenge-estabelecimento-infra
+- https://github.com/leodelmiro/tech-challenge-estabelecimento-lambda-authorizer
+- https://github.com/leodelmiro/tech-challenge-estabelecimento-gtw
 
 ## Tecnologias Utilizadas
 
