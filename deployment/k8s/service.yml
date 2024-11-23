@@ -4,7 +4,7 @@ metadata:
   name: backend-estabelecimento-svc
   namespace: backend-estabelecimento
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app.kubernetes.io/name: backend-estabelecimento-app
   ports:
@@ -12,3 +12,4 @@ spec:
       protocol: TCP
       port: 80
       targetPort: 8080
+      nodePort: 30007
