@@ -86,6 +86,8 @@ Este repositório é referente a aplicação com a Solução em Clean Architectu
     - Gateway: Implementações das Interfaces de acesso do Core.
     - Repository: Database
 - Config: Configurações do Projeto
+- Deployment:
+  - Arquivos Kubernetes para deploy
 
 ## Rodando o Projeto Local
 
