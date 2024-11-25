@@ -20,6 +20,7 @@ public class EditaProdutoGatewayImpl implements EditaProdutoGateway {
 
     @Override
     @Caching(evict = {
+            @CacheEvict(cacheNames = "produto", key = "#id"),
             @CacheEvict(cacheNames = "produtos", allEntries = true),
             @CacheEvict(cacheNames = "lanches", allEntries = true),
             @CacheEvict(cacheNames = "acompanhamentos", allEntries = true),
