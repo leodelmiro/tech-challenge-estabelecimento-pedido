@@ -140,7 +140,7 @@ Para executar o script, siga os passos abaixo:
 
     ```sh
     ./setup.sh
-    ```"
+    ```
 
 ## Endpoints
 
