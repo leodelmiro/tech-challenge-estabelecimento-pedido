@@ -19,7 +19,6 @@ public class BuscaProdutoGatewayImpl implements BuscaProdutoGateway {
     private ProdutoEntityMapper produtoEntityMapper;
 
     @Override
-    @Cacheable(cacheNames = "produto", key = "#id", unless = "#result == null")
     public Produto buscar(Long id) {
         ProdutoEntity produto = produtoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
         return produtoEntityMapper.toProduto(produto);
