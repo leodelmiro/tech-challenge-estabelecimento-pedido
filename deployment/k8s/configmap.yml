@@ -1,12 +1,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: backend-estabelecimento-configmap
+  name: backend-pedido-configmap
   namespace: backend-estabelecimento
 data:
-  db_url: jdbc:postgresql://estabelecimento.cpmueqg0y0dn.us-east-1.rds.amazonaws.com:5432/estabelecimento
-  db_username: "postgres"
-  db_password: "12345678"
   mercado_pago_url: "https://api.mercadopago.com/"
   mercado_pago_token: "TEST-3657452763101763-100208-0446e47cd6850436418091b63a34c651-827114336"
-  redis_url: redis-estabelecimento.z1mqaz.0001.use1.cache.amazonaws.com

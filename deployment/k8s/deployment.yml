@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-estabelecimento-app
+  name: backend-pedido-app
   namespace: backend-estabelecimento
   labels:
-    app.kubernetes.io/name: backend-estabelecimento-app
+    app.kubernetes.io/name: backend-pedido-app
 spec:
   strategy:
     type: RollingUpdate
@@ -13,15 +13,15 @@ spec:
       maxSurge: 50%
   selector:
     matchLabels:
-      app.kubernetes.io/name: backend-estabelecimento-app
+      app.kubernetes.io/name: backend-pedido-app
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: backend-estabelecimento-app
+        app.kubernetes.io/name: backend-pedido-app
     spec:
-      serviceAccountName: backend-estabelecimento-serviceaccount
+      serviceAccountName: backend-pedido-serviceaccount
       containers:
-        - name: backend-estabelecimento-app
+        - name: backend-pedido-app
           image: DOCKER_IMAGE
           imagePullPolicy: Always
           resources:
@@ -32,21 +32,6 @@ spec:
               cpu: "512m"
               memory: "2048M"
           env:
-            - name: SPRING_DATASOURCE_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: backend-estabelecimento-configmap
-                  key: db_url
-            - name: SPRING_DATASOURCE_USERNAME
-              valueFrom:
-                configMapKeyRef:
-                  name: backend-estabelecimento-configmap
-                  key: db_username
-            - name: SPRING_DATASOURCE_PASSWORD
-              valueFrom:
-                configMapKeyRef:
-                  name: backend-estabelecimento-configmap
-                  key: db_password
             - name: MERCADO_PAGO_URL
               valueFrom:
                 configMapKeyRef:
@@ -57,11 +42,6 @@ spec:
                 configMapKeyRef:
                   name: backend-estabelecimento-configmap
                   key: mercado_pago_token
-            - name: SPRING_REDIS_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: backend-estabelecimento-configmap
-                  key: redis_url
           ports:
             - name: http-port
               containerPort: 8080

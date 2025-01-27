@@ -1,15 +1,37 @@
-version: "3.8"
-
 services:
-  localstack:
-    container_name: "${LOCALSTACK_DOCKER_NAME:-localstack-main}"
-    image: localstack/localstack
-    ports:
-      - "127.0.0.1:4566:4566"            # LocalStack Gateway
-      - "127.0.0.1:4510-4559:4510-4559"  # external services port range
+  db:
+    image: postgres:13
+    container_name: postgres-db
     environment:
-      # LocalStack configuration: https://docs.localstack.cloud/references/configuration/
-      - DEBUG=${DEBUG:-0}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: pedido
+    ports:
+      - "5432:5432"
     volumes:
-      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
-      - "/var/run/docker.sock:/var/run/docker.sock"
+      - pgdata:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d
+    networks:
+      - backend
+
+  app-produto:
+    build:
+      context: ..
+      dockerfile: ./Dockerfile
+    container_name: spring-boot-app-pedido
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/pedido
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 1234
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - backend
+
+volumes:
+  pgdata:
+
+networks:
+  backend:

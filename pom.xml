@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.leodelmiro</groupId>
-    <artifactId>estabelecimento</artifactId>
+    <artifactId>pedido</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Estabelecimento - Tech Challenge</name>
-    <description>Projeto de Pedidos de Estabelecimento Tech Challenge Fiap</description>
+    <name>Estabelecimento - Tech Challenge - App Pedido</name>
+    <description>Microsserviço de Cliente de um Pedido - Tech Challenge Fiap</description>
     <url/>
     <licenses>
         <license/>

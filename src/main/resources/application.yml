@@ -1,16 +1,12 @@
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/estabelecimento}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/pedido}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
     password: ${SPRING_DATASOURCE_PASSWORD:1234}
   jpa:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-  data:
-    redis:
-      host: ${SPRING_REDIS_URL:localhost}
-      port: ${SPRING_REDIS_PORT:6379}
 
 management:
   endpoints:
@@ -27,8 +23,7 @@ management:
       context-path: /actuator
 
 external-apis:
-  mercadopago:
-    url: ${MERCADO_PAGO_URL:https://api.mercadopago.com/}
-    vendedor-id: ${SELLER_ID:827114336}
-    caixa-id: ${CAIXA_ID:LOJALD01POS01}
-    token: ${MERCADO_PAGO_TOKEN:TEST-3657452763101763-100208-0446e47cd6850436418091b63a34c651-827114336}
+  cliente:
+    url: ${CLIENTE_URL:http://localhost:8081/api/v1}
+  produto:
+    url: ${PRODUTO_URL:http://localhost:8082/api/v1}

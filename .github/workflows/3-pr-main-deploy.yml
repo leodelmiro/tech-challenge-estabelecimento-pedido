@@ -31,7 +31,7 @@ jobs:
       - name: Deploy to EKS
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: fiap-estabelecimento
+          ECR_REPOSITORY: fiap-pedido
           IMAGE_TAG: latest
         run: |
           sed -i.bak "s|DOCKER_IMAGE|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|g" deployment/k8s/deployment.yml && \
