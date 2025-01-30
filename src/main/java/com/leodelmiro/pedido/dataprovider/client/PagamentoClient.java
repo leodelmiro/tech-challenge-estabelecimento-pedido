@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-@FeignClient(name = "produtoClient", url = "${external-apis.produto.url}")
+@FeignClient(name = "pagamentoClient", url = "${external-apis.pagamento.url}")
 public interface PagamentoClient {
     @PostMapping("/pagamentos")
     OrdemPagamentoResponse criaOrdem(@PathVariable OrdemPagamentoRequest ordemPagamentoRequest);

@@ -1,6 +1,7 @@
 package com.leodelmiro.pedido.dataprovider.repository.entity;
 
 import com.leodelmiro.pedido.core.domain.ItemPedido;
+import com.leodelmiro.pedido.core.domain.Pedido;
 import jakarta.persistence.*;
 
 @Entity
@@ -33,6 +34,10 @@ public class ItemPedidoEntity {
         this.pedido = pedido;
         this.produto = produto;
         this.quantidade = quantidade;
+    }
+
+    public ItemPedidoEntity(ItemPedido itemPedido, Pedido pedido) {
+        this(itemPedido.getId(), new PedidoEntity(pedido), itemPedido.getIdProduto(), itemPedido.getQuantidade());
     }
 
     public static ItemPedidoEntity doDominio(ItemPedido itemPedido, Long produtoEntity) {

@@ -4,8 +4,7 @@ import com.leodelmiro.pedido.core.dataprovider.pedido.PagaPedidoGateway;
 import com.leodelmiro.pedido.core.domain.Pedido;
 import com.leodelmiro.pedido.dataprovider.repository.PedidoRepository;
 import com.leodelmiro.pedido.dataprovider.repository.entity.ItemPedidoEntity;
-import com.leodelmiro.pedido.dataprovider.repository.mapper.ItemPedidoEntityMapper;
-import com.leodelmiro.pedido.dataprovider.repository.mapper.PedidoEntityMapper;
+import com.leodelmiro.pedido.dataprovider.repository.entity.PedidoEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,18 +17,12 @@ public class PagaPedidoGatewayImpl implements PagaPedidoGateway {
     @Autowired
     private PedidoRepository pedidoRepository;
 
-    @Autowired
-    private PedidoEntityMapper pedidoEntityMapper;
-
-    @Autowired
-    private ItemPedidoEntityMapper itemPedidoEntityMapper;
-
     @Override
     public void pagar(Pedido pedido) {
-        var pedidoEntity = pedidoEntityMapper.toPedidoEntity(pedido);
+        var pedidoEntity = new PedidoEntity(pedido);
         List<ItemPedidoEntity> itemPedidoEntities = pedido.getItens().stream()
                 .map(item -> {
-                    var itemPedidoEntity = itemPedidoEntityMapper.toItemPedidoEntity(item);
+                    var itemPedidoEntity = new ItemPedidoEntity(item, pedido);
                     itemPedidoEntity.setPedido(pedidoEntity);
                     return itemPedidoEntity;
                 })
@@ -37,7 +30,6 @@ public class PagaPedidoGatewayImpl implements PagaPedidoGateway {
 
         pedidoEntity.getItens().clear();
         pedidoEntity.addItens(itemPedidoEntities);
-        var pedidoPago = pedidoRepository.save(pedidoEntity);
-        pedidoEntityMapper.toPedido(pedidoPago);
+        pedidoRepository.save(pedidoEntity);
     }
 }

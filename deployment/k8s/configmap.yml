@@ -4,5 +4,9 @@ metadata:
   name: backend-pedido-configmap
   namespace: backend-estabelecimento
 data:
-  mercado_pago_url: "https://api.mercadopago.com/"
-  mercado_pago_token: "TEST-3657452763101763-100208-0446e47cd6850436418091b63a34c651-827114336"
+  db_url: jdbc:postgresql://pedido.cpmueqg0y0dn.us-east-1.rds.amazonaws.com:5432/pedido
+  db_username: "postgres"
+  db_password: "12345678"
+  cliente_url: "https://cliente.com/"
+  produto_url: "https://produto.com/"
+  pagamento_url: "https://pagamento.com/"

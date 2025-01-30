@@ -27,3 +27,5 @@ external-apis:
     url: ${CLIENTE_URL:http://localhost:8081/api/v1}
   produto:
     url: ${PRODUTO_URL:http://localhost:8082/api/v1}
+  pagamento:
+    url: ${PAGAMENTO_URL:http://localhost:8083/api/v1}

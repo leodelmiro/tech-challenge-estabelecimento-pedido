@@ -4,8 +4,7 @@ import com.leodelmiro.pedido.core.dataprovider.pedido.FecharPedidoGateway;
 import com.leodelmiro.pedido.core.domain.Pedido;
 import com.leodelmiro.pedido.dataprovider.repository.PedidoRepository;
 import com.leodelmiro.pedido.dataprovider.repository.entity.ItemPedidoEntity;
-import com.leodelmiro.pedido.dataprovider.repository.mapper.ItemPedidoEntityMapper;
-import com.leodelmiro.pedido.dataprovider.repository.mapper.PedidoEntityMapper;
+import com.leodelmiro.pedido.dataprovider.repository.entity.PedidoEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,18 +16,12 @@ public class FecharPedidoGatewayImpl implements FecharPedidoGateway {
     @Autowired
     private PedidoRepository pedidoRepository;
 
-    @Autowired
-    private PedidoEntityMapper pedidoEntityMapper;
-
-    @Autowired
-    private ItemPedidoEntityMapper itemPedidoEntityMapper;
-
     @Override
     public Pedido fechar(Pedido pedido) {
-        var pedidoEntity = pedidoEntityMapper.toPedidoEntity(pedido);
+        var pedidoEntity = new PedidoEntity(pedido);
         List<ItemPedidoEntity> itemPedidoEntities = pedido.getItens().stream()
                 .map(item -> {
-                    var itemPedidoEntity = itemPedidoEntityMapper.toItemPedidoEntity(item);
+                    var itemPedidoEntity = new ItemPedidoEntity(item, pedido);
                     itemPedidoEntity.setPedido(pedidoEntity);
                     return itemPedidoEntity;
                 })
@@ -37,6 +30,6 @@ public class FecharPedidoGatewayImpl implements FecharPedidoGateway {
         pedidoEntity.getItens().clear();
         pedidoEntity.addItens(itemPedidoEntities);
         var pedidoAvancado = pedidoRepository.save(pedidoEntity);
-        return pedidoEntityMapper.toPedido(pedidoAvancado);
+        return pedidoAvancado.toPedido();
     }
 }

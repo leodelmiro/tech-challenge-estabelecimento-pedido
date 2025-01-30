@@ -4,20 +4,20 @@ import java.math.BigDecimal;
 
 public class ItemPedido {
     private Long id;
-    private Produto produto;
+    private Long idProduto;
     private int quantidade;
 
     public ItemPedido() {
     }
 
-    public ItemPedido(Produto produto, int quantidade) {
-        this.produto = produto;
+    public ItemPedido(Long idProduto, int quantidade) {
+        this.idProduto = idProduto;
         this.quantidade = quantidade;
     }
 
-    public ItemPedido(Long id, Produto produto, int quantidade) {
+    public ItemPedido(Long id, Long idProduto, int quantidade) {
         this.id = id;
-        this.produto = produto;
+        this.idProduto = idProduto;
         this.quantidade = quantidade;
     }
 
@@ -29,12 +29,12 @@ public class ItemPedido {
         this.id = id;
     }
 
-    public Produto getProduto() {
-        return produto;
+    public Long getIdProduto() {
+        return idProduto;
     }
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
+    public void setIdProduto(Long idProduto) {
+        this.idProduto = idProduto;
     }
 
     public int getQuantidade() {
@@ -46,10 +46,10 @@ public class ItemPedido {
     }
 
     public Boolean temProduto(Long idProduto) {
-        return this.getProduto().getId().equals(idProduto);
+        return this.getIdProduto().equals(idProduto);
     }
 
-    public BigDecimal valorTotal() {
-        return this.produto.getPreco().multiply(BigDecimal.valueOf(this.quantidade));
+    public BigDecimal valorTotal(Produto produto) {
+        return produto.getPreco().multiply(BigDecimal.valueOf(this.quantidade));
     }
 }

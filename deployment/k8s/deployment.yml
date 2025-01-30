@@ -32,16 +32,36 @@ spec:
               cpu: "512m"
               memory: "2048M"
           env:
-            - name: MERCADO_PAGO_URL
+            - name: SPRING_DATASOURCE_URL
               valueFrom:
                 configMapKeyRef:
-                  name: backend-estabelecimento-configmap
-                  key: mercado_pago_url
-            - name: MERCADO_PAGO_TOKEN
+                  name: backend-pedido-configmap
+                  key: db_url
+            - name: SPRING_DATASOURCE_USERNAME
               valueFrom:
                 configMapKeyRef:
-                  name: backend-estabelecimento-configmap
-                  key: mercado_pago_token
+                  name: backend-pedido-configmap
+                  key: db_username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-pedido-configmap
+                  key: db_password
+            - name: CLIENTE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-pedido-configmap
+                  key: cliente_url
+            - name: PRODUTO_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-pedido-configmap
+                  key: produto_url
+            - name: PAGAMENTO_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-pedido-configmap
+                  key: pagamento_url
           ports:
             - name: http-port
               containerPort: 8080

@@ -4,7 +4,6 @@ import com.leodelmiro.pedido.dataprovider.repository.PedidoRepository;
 import com.leodelmiro.pedido.dataprovider.repository.entity.PedidoEntity;
 import com.leodelmiro.pedido.core.domain.Pedido;
 import com.leodelmiro.pedido.core.dataprovider.pedido.ListaPedidosGateway;
-import com.leodelmiro.pedido.dataprovider.repository.mapper.PedidoEntityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,9 +16,6 @@ public class ListaPedidosGatewayImpl implements ListaPedidosGateway {
 
     @Autowired
     private PedidoRepository pedidoRepository;
-
-    @Autowired
-    private PedidoEntityMapper pedidoEntityMapper;
 
     @Override
     public Set<Pedido> listarTodos() {
@@ -35,7 +31,7 @@ public class ListaPedidosGatewayImpl implements ListaPedidosGateway {
 
     private Set<Pedido> transformarListaPedidosEntityParaSetPedidos(List<PedidoEntity> pedidosEntity) {
         return pedidosEntity.stream()
-                .map(produtoEntity -> pedidoEntityMapper.toPedido(produtoEntity))
+                .map(PedidoEntity::toPedido)
                 .collect(Collectors.toSet());
     }
 }

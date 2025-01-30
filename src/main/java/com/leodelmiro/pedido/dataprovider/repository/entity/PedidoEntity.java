@@ -1,5 +1,6 @@
 package com.leodelmiro.pedido.dataprovider.repository.entity;
 
+import com.leodelmiro.pedido.core.domain.Pedido;
 import com.leodelmiro.pedido.core.domain.StatusPedido;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -36,6 +37,40 @@ public class PedidoEntity {
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<ItemPedidoEntity> itens = new ArrayList<>();
+
+    public PedidoEntity() {
+    }
+
+    public PedidoEntity(Long id,
+                        String clienteId,
+                        BigDecimal precoTotal,
+                        StatusPedido status,
+                        Long tempoTotalDePreparoEmSegundos,
+                        String ordemPagamentoId,
+                        LocalDateTime pagoEm,
+                        LocalDateTime criadoEm) {
+        this.id = id;
+        this.clienteId = clienteId;
+        this.precoTotal = precoTotal;
+        this.status = status;
+        this.tempoTotalDePreparoEmSegundos = tempoTotalDePreparoEmSegundos;
+        this.ordemPagamentoId = ordemPagamentoId;
+        this.pagoEm = pagoEm;
+        this.criadoEm = criadoEm;
+    }
+
+    public PedidoEntity(Pedido pedido) {
+        this(
+                pedido.getId(),
+                pedido.getCliente(),
+                pedido.getPrecoTotal(),
+                pedido.getStatus(),
+                pedido.getTempoTotalDePreparoEmSegundos(),
+                pedido.getOrdemPagamentoId(),
+                pedido.getPagoEm(),
+                pedido.getCriadoEm()
+        );
+    }
 
     public Long getId() {
         return id;
@@ -115,5 +150,17 @@ public class PedidoEntity {
 
     public void setOrdemPagamentoId(String ordemPagamentoId) {
         this.ordemPagamentoId = ordemPagamentoId;
+    }
+
+    public Pedido toPedido() {
+        return new Pedido(
+                this.id,
+                this.clienteId,
+                this.precoTotal,
+                this.status,
+                this.tempoTotalDePreparoEmSegundos,
+                this.ordemPagamentoId,
+                this.criadoEm
+        );
     }
 }

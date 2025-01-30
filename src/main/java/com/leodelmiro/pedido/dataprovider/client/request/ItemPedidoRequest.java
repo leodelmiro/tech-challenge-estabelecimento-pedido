@@ -22,16 +22,16 @@ public record ItemPedidoRequest(
         @JsonProperty("preco_total")
         Double precoTotal
 ) {
-    public ItemPedidoRequest(ItemPedido itemPedido) {
+    public ItemPedidoRequest(ItemPedido itemPedido, Produto produto) {
         this(
                 itemPedido.getId(),
-                itemPedido.getProduto().getId(),
-                itemPedido.getProduto().getCategoria().name(),
-                itemPedido.getProduto().getNome(),
-                itemPedido.getProduto().getDescricao(),
-                itemPedido.getProduto().getPreco().doubleValue(),
+                itemPedido.getIdProduto(),
+                produto.getCategoria().name(),
+                produto.getNome(),
+                produto.getDescricao(),
+                produto.getPreco().doubleValue(),
                 itemPedido.getQuantidade(),
-                itemPedido.valorTotal().doubleValue()
+                itemPedido.valorTotal(produto).doubleValue()
         );
     }
 }
