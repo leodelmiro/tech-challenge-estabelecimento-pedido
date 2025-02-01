@@ -46,7 +46,6 @@ public class Pedido {
                   Long tempoTotalDePreparoEmSegundos,
                   String ordemPagamentoId,
                   LocalDateTime criadoEm) {
-        if (cpf == null) throw new IllegalArgumentException("Cliente não pode ser null");
         if (precoTotal == null || precoTotal.compareTo(BigDecimal.ZERO) < 0)
             throw new IllegalArgumentException("Preço deve ser igual ou maior que 0");
         if (status == null) throw new IllegalArgumentException("Status não pode ser null");

@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS tb_pedido (
     preco_total DECIMAL(10, 2) DEFAULT 0,
     status INTEGER NOT NULL,
     tempo_total_de_preparo_em_segundos INTEGER,
-    pagamento_id TEXT,
+    ordem_pagamento_id TEXT,
     pago_em TIMESTAMP,
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
