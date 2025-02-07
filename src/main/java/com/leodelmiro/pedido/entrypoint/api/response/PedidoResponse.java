@@ -10,7 +10,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record PedidoResponse(
         Long id,
-        Long clienteId,
+        String clienteId,
         BigDecimal precoTotal,
         StatusPedido status,
         Long tempoTotalDePreparoEmSegundos,
