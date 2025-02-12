@@ -16,28 +16,33 @@ public class ItemPedidoEntity {
     @JoinColumn(name = "pedido_id")
     private PedidoEntity pedido;
 
-    private Long produto;
+    private Long produtoId;
 
     private int quantidade;
 
     public ItemPedidoEntity() {
     }
 
-    public ItemPedidoEntity(PedidoEntity pedido, Long produto, int quantidade) {
+    public ItemPedidoEntity(PedidoEntity pedido, Long produtoId, int quantidade) {
         this.pedido = pedido;
-        this.produto = produto;
+        this.produtoId = produtoId;
         this.quantidade = quantidade;
     }
 
-    public ItemPedidoEntity(Long id, PedidoEntity pedido, Long produto, int quantidade) {
+    public ItemPedidoEntity(ItemPedido itemPedido) {
+        this.produtoId = itemPedido.getProdutoId();
+        this.quantidade = itemPedido.getQuantidade();
+    }
+
+    public ItemPedidoEntity(Long id, PedidoEntity pedido, Long produtoId, int quantidade) {
         this.id = id;
         this.pedido = pedido;
-        this.produto = produto;
+        this.produtoId = produtoId;
         this.quantidade = quantidade;
     }
 
     public ItemPedidoEntity(ItemPedido itemPedido, Pedido pedido) {
-        this(itemPedido.getId(), new PedidoEntity(pedido), itemPedido.getIdProduto(), itemPedido.getQuantidade());
+        this(itemPedido.getId(), new PedidoEntity(pedido), itemPedido.getProdutoId(), itemPedido.getQuantidade());
     }
 
     public static ItemPedidoEntity doDominio(ItemPedido itemPedido, Long produtoEntity) {
@@ -60,12 +65,12 @@ public class ItemPedidoEntity {
         this.pedido = pedido;
     }
 
-    public Long getProduto() {
-        return produto;
+    public Long getProdutoId() {
+        return produtoId;
     }
 
-    public void setProduto(Long produto) {
-        this.produto = produto;
+    public void setProdutoId(Long produtoId) {
+        this.produtoId = produtoId;
     }
 
     public int getQuantidade() {
@@ -74,5 +79,9 @@ public class ItemPedidoEntity {
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public ItemPedido toItemPedido() {
+        return new ItemPedido(this.id, this.produtoId, this.quantidade);
     }
 }

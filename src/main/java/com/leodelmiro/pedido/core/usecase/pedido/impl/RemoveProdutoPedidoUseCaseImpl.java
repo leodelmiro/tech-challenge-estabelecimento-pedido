@@ -51,7 +51,7 @@ public class RemoveProdutoPedidoUseCaseImpl implements RemoveProdutoPedidoUseCas
     private ItemPedido validarIdProdutoEItemDoPedido(Pedido pedido, Produto produto) {
         return pedido.getItens()
                 .stream()
-                .filter(item -> item.getIdProduto().equals(produto.getId()))
+                .filter(item -> item.getProdutoId().equals(produto.getId()))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Id produto não corresponde a um item do pedido informado"));
     }

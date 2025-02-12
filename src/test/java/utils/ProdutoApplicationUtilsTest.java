@@ -22,6 +22,7 @@ public class ProdutoApplicationUtilsTest {
     public static ProdutoResponse getProdutoResponse(long tempoDePreparoEmSegundos) {
         return new ProdutoResponse(1L,
                 "Produto Teste",
+                Categoria.BEBIDA,
                 BigDecimal.ONE,
                 "Descrição Teste",
                 tempoDePreparoEmSegundos

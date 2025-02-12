@@ -61,6 +61,23 @@ public class Pedido {
         this.criadoEm = criadoEm;
     }
 
+    public Pedido(Long id, String clienteId, BigDecimal precoTotal, StatusPedido status, Long tempoTotalDePreparoEmSegundos, String ordemPagamentoId, LocalDateTime criadoEm, List<ItemPedido> itens) {
+        if (precoTotal == null || precoTotal.compareTo(BigDecimal.ZERO) < 0)
+            throw new IllegalArgumentException("Preço deve ser igual ou maior que 0");
+        if (status == null) throw new IllegalArgumentException("Status não pode ser null");
+        if (tempoTotalDePreparoEmSegundos == null || tempoTotalDePreparoEmSegundos < 0)
+            throw new IllegalArgumentException("Tempo de preparo deve ser igual ou maior que 0");
+
+        this.id = id;
+        this.cliente = clienteId;
+        this.precoTotal = precoTotal;
+        this.status = status;
+        this.ordemPagamentoId = ordemPagamentoId;
+        this.tempoTotalDePreparoEmSegundos = tempoTotalDePreparoEmSegundos;
+        this.criadoEm = criadoEm;
+        itens.forEach(this::addItem);
+    }
+
     public Long getId() {
         return id;
     }

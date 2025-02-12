@@ -50,7 +50,7 @@ class FecharPedidoUseCaseImplTest {
         pedido.setId(pedidoId);
         pedido.setStatus(PENDENTE_FECHAMENTO);
         ItemPedido itemPedido = new ItemPedido();
-        itemPedido.setIdProduto(1L);
+        itemPedido.setProdutoId(1L);
         pedido.addItem(itemPedido);
 
         Produto produto = new Produto();
@@ -93,7 +93,7 @@ class FecharPedidoUseCaseImplTest {
         pedido.setId(pedidoId);
         pedido.setStatus(null);
         ItemPedido itemPedido = new ItemPedido();
-        itemPedido.setIdProduto(1L);
+        itemPedido.setProdutoId(1L);
         pedido.addItem(itemPedido);
 
         when(buscaPedidoUseCase.buscar(pedidoId)).thenReturn(pedido);
@@ -111,7 +111,7 @@ class FecharPedidoUseCaseImplTest {
         pedido.setId(pedidoId);
         pedido.setStatus(PENDENTE_FECHAMENTO);
         ItemPedido itemPedido = new ItemPedido();
-        itemPedido.setIdProduto(1L);
+        itemPedido.setProdutoId(1L);
         pedido.addItem(itemPedido);
 
         Produto produto = new Produto();

@@ -1,0 +1,19 @@
+{
+  "request": {
+    "urlPattern": ".*/pagamentos",
+    "method": "POST"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "id": "fedc3ce1-9473-47af-b4c2-afbc9da88656",
+      "id_pedido": 1,
+      "qr_code": "00020101021243650016COM.MERCADOLIBRE0201306364fdb9f44-0d37-4b9f-8ca0-a370ae9ceecc5204000053039865802BR5916Leonardo Delmiro6009SAO PAULO62070503***63040803",
+      "preco_total": 4.99,
+      "criado_em": "2025-01-24T13:38:18.912962885"
+    }
+  }
+}

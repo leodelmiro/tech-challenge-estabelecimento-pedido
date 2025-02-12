@@ -1,23 +1,24 @@
 package com.leodelmiro.pedido.core.domain;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class ItemPedido {
     private Long id;
-    private Long idProduto;
+    private Long produtoId;
     private int quantidade;
 
     public ItemPedido() {
     }
 
-    public ItemPedido(Long idProduto, int quantidade) {
-        this.idProduto = idProduto;
+    public ItemPedido(Long produtoId, int quantidade) {
+        this.produtoId = produtoId;
         this.quantidade = quantidade;
     }
 
-    public ItemPedido(Long id, Long idProduto, int quantidade) {
+    public ItemPedido(Long id, Long produtoId, int quantidade) {
         this.id = id;
-        this.idProduto = idProduto;
+        this.produtoId = produtoId;
         this.quantidade = quantidade;
     }
 
@@ -29,12 +30,12 @@ public class ItemPedido {
         this.id = id;
     }
 
-    public Long getIdProduto() {
-        return idProduto;
+    public Long getProdutoId() {
+        return produtoId;
     }
 
-    public void setIdProduto(Long idProduto) {
-        this.idProduto = idProduto;
+    public void setProdutoId(Long produtoId) {
+        this.produtoId = produtoId;
     }
 
     public int getQuantidade() {
@@ -46,10 +47,23 @@ public class ItemPedido {
     }
 
     public Boolean temProduto(Long idProduto) {
-        return this.getIdProduto().equals(idProduto);
+        return this.getProdutoId().equals(idProduto);
     }
 
     public BigDecimal valorTotal(Produto produto) {
         return produto.getPreco().multiply(BigDecimal.valueOf(this.quantidade));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ItemPedido that = (ItemPedido) o;
+        return quantidade == that.quantidade && Objects.equals(id, that.id) && Objects.equals(produtoId, that.produtoId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, produtoId, quantidade);
     }
 }

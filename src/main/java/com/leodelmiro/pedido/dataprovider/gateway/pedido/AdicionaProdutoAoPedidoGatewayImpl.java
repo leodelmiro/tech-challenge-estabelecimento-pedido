@@ -1,6 +1,7 @@
 package com.leodelmiro.pedido.dataprovider.gateway.pedido;
 
 import com.leodelmiro.pedido.dataprovider.repository.PedidoRepository;
+import com.leodelmiro.pedido.dataprovider.repository.entity.ItemPedidoEntity;
 import com.leodelmiro.pedido.dataprovider.repository.entity.PedidoEntity;
 import com.leodelmiro.pedido.core.domain.Pedido;
 import com.leodelmiro.pedido.core.dataprovider.pedido.AdicionaProdutoAoPedidoGateway;
@@ -17,9 +18,20 @@ public class AdicionaProdutoAoPedidoGatewayImpl implements AdicionaProdutoAoPedi
     @Override
     public Pedido adicionar(Pedido pedido) {
         var pedidoEntity = new PedidoEntity(pedido);
+
         PedidoEntity finalPedidoEntity = pedidoEntity;
-        pedidoEntity.getItens().forEach(item -> item.setPedido(finalPedidoEntity));
-        pedidoEntity = pedidoRepository.save(finalPedidoEntity);
+        var itensPedido = pedido.getItens().stream()
+                .map(item -> {
+                    ItemPedidoEntity itemEntity = new ItemPedidoEntity(item);
+                    itemEntity.setPedido(finalPedidoEntity);
+                    return itemEntity;
+                })
+                .toList();
+
+        pedidoEntity.addItens(itensPedido);
+        pedidoEntity = pedidoRepository.save(pedidoEntity);
+
         return pedidoEntity.toPedido();
     }
+
 }

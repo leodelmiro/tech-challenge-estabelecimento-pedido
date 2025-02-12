@@ -35,8 +35,8 @@ public class FecharPedidoUseCaseImpl implements FecharPedidoUseCase {
         var produtos = pedidoAAvancar.getItens()
                 .stream()
                 .collect(Collectors.toMap(
-                        ItemPedido::getIdProduto,
-                        itemPedido -> buscaProdutoUseCase.buscar(itemPedido.getIdProduto())
+                        ItemPedido::getProdutoId,
+                        itemPedido -> buscaProdutoUseCase.buscar(itemPedido.getProdutoId())
                 ));
         pedidoAAvancar.setOrdemPagamentoId(gerarQrCodeGateway.gerar(pedidoAAvancar, produtos));
         pedidoAAvancar.avancarStatus();

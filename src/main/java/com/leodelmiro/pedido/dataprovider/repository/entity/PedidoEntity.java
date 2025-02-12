@@ -160,7 +160,8 @@ public class PedidoEntity {
                 this.status,
                 this.tempoTotalDePreparoEmSegundos,
                 this.ordemPagamentoId,
-                this.criadoEm
+                this.criadoEm,
+                this.itens.stream().map(ItemPedidoEntity::toItemPedido).toList()
         );
     }
 }

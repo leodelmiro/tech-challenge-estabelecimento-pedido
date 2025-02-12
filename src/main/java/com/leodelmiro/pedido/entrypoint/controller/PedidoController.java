@@ -39,7 +39,7 @@ public class PedidoController {
 
         var itensPedido = adicionaProdutoAoPedidoRequest.itens().stream().map(
                 item -> {
-                    var produto = buscaProdutoUseCase.buscar(item.idProduto());
+                    var produto = buscaProdutoUseCase.buscar(item.produtoId());
                     return new ItemPedido(produto.getId(), item.quantidade());
                 }
         ).toList();

@@ -107,11 +107,11 @@ public class PedidoApi {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Pedido removido com sucesso")
     })
-    @PatchMapping("/{id}/produtos/{idProduto}")
+    @PatchMapping("/{id}/produtos/{produtoId}")
     public ResponseEntity<PedidoResponse> remove(@PathVariable Long id,
-                                                 @PathVariable Long idProduto,
+                                                 @PathVariable Long produtoId,
                                                  @RequestParam(defaultValue = "1") int quantidade) {
-        var pedidoResponse = PedidoController.remover(id, idProduto, quantidade, removeProdutoPedidoUseCase, pedidoMapper);
+        var pedidoResponse = PedidoController.remover(id, produtoId, quantidade, removeProdutoPedidoUseCase, pedidoMapper);
         return ResponseEntity.ok().body(pedidoResponse);
     }
 

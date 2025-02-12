@@ -1,0 +1,17 @@
+{
+  "request": {
+    "urlPattern": ".*/clientes/.*",
+    "method": "GET"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "cpf": "91207746053",
+      "nome": "Leo",
+      "email": "leo1@email.com"
+    }
+  }
+}

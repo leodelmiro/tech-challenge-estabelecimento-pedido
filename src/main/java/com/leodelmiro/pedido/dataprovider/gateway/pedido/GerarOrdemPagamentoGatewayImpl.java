@@ -23,7 +23,7 @@ public class GerarOrdemPagamentoGatewayImpl implements GerarOrdemPagamentoGatewa
         var pedidoRequest = new OrdemPagamentoRequest(
                 pedidoAGerarQrCode.getId().toString(),
                 pedidoAGerarQrCode.getPrecoTotal().doubleValue(),
-                pedidoAGerarQrCode.getItens().stream().map(itemPedido -> new ItemPedidoRequest(itemPedido, produtos.get(itemPedido.getIdProduto()))).toList()
+                pedidoAGerarQrCode.getItens().stream().map(itemPedido -> new ItemPedidoRequest(itemPedido, produtos.get(itemPedido.getProdutoId()))).toList()
         );
         var response = client.criaOrdem(pedidoRequest);
         return response.id();

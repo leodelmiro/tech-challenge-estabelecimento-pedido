@@ -36,7 +36,7 @@ public class AdicionaProdutoAoPedidoUseCaseImpl implements AdicionaProdutoAoPedi
         pedido.setTempoTotalDePreparoEmSegundos(itens.stream().mapToLong(
                         item -> buscaProdutoUseCase.buscar(
                                         item
-                                                .getIdProduto())
+                                                .getProdutoId())
                                 .getTempoDePreparoEmSegundos()
                                 * item.getQuantidade()
                 )
@@ -47,7 +47,7 @@ public class AdicionaProdutoAoPedidoUseCaseImpl implements AdicionaProdutoAoPedi
         pedido.setPrecoTotal(itens.stream().map(
                         item -> buscaProdutoUseCase.buscar(
                                         item
-                                                .getIdProduto())
+                                                .getProdutoId())
                                 .getPreco()
                                 .multiply(BigDecimal.valueOf(item.getQuantidade())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add));
