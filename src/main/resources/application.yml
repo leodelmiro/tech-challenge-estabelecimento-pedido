@@ -4,6 +4,7 @@ spring:
       credentials:
         access-key: ${AWS_ACCESS_KEY:test}
         secret-key: ${AWS_SECRET_KEY:test}
+        session: ${AWS_SESSION_TOKEN:test}
       region:
         static: ${AWS_REGION:us-east-1}
   datasource:
