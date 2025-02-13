@@ -1,12 +1,15 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: backend-estabelecimento-configmap
+  name: backend-pedido-configmap
   namespace: backend-estabelecimento
 data:
-  db_url: jdbc:postgresql://estabelecimento.cpmueqg0y0dn.us-east-1.rds.amazonaws.com:5432/estabelecimento
+  db_url: jdbc:postgresql://pedido.cpmueqg0y0dn.us-east-1.rds.amazonaws.com:5432/pedido
   db_username: "postgres"
   db_password: "12345678"
-  mercado_pago_url: "https://api.mercadopago.com/"
-  mercado_pago_token: "TEST-3657452763101763-100208-0446e47cd6850436418091b63a34c651-827114336"
-  redis_url: redis-estabelecimento.z1mqaz.0001.use1.cache.amazonaws.com
+  sqs_url: sqs.us-east-1.amazonaws.com
+  aws_access_key: "{{AWS_ACCESS_KEY_ID}}"
+  aws_secret_key: "{{AWS_SECRET_ACCESS_KEY}}"
+  cliente_url: "http://backend-cliente-svc.default.svc.cluster.local/api/v1"
+  produto_url: "http://backend-produto-svc.default.svc.cluster.local/api/v1"
+  pagamento_url: "http://backend-pagamento-svc.default.svc.cluster.local/api/v1"

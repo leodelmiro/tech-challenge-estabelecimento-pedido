@@ -15,13 +15,16 @@
 Aplicação se trata de um Projeto Fiap Tech Challenge - Software Architecture, simulando um projeto de um estabelecimento
 de pedidos (fast-food).
 
-Este repositório é referente a aplicação com a Solução em Clean Architecture
+Este repositório é referente ao microserviço responsável pelos Pedidos com a Solução em Clean Architecture
 
 ### Demais repositórios
 - https://github.com/leodelmiro/tech-challenge-estabelecimento-db
 - https://github.com/leodelmiro/tech-challenge-estabelecimento-infra
 - https://github.com/leodelmiro/tech-challenge-estabelecimento-lambda-authorizer
 - https://github.com/leodelmiro/tech-challenge-estabelecimento-gtw
+- https://github.com/leodelmiro/tech-challenge-estabelecimento-pagamento
+- https://github.com/leodelmiro/tech-challenge-estabelecimento-cliente
+- https://github.com/leodelmiro/tech-challenge-estabelecimento-produto
 
 ## Tecnologias Utilizadas
 
@@ -38,24 +41,6 @@ Este repositório é referente a aplicação com a Solução em Clean Architectu
 
 ### Componentes
 
-- Cliente
-    - Cadastra Cliente </br>
-      ![Cadastra Cliente](./desenhos/CadastraClienteComponentes.png)
-    - Identifica Cliente </br>
-      ![Identifica Cliente](./desenhos/IdentificaClienteComponentes.png)
-
-- Produtos
-    - Cadastra Produto </br>
-      ![Cadastra Produto](./desenhos/CadastraProdutoComponentes.png)
-    - Editar Produto </br>
-      ![Editar Produto](./desenhos/EditaProdutoComponentes.png)
-    - Remover Produto </br>
-      ![Remover Produto](./desenhos/RemoveProdutoComponentes.png)
-    - Busca Produto </br>
-      ![Busca Produto](./desenhos/BuscaProdutoComponentes.png)
-    - Busca Todos os Produto e por Tipos </br>
-      ![Busca Todos os Produto e por Tipos](./desenhos/ListaProdutosComponentes.png)
-
 - Pedidos
     - Inicia Pedido </br>
       ![Inicia Pedido](./desenhos/IniciaPedidoComponentes.png)
@@ -67,10 +52,6 @@ Este repositório é referente a aplicação com a Solução em Clean Architectu
       ![Avança Pedido](./desenhos/AvancaPedidoComponentes.png)
     - Lista Pedidos e Lista Pedidos na Fila </br>
       ![Lista Pedidos e Lista Pedidos na Fila](./desenhos/ListaPedidosComponentes.png)
-
-- Webhooks
-    - Pagamentos </br>
-      ![Webhook Pagamentos](./desenhos/WebhookPagamentoComponentes.png)
 
 ## Estrutura do Projeto
 
@@ -104,7 +85,7 @@ Certifique-se de ter as seguintes ferramentas instaladas:
 Clone o repositório do projeto:
 
 ```sh
-git clone https://github.com/leodelmiro/tech-challenge-estabelecimento-app
+git clone https://github.com/leodelmiro/tech-challenge-estabelecimento-app-pedido
 ```
 
 ### 3. Executar o Script de Setup

@@ -1,0 +1,35 @@
+{
+  "request": {
+    "urlPattern": ".*/produtos/.*",
+    "method": "GET"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "id": 1,
+      "nome": "Produto Exemplo Editado",
+      "preco": 4.99,
+      "categoria": "BEBIDA",
+      "descricao": "Este é uma Sobremesa de exemplo.",
+      "tempoDePreparoEmSegundos": 10,
+      "criadoEm": "2025-02-01T13:25:54.860854",
+      "imagens": [
+        {
+          "id": 3,
+          "nome": "Imagem 1",
+          "url": "http://example.com/imagem1.jpg",
+          "criadoEm": "2025-02-01T13:25:54.909271"
+        },
+        {
+          "id": 4,
+          "nome": "Imagem 2",
+          "url": "http://example.com/imagem2.jpg",
+          "criadoEm": "2025-02-01T13:25:54.911417"
+        }
+      ]
+    }
+  }
+}
