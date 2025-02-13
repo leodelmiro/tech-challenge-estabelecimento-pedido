@@ -7,9 +7,9 @@ data:
   db_url: jdbc:postgresql://pedido.cpmueqg0y0dn.us-east-1.rds.amazonaws.com:5432/pedido
   db_username: "postgres"
   db_password: "12345678"
-  sqs_url: sqs.us-east-1.amazonaws.com
-  aws_access_key: "{{AWS_ACCESS_KEY_ID}}"
-  aws_secret_key: "{{AWS_SECRET_ACCESS_KEY}}"
+  sqs_url: "https://sqs.us-east-1.amazonaws.com"
   cliente_url: "http://backend-cliente-svc.default.svc.cluster.local/api/v1"
   produto_url: "http://backend-produto-svc.default.svc.cluster.local/api/v1"
   pagamento_url: "http://backend-pagamento-svc.default.svc.cluster.local/api/v1"
+  aws_access_key: "{{AWS_ACCESS_KEY_ID}}"
+  aws_secret_key: "{{AWS_SECRET_ACCESS_KEY}}"
