@@ -47,6 +47,21 @@ spec:
                 configMapKeyRef:
                   name: backend-pedido-configmap
                   key: db_password
+            - name: SQS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-pedido-configmap
+                  key: sqs_url
+            - name: AWS_ACCESS_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-pedido-configmap
+                  key: aws_access_key
+            - name: AWS_SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-pedido-configmap
+                  key: aws_secret_key
             - name: CLIENTE_URL
               valueFrom:
                 configMapKeyRef:

@@ -74,7 +74,7 @@ jobs:
           context: .
           registry: ${{ steps.login-ecr.outputs.registry }}
           push: true
-          tags: ${{ steps.login-ecr.outputs.registry }}/fiap-pedido
+          tags: ${{ steps.login-ecr.outputs.registry }}/fiap-estabelecimento-pedido
       - name: Image Created
         id: image-created
         env:
