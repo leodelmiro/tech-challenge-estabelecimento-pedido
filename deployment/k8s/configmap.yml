@@ -4,7 +4,7 @@ metadata:
   name: backend-pedido-configmap
   namespace: backend-estabelecimento
 data:
-  db_url: jdbc:postgresql://pedido.cpmueqg0y0dn.us-east-1.rds.amazonaws.com:5432/pedido
+  db_url: jdbc:postgresql://pedido.cf4grgsaa5x0.us-east-1.rds.amazonaws.com:5432/pedido
   db_username: "postgres"
   db_password: "12345678"
   sqs_url: "https://sqs.us-east-1.amazonaws.com"
