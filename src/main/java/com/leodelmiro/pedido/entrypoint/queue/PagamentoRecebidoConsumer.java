@@ -13,7 +13,7 @@ public class PagamentoRecebidoConsumer {
     @Autowired
     PagaPedidoUseCase pagaPedidoUseCase;
 
-    @SqsListener("${amazon.sqs.pagamentoEfetuado}")
+    @SqsListener("${spring.cloud.aws.sqs.queues.pagamentoEfetuado}")
     public void escutaPagagamentoEfetuado(String idPedido) {
         System.out.println("Pagamento efetuado para o pedido: " + idPedido);
         pagaPedidoUseCase.pagar(Long.valueOf(idPedido), LocalDateTime.now());
