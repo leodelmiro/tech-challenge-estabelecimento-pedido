@@ -1,4 +1,4 @@
-# Tech Challenge - Estabelecimento
+# Tech Challenge - Estabelecimento - APP Pedido
 
 # Índice
 
@@ -69,6 +69,8 @@ Este repositório é referente ao microserviço responsável pelos Pedidos com a
     - Gateway: Implementações das Interfaces de acesso do Core.
     - Repository: Database
 - Config: Configurações do Projeto
+- Deployment:
+  - Arquivos Kubernetes para deploy
 
 ## Rodando o Projeto Local
 
@@ -121,7 +123,7 @@ Para executar o script, siga os passos abaixo:
 
     ```sh
     ./setup.sh
-    ```"
+    ```
 
 ## Endpoints
 
@@ -134,3 +136,4 @@ será necessário o Insomnia instalado.**
 ## Sonar Coverage
 ![Sonar Coverage](sonar-coverage.png)
 https://sonarcloud.io/summary/overall?id=com.leodelmiro%3Apedido&branch=master
+
