@@ -32,11 +32,11 @@ jobs:
         env:
           ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
           SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          SESSION_TOKEN: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
         run: |
           sed -e "s|{{AWS_ACCESS_KEY_ID}}|$ACCESS_KEY|g" \
               -e "s|{{AWS_SECRET_ACCESS_KEY}}|$SECRET_KEY|g" \
-              -e "s|{{AWS_SESSION_TOKEN}}|AWS_SESSION_TOKEN|g" \
+              -e "s|{{AWS_SESSION_TOKEN}}|SESSION_TOKEN|g" \
               ./deployment/k8s/configmap.yml > ./deployment/k8s/configmap-withsecrets.yml
       - name: Deploy to EKS
         env:
