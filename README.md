@@ -9,6 +9,7 @@
 * [Estrutura do Projeto](#Estrutura-do-Projeto)
 * [Rodando o Projeto Local](#Rodando-o-Projeto-Local)
 * [Endpoints](#Endpoints)
+* [Sonar Coverage](#Sonar-Coverage)
 
 ## Breve Descrição
 
@@ -18,6 +19,7 @@ de pedidos (fast-food).
 Este repositório é referente ao microserviço responsável pelos Pedidos com a Solução em Clean Architecture
 
 ### Demais repositórios
+
 - https://github.com/leodelmiro/tech-challenge-estabelecimento-db
 - https://github.com/leodelmiro/tech-challenge-estabelecimento-infra
 - https://github.com/leodelmiro/tech-challenge-estabelecimento-lambda-authorizer
@@ -129,5 +131,9 @@ Os Endpoints da aplicação, podem ser acessados pelo Swagger ao rodar o projeto
 url http://localhost:8080/swagger-ui/index.html
 
 **Caso preferir pode importar a collection Insomnia que se encontra no projeto, no arquivo Insomnia Collection, porém
-será
-necessário o Insomnia instalado.**
+será necessário o Insomnia instalado.**
+
+## Sonar Coverage
+![Sonar Coverage](sonar-coverage.png)
+https://sonarcloud.io/summary/overall?id=com.leodelmiro%3Apedido&branch=master
+
