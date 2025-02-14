@@ -7,6 +7,10 @@ spring:
         session: ${AWS_SESSION_TOKEN:test}
       region:
         static: ${AWS_REGION:us-east-1}
+      sqs:
+        auto-create-queue: false
+        queues:
+          pagamentoEfetuado: pagamento-efetuado
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://host.docker.internal:5432/pedido}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
